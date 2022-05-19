@@ -163,13 +163,15 @@ class _ProfileEditState extends State<ProfileEdit> {
     return AppBar(
 backgroundColor: Colors.white,
 flexibleSpace: Container(
-        decoration: BoxDecoration(
-            gradient: LinearGradient(colors: [
-          // Color(0xff0fc744),
-          // Color(0xff3fcad2)
-          Color.fromRGBO(206, 35, 43, 1),
-          Color.fromRGBO(237, 101, 85, 1),
-        ], begin: Alignment.topCenter,end:Alignment.bottomCenter),borderRadius: BorderRadius.horizontal(left: Radius.circular(20),right: Radius.circular(20))),
+        decoration: BoxDecoration(color: MyTheme.green_accent_color_d0
+        //     gradient: LinearGradient(colors: [
+        //   // Color(0xff0fc744),
+        //   // Color(0xff3fcad2)
+        //   Color.fromRGBO(206, 35, 43, 1),
+        //   Color.fromRGBO(237, 101, 85, 1),
+        // ], begin: Alignment.topCenter,end:Alignment.bottomCenter)
+        
+        ,borderRadius: BorderRadius.horizontal(left: Radius.circular(20),right: Radius.circular(20))),
       ),
       centerTitle: true,
       leading: Builder(
@@ -393,7 +395,7 @@ flexibleSpace: Container(
                       minWidth: MediaQuery.of(context).size.width,
                       //height: 50,
 
-                      color: MyTheme.accent_color,
+                      color: MyTheme.green_accent_color_d0,
                       shape: RoundedRectangleBorder(
                           borderRadius:
                               const BorderRadius.all(Radius.circular(8.0))),

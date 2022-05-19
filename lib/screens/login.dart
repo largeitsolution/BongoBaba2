@@ -116,6 +116,7 @@ class _LoginState extends State<Login> {
       Navigator.push(context, MaterialPageRoute(builder: (context) {
         return Main();
       }));
+      // Navigator.pop(context);
     }
   }
 

@@ -539,7 +539,7 @@ import 'package:active_ecommerce_flutter/helpers/shared_value_helper.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class FlashDealProducts extends StatefulWidget {
-  FlashDealProducts({Key key, this.flash_deal_id, this.flash_deal_name})
+  FlashDealProducts({Key key, this.flash_deal_id, this.flash_deal_name })
       : super(key: key);
   final int flash_deal_id;
   final String flash_deal_name;
@@ -559,6 +559,11 @@ class _FlashDealProductsState extends State<FlashDealProducts> {
   String _searchKey = "";
   int _totalData = 0;
   bool _showLoadingContainer = false;
+  
+  Future<dynamic> _future;
+
+  List<dynamic> _searchList;
+  List<dynamic> _fullList;
 
   void dispose() {
     // TODO: implement dispose
@@ -568,18 +573,21 @@ class _FlashDealProductsState extends State<FlashDealProducts> {
   }
 
   fetchData() async {
-    var productResponse = await ProductRepository().getCategoryProducts(
-        id: widget.flash_deal_id, page: _page, name: _searchKey);
+    var productResponse = await ProductRepository().getFlashDealProducts(
+        id: widget.flash_deal_id, page: _page, );
     // .getFlashDealProducts(id: widget.flash_deal_id);
-    _searchList.addAll(productResponse.products);
+     _fullList.addAll(productResponse.products);
+     print('Fulllist:${_fullList.length}');
     _isInitial = false;
     _totalData = productResponse.meta.total;
+    print('totaldata $_totalData' );
     _showLoadingContainer = false;
+  
     setState(() {});
   }
 
   reset() {
-    _searchList.clear();
+    _fullList.clear();
     _isInitial = true;
     _totalData = 0;
     _page = 1;
@@ -598,17 +606,13 @@ class _FlashDealProductsState extends State<FlashDealProducts> {
       width: double.infinity,
       color: Colors.white,
       child: Center(
-        child: Text(_totalData == _searchList.length
+        child: Text(_totalData ==  _fullList.length
             ? AppLocalizations.of(context).common_no_more_products
             : AppLocalizations.of(context).common_loading_more_products),
       ),
     );
   }
 
-  Future<dynamic> _future;
-
-  List<dynamic> _searchList;
-  List<dynamic> _fullList;
 
   void initState() {
     // TODO: implement initState
@@ -617,8 +621,8 @@ class _FlashDealProductsState extends State<FlashDealProducts> {
     fetchData();
 
     _xcrollController.addListener(() {
-      //print("position: " + _xcrollController.position.pixels.toString());
-      //print("max: " + _xcrollController.position.maxScrollExtent.toString());
+      // print("position: " + _xcrollController.position.pixels.toString());
+      // print("max: " + _xcrollController.position.maxScrollExtent.toString());
 
       if (_xcrollController.position.pixels ==
           _xcrollController.position.maxScrollExtent) {
@@ -630,8 +634,8 @@ class _FlashDealProductsState extends State<FlashDealProducts> {
       }
     });
     // TODO: implement initState
-    _future = ProductRepository().getCategoryProducts(
-        id: widget.flash_deal_id, page: _page, name: _searchKey);
+    _future = ProductRepository().getFlashDealProducts(
+        id: widget.flash_deal_id, page: _page,);
 
     // getFlashDealProducts(id: widget.flash_deal_id);
     _searchList = [];
@@ -694,12 +698,13 @@ class _FlashDealProductsState extends State<FlashDealProducts> {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.horizontal(
               left: Radius.circular(16), right: Radius.circular(16)),
-          gradient: LinearGradient(colors: [
-            // Color(0xff0fc744),
-            // Color(0xff3fcad2)
-            Color.fromRGBO(206, 35, 43, 1),
-            Color.fromRGBO(237, 101, 85, 1),
-          ]),
+          color: MyTheme.green_accent_color_d0
+            // gradient: LinearGradient(colors: [
+            //   // Color(0xff0fc744),
+            //   // Color(0xff3fcad2)
+            //   Color.fromRGBO(206, 35, 43, 1),
+            //   Color.fromRGBO(237, 101, 85, 1),
+            // ], begin: Alignment.topCenter,end:Alignment.bottomCenter),
         ),
       ),
       toolbarHeight: 75,
@@ -785,7 +790,7 @@ class _FlashDealProductsState extends State<FlashDealProducts> {
                 child: GridView.builder(
                   // 2
                   //addAutomaticKeepAlives: true,
-                  itemCount: _searchList.length,
+                  itemCount:  _fullList.length,
                   controller: _scrollController,
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 2,
@@ -798,12 +803,12 @@ class _FlashDealProductsState extends State<FlashDealProducts> {
                   itemBuilder: (context, index) {
                     // 3
                     return ProductCard(
-                        id: _searchList[index].id,
-                        image: _searchList[index].thumbnail_image,
-                        name: _searchList[index].name,
-                        main_price: _searchList[index].main_price,
-                        stroked_price: _searchList[index].stroked_price,
-                        has_discount: _searchList[index].has_discount);
+                        id:  _fullList[index].id,
+                        image:  _fullList[index].thumbnail_image,
+                        name:  _fullList[index].name,
+                        main_price:  _fullList[index].main_price,
+                        stroked_price:  _fullList[index].stroked_price,
+                        has_discount:  _fullList[index].has_discount);
                   },
                 ),
               ),

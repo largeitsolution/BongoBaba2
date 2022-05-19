@@ -121,14 +121,14 @@ class _CategoryProductsState extends State<CategoryProducts> {
         decoration: BoxDecoration(
             borderRadius: BorderRadius.horizontal(
                 right: Radius.circular(15), left: Radius.circular(15)),
-            gradient: LinearGradient(colors: [
-              // Color(0xff0fc744),
-              // Color(0xff3fcad2)
-              // Color.fromRGBO(0, 145, 76, 1),
-              // Color.fromRGBO(70, 183, 121, 1),
-              Color.fromRGBO(206, 35, 43, 1),
-              Color.fromRGBO(237, 101, 85, 1),
-            ], begin: Alignment.topCenter,end:Alignment.bottomCenter)),
+             color: MyTheme.green_accent_color_d0
+        //     gradient: LinearGradient(colors: [
+        //   // Color(0xff0fc744),
+        //   // Color(0xff3fcad2)
+        //   Color.fromRGBO(206, 35, 43, 1),
+        //   Color.fromRGBO(237, 101, 85, 1),
+        // ], be
+            ),
       ),
       // backgroundColor: MyTheme.blue_color,
       // toolbarHeight: 75,

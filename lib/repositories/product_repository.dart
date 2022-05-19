@@ -31,13 +31,24 @@ class ProductRepository {
     return productMiniResponseFromJson(response.body);
   }
 
+  // Future<ProductMiniResponse> getFlashDealProducts(
+  //     {@required int id = 0}) async {
+  //   Uri url =
+  //       Uri.parse("${AppConfig.BASE_URL}/flash-deal-products/" + id.toString());
+  //   final response = await http.get(url, headers: {
+  //     "App-Language": app_language.$,
+  //   });
+  //   return productMiniResponseFromJson(response.body);
+  // }
   Future<ProductMiniResponse> getFlashDealProducts(
-      {@required int id = 0}) async {
+      {@required int id = 0,name = "", page = 1}) async {
     Uri url =
-        Uri.parse("${AppConfig.BASE_URL}/flash-deal-products/" + id.toString());
+        Uri.parse("${AppConfig.BASE_URL}/flash-deal-products/" + id.toString()+ 
+         "?page=${page}&name=${name}");
     final response = await http.get(url, headers: {
       "App-Language": app_language.$,
     });
+       print(response.body);
     return productMiniResponseFromJson(response.body);
   }
 

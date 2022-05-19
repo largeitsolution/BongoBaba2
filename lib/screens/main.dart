@@ -106,7 +106,7 @@ class _MainState extends State<Main> {
           bottomNavigationBar: BottomAppBar(
             shape: CircularNotchedRectangle(),
             notchMargin: 5,
-            color: Colors.transparent,
+            color:   Color(0xff66F1D0),
             clipBehavior: Clip.antiAlias,
             child: BackdropFilter(
               filter: ImageFilter.blur(sigmaX: 1.0, sigmaY: 1.0),
@@ -114,7 +114,7 @@ class _MainState extends State<Main> {
                 type: BottomNavigationBarType.fixed,
                 onTap: onTapped,
                 currentIndex: _currentIndex,
-                backgroundColor: Colors.white.withOpacity(0.8),
+                 backgroundColor:    Color(0xff66F1D0),
                 // fixedColor: Theme.of(context).accentColor,
                      fixedColor: MyTheme.red_color,
                 unselectedItemColor: Color.fromRGBO(153, 153, 153, 1),
@@ -123,7 +123,7 @@ class _MainState extends State<Main> {
                       icon: Image.asset(
                         "assets/home.png",
                         color: _currentIndex == 0
-                            ? MyTheme.red_color
+                            ? MyTheme.black_color
                             : Color.fromRGBO(153, 153, 153, 1),
                         height: 20,
                       ),
@@ -132,14 +132,19 @@ class _MainState extends State<Main> {
                         child: Text(
                           AppLocalizations.of(context)
                               .main_screen_bottom_navigation_home,
-                          style: TextStyle(fontSize: 12),
+                          style: TextStyle(
+                            fontSize: 12,
+                            color: _currentIndex == 0
+                            ? MyTheme.black_color
+                            : Color.fromRGBO(153, 153, 153, 1),
+                            ),
                         ),
                       )),
                   BottomNavigationBarItem(
                       icon: Image.asset(
                         "assets/categories.png",
                         color: _currentIndex == 1
-                            ?MyTheme.red_color
+                            ?MyTheme.black_color
                             : Color.fromRGBO(153, 153, 153, 1),
                         height: 20,
                       ),
@@ -148,7 +153,9 @@ class _MainState extends State<Main> {
                         child: Text(
                           AppLocalizations.of(context)
                               .main_screen_bottom_navigation_categories,
-                          style: TextStyle(fontSize: 12),
+                          style: TextStyle(fontSize: 12,  color: _currentIndex == 1
+                            ? MyTheme.black_color
+                            : Color.fromRGBO(153, 153, 153, 1),),
                         ),
                       )),
                   BottomNavigationBarItem(
@@ -162,7 +169,7 @@ class _MainState extends State<Main> {
                       icon: Image.asset(
                         "assets/cart.png",
                         color: _currentIndex == 3
-                            ? MyTheme.red_color
+                            ? MyTheme.black_color
                             : Color.fromRGBO(153, 153, 153, 1),
                         height: 20,
                       ),
@@ -171,14 +178,16 @@ class _MainState extends State<Main> {
                         child: Text(
                           AppLocalizations.of(context)
                               .main_screen_bottom_navigation_cart,
-                          style: TextStyle(fontSize: 12),
+                          style: TextStyle(fontSize: 12,  color: _currentIndex == 3
+                            ? MyTheme.black_color
+                            : Color.fromRGBO(153, 153, 153, 1),),
                         ),
                       )),
                   BottomNavigationBarItem(
                       icon: Image.asset(
                         "assets/profile.png",
                         color: _currentIndex == 4
-                            ? MyTheme.red_color
+                            ? MyTheme.black_color
                             : Color.fromRGBO(153, 153, 153, 1),
                         height: 20,
                       ),
@@ -187,7 +196,9 @@ class _MainState extends State<Main> {
                         child: Text(
                           AppLocalizations.of(context)
                               .main_screen_bottom_navigation_profile,
-                          style: TextStyle(fontSize: 12),
+                          style: TextStyle(fontSize: 12,  color: _currentIndex == 4
+                            ? MyTheme.black_color
+                            : Color.fromRGBO(153, 153, 153, 1),),
                         ),
                       )),
                 ],

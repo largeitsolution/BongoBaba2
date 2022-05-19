@@ -30,12 +30,15 @@ class _TopSellingProductsState extends State<TopSellingProducts> {
   AppBar buildAppBar(BuildContext context) {
     return AppBar(flexibleSpace: Container(
         decoration: BoxDecoration(
-            gradient: LinearGradient(colors: [
-          // Color(0xff0fc744),
-          // Color(0xff3fcad2)
-          Color.fromRGBO(206, 35, 43, 1),
-          Color.fromRGBO(237, 101, 85, 1),
-        ], begin: Alignment.topCenter,end:Alignment.bottomCenter),borderRadius: BorderRadius.horizontal(left: Radius.circular(20),right: Radius.circular(20))),
+          color: MyTheme.green_accent_color_d0
+        //     gradient: LinearGradient(colors: [
+        //   // Color(0xff0fc744),
+        //   // Color(0xff3fcad2)
+        //   Color.fromRGBO(206, 35, 43, 1),
+        //   Color.fromRGBO(237, 101, 85, 1),
+        // ], begin: Alignment.topCenter,end:Alignment.bottomCenter)
+        
+        ,borderRadius: BorderRadius.horizontal(left: Radius.circular(20),right: Radius.circular(20))),
       ),
       backgroundColor: Colors.white,
       centerTitle: true,

@@ -322,7 +322,7 @@ class _CartState extends State<Cart> {
               width: double.infinity,
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(8.0),
-                  color: MyTheme.soft_accent_color),
+                 color: MyTheme.green_accent_color_f1),
               child: Padding(
                 padding: const EdgeInsets.all(4.0),
                 child: Row(
@@ -374,7 +374,7 @@ class _CartState extends State<Cart> {
                     child: FlatButton(
                       minWidth: MediaQuery.of(context).size.width,
                       //height: 50,
-                      color: MyTheme.light_grey,
+                   color: MyTheme.green_accent_color_f1,
                       shape: app_language_rtl.$?
                       RoundedRectangleBorder(
                           borderRadius: const BorderRadius.only(
@@ -427,7 +427,7 @@ class _CartState extends State<Cart> {
                     child: FlatButton(
                       minWidth: MediaQuery.of(context).size.width,
                       //height: 50,
-                      color: MyTheme.accent_color,
+                      color: MyTheme.green_accent_color_d0,
                       shape: app_language_rtl.$ ?
                       RoundedRectangleBorder(
                           borderRadius: const BorderRadius.only(
@@ -469,12 +469,8 @@ class _CartState extends State<Cart> {
 backgroundColor: Colors.white,
  flexibleSpace: Container(
         decoration: BoxDecoration(
-            gradient: LinearGradient(colors: [
-              // Color(0xff0fc744),
-              // Color(0xff3fcad2)
-              Color.fromRGBO(206, 35, 43, 1),
-              Color.fromRGBO(237, 101, 85, 1),
-            ], begin: Alignment.topCenter,end:Alignment.bottomCenter),
+            color:MyTheme.green_accent_color_d0 
+            ,
             borderRadius: BorderRadius.horizontal(
                 left: Radius.circular(20), right: Radius.circular(20))),
       ),

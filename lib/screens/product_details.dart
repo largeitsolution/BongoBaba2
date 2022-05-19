@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:active_ecommerce_flutter/screens/cart.dart';
 import 'package:active_ecommerce_flutter/screens/common_webview_screen.dart';
+import 'package:active_ecommerce_flutter/screens/login.dart';
 import 'package:active_ecommerce_flutter/screens/product_reviews.dart';
 import 'package:active_ecommerce_flutter/ui_elements/list_product_card.dart';
 import 'package:active_ecommerce_flutter/ui_elements/mini_product_card.dart';
@@ -365,10 +366,10 @@ class _ProductDetailsState extends State<ProductDetails> {
 
   addToCart({mode, context = null, snackbar = null}) async {
     if (is_logged_in.$ == false) {
-      ToastComponent.showDialog(
-          AppLocalizations.of(context).common_login_warning, context,
-          gravity: Toast.CENTER, duration: Toast.LENGTH_LONG);
-
+      // ToastComponent.showDialog(
+      //     AppLocalizations.of(context).common_login_warning, context,
+      //     gravity: Toast.CENTER, duration: Toast.LENGTH_LONG);
+Navigator.push(context, MaterialPageRoute(builder: (context)=>Login()));
       return;
     }
 
@@ -1463,13 +1464,13 @@ class _ProductDetailsState extends State<ProductDetails> {
                                 Container(
                                   height: 3,
                                   width: 183,
-                                  color: Colors.red[300],
+                                  color: MyTheme.green_accent_color_d0,
                                 ),
-                                Container(
-                                  height: 1,
-                                  width: 177,
-                                  color: MyTheme.dark_grey,
-                                )
+                                // Container(
+                                //   height: 1,
+                                //   width: 177,
+                                //   color: MyTheme.dark_grey,
+                                // )
                               ],
                             ),
                           ],
@@ -1525,13 +1526,13 @@ class _ProductDetailsState extends State<ProductDetails> {
                                 Container(
                                   height: 3,
                                   width: 142,
-                                  color: Colors.red[300],
+                                  color: MyTheme.green_accent_color_d0,
                                 ),
-                                Container(
-                                  height: 1,
-                                  width: 218,
-                                  color: MyTheme.dark_grey,
-                                )
+                                // Container(
+                                //   height: 1,
+                                //   width: 218,
+                                //   color: MyTheme.dark_grey,
+                                // )
                               ],
                             ),
                           ],
@@ -2066,15 +2067,14 @@ class _ProductDetailsState extends State<ProductDetails> {
       backgroundColor: Colors.white,
       flexibleSpace: Container(
         decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: [
-                // Color(0xff0fc744),
-                // Color(0xff3fcad2)
-                Color.fromRGBO(206, 35, 43, 1),
-                Color.fromRGBO(237, 101, 85, 1),
-              ],
-            ),
-            borderRadius: BorderRadius.only(
+            color: MyTheme.green_accent_color_d0
+            // gradient: LinearGradient(colors: [
+            //   // Color(0xff0fc744),
+            //   // Color(0xff3fcad2)
+            //   Color.fromRGBO(206, 35, 43, 1),
+            //   Color.fromRGBO(237, 101, 85, 1),
+            // ], begin: Alignment.topCenter,end:Alignment.bottomCenter),
+            ,borderRadius: BorderRadius.only(
                 bottomLeft: Radius.circular(20),
                 bottomRight: Radius.circular(20))),
       ),

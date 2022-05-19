@@ -36,7 +36,7 @@ class _CategoryListState extends State<CategoryList> {
     return Directionality(
       textDirection: app_language_rtl.$ ? TextDirection.rtl : TextDirection.ltr,
       child: Scaffold(
-          backgroundColor: Color(0xffeafbf0),
+          // backgroundColor: Color(0xffeafbf0),
           key: _scaffoldKey,
           drawer: MainDrawer(),
           // backgroundColor: Color(0xfff1eafb),
@@ -72,13 +72,14 @@ class _CategoryListState extends State<CategoryList> {
       centerTitle: true,
       flexibleSpace: Container(
         decoration: BoxDecoration(
-            gradient: LinearGradient(colors: [
-              // Color(0xff0fc744),
-              // Color(0xff3fcad2)
-              Color.fromRGBO(206, 35, 43, 1),
-              Color.fromRGBO(237, 101, 85, 1),
-            ], begin: Alignment.topCenter,end:Alignment.bottomCenter),
-            borderRadius: BorderRadius.horizontal(
+          color:MyTheme.green_accent_color_d0
+            // gradient: LinearGradient(colors: [
+            //   // Color(0xff0fc744),
+            //   // Color(0xff3fcad2)
+            //   Color.fromRGBO(206, 35, 43, 1),
+            //   Color.fromRGBO(237, 101, 85, 1),
+            // ], begin: Alignment.topCenter,end:Alignment.bottomCenter),
+            ,borderRadius: BorderRadius.horizontal(
                 left: Radius.circular(20), right: Radius.circular(20))),
       ),
       // shape: OutlineInputBorder(

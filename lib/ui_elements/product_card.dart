@@ -28,6 +28,8 @@ class _ProductCardState extends State<ProductCard> {
         }));
       },
       child: Card(semanticContainer: false,
+      color: MyTheme.green_accent_color_fb,
+     //color: Colors.amber,
          //clipBehavior: Clip.antiAliasWithSaveLayer,
         shape: RoundedRectangleBorder(
           side: new BorderSide(color: MyTheme.light_grey, width: 0.0),
@@ -40,13 +42,14 @@ class _ProductCardState extends State<ProductCard> {
             children: <Widget>[
               Container(
                   width: double.infinity,
+                  padding: EdgeInsets.symmetric(horizontal: 10),
                   // height: 158,
                    height: (( MediaQuery.of(context).size.width - 28 ) / 2) + 1,
                      //height: (MediaQuery.of(context).size.width - 36) / 3.5,
                   child: ClipRRect(
                     // clipBehavior: Clip.hardEdge,
                       borderRadius: BorderRadius.vertical(
-                          top: Radius.circular(16), bottom: Radius.zero),
+                          top: Radius.circular(10), bottom: Radius.circular(10)),
                       child: FadeInImage.assetNetwork(
                         placeholder: 'assets/placeholder.png',
                         image: AppConfig.BASE_PATH + widget.image,
