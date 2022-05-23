@@ -50,7 +50,9 @@ class _MainDrawerState extends State<MainDrawer> {
   Widget build(BuildContext context) {
     return Drawer(
       child: Container(
-        decoration: BoxDecoration(color: Color(0xffeafbf0),),
+        decoration: BoxDecoration(
+          color: Color(0xffeafbf0),
+        ),
         child: Directionality(
           textDirection:
               app_language_rtl.$ ? TextDirection.rtl : TextDirection.ltr,
@@ -96,8 +98,11 @@ class _MainDrawerState extends State<MainDrawer> {
                                   // Color(0xff3fcad2)
                                   // Color.fromRGBO(206, 35, 43, 2),
                                   // Color.fromRGBO(237, 101, 85, 1),
-                                  Colors.red[100],
-                                  Colors.green[100]
+                                  MyTheme.green_accent_color_e6,
+                                  MyTheme.green_accent_color_d0,
+
+                                  // Colors.red[100],
+                                  // Colors.green[100]
                                 ],
                                 begin: Alignment.topCenter,
                                 end: Alignment.bottomCenter),
@@ -168,35 +173,38 @@ class _MainDrawerState extends State<MainDrawer> {
                           ),
                         )
                       : Container(
-                         height: 140,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.only(
-                            bottomLeft: Radius.circular(10),
-                            bottomRight: Radius.circular(10)),
-                        gradient: LinearGradient(
-                            colors: [
-                              // Color(0xff0fc744),
-                              // Color(0xff3fcad2)
-                              // Color.fromRGBO(206, 35, 43, 2),
-                              // Color.fromRGBO(237, 101, 85, 1),
-                              Colors.red[100],
-                              Colors.green[100]
-                            ],
-                            begin: Alignment.topCenter,
-                            end: Alignment.bottomCenter),
-                      ),
-                        child: Center(
-                          child: Text(
-                              AppLocalizations.of(context)
-                                  .main_drawer_not_logged_in,
-                              style: TextStyle(
-                                  color: Colors.red,
+                          height: 140,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.only(
+                                bottomLeft: Radius.circular(10),
+                                bottomRight: Radius.circular(10)),
+                            gradient: LinearGradient(
+                                colors: [
+                                  // Color(0xff0fc744),
+                                  // Color(0xff3fcad2)
+                                  // Color.fromRGBO(206, 35, 43, 2),
+                                  // Color.fromRGBO(237, 101, 85, 1),
 
-                                  //color: Color.fromRGBO(153, 153, 153, 1),
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w600)),
+                                  MyTheme.green_accent_color_e6,
+                                  MyTheme.green_accent_color_d0,
+                                  // Colors.red[100],
+                                  // Colors.green[100]
+                                ],
+                                begin: Alignment.topCenter,
+                                end: Alignment.bottomCenter),
+                          ),
+                          child: Center(
+                            child: Text(
+                                AppLocalizations.of(context)
+                                    .main_drawer_not_logged_in,
+                                style: TextStyle(
+                                    color: Colors.red,
+
+                                    //color: Color.fromRGBO(153, 153, 153, 1),
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w600)),
+                          ),
                         ),
-                      ),
                   // Divider(
                   //   height: 5,
                   //   color: Colors.red,
@@ -370,8 +378,11 @@ class _MainDrawerState extends State<MainDrawer> {
                           })
                       : Container(),
                   Padding(
-                    padding: const EdgeInsets.only(left: 16,right: 16),
-                    child: Divider(height: 5,color: Colors.cyan,),
+                    padding: const EdgeInsets.only(left: 16, right: 16),
+                    child: Divider(
+                      height: 5,
+                      color: Colors.cyan,
+                    ),
                   ),
                   ListTile(
                       visualDensity:
@@ -396,9 +407,8 @@ class _MainDrawerState extends State<MainDrawer> {
                         Navigator.push(context,
                             MaterialPageRoute(builder: (context) {
                           return CommonWebviewScreen(
-                              url: 'https://bongobaba.com/privacy-policy-page',
-                             
-                            );
+                            url: 'https://bongobaba.com/privacy-policy-page',
+                          );
                         }));
                       }),
                   ListTile(
@@ -422,10 +432,8 @@ class _MainDrawerState extends State<MainDrawer> {
                         Navigator.push(context,
                             MaterialPageRoute(builder: (context) {
                           return CommonWebviewScreen(
-                              url: 'https://bongobaba.com/return-refund-page',
-                             
-                            );
-
+                            url: 'https://bongobaba.com/return-refund-page',
+                          );
                         }));
                       }),
                   ListTile(
@@ -448,10 +456,9 @@ class _MainDrawerState extends State<MainDrawer> {
                       onTap: () {
                         Navigator.push(context,
                             MaterialPageRoute(builder: (context) {
-                       return CommonWebviewScreen(
-                              url: 'https://bongobaba.com/terms-conditions-page',
-                            
-                            );
+                          return CommonWebviewScreen(
+                            url: 'https://bongobaba.com/terms-conditions-page',
+                          );
                         }));
                       }),
                   ListTile(
@@ -480,11 +487,9 @@ class _MainDrawerState extends State<MainDrawer> {
                       onTap: () {
                         Navigator.push(context,
                             MaterialPageRoute(builder: (context) {
-                         return CommonWebviewScreen(
-                              url:
-                                  'https://bongobaba.com/support-policy-page',
-                              
-                            );
+                          return CommonWebviewScreen(
+                            url: 'https://bongobaba.com/support-policy-page',
+                          );
                         }));
                       }),
                   // Divider(height: 24),

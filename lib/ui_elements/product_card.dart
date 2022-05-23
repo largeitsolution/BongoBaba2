@@ -49,7 +49,7 @@ class _ProductCardState extends State<ProductCard> {
                   child: ClipRRect(
                     // clipBehavior: Clip.hardEdge,
                       borderRadius: BorderRadius.vertical(
-                          top: Radius.circular(10), bottom: Radius.circular(10)),
+                          top: Radius.circular(00), bottom: Radius.circular(0)),
                       child: FadeInImage.assetNetwork(
                         placeholder: 'assets/placeholder.png',
                         image: AppConfig.BASE_PATH + widget.image,

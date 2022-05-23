@@ -669,8 +669,8 @@ class _FlashDealProductsState extends State<FlashDealProducts> {
     return Directionality(
       textDirection: app_language_rtl.$ ? TextDirection.rtl : TextDirection.ltr,
       child: Scaffold(
-        // backgroundColor: Colors.white,
-        backgroundColor: Color(0xffeafbf0),
+        backgroundColor: Colors.white,
+        
         appBar: buildAppBar(context),
         body: Stack(
           children: [

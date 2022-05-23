@@ -465,7 +465,7 @@ class _AddressState extends State<Address> {
         appBar: buildAppBar(context),
         bottomNavigationBar: buildBottomAppBar(context),
         body: RefreshIndicator(
-          color: MyTheme.accent_color,
+          color: MyTheme.green_accent_color_d0,
           backgroundColor: Colors.white,
           onRefresh: _onRefresh,
           displacement: 0,
@@ -964,6 +964,8 @@ class _AddressState extends State<Address> {
                       padding: const EdgeInsets.only(right: 28.0),
                       child: FlatButton(
                         minWidth: 75,
+
+
                         height: 30,
                         color: MyTheme.accent_color,
                         shape: RoundedRectangleBorder(
@@ -1852,7 +1854,7 @@ class _AddressState extends State<Address> {
               FlatButton(
                 minWidth: MediaQuery.of(context).size.width,
                 height: 50,
-                color: MyTheme.accent_color,
+                color: MyTheme.green_accent_color_d0,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(0.0),
                 ),
@@ -1860,7 +1862,7 @@ class _AddressState extends State<Address> {
                   AppLocalizations.of(context)
                       .address_screen_back_to_shipping_info,
                   style: TextStyle(
-                      color: Colors.white,
+                      color: Colors.black,
                       fontSize: 16,
                       fontWeight: FontWeight.w600),
                 ),

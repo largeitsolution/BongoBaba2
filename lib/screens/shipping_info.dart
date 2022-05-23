@@ -255,8 +255,8 @@ class _ShippingInfoState extends State<ShippingInfo> {
           backgroundColor: Colors.white,
           bottomNavigationBar: buildBottomAppBar(context),
           body: RefreshIndicator(
-            color: MyTheme.accent_color,
-            backgroundColor: Colors.white,
+            color: MyTheme.green_accent_color_d0,
+            backgroundColor: Colors.black,
             onRefresh: _onRefresh,
             displacement: 0,
             child: Container(
@@ -734,7 +734,7 @@ class _ShippingInfoState extends State<ShippingInfo> {
             FlatButton(
               minWidth: MediaQuery.of(context).size.width,
               height: 50,
-              color: MyTheme.accent_color,
+              color: MyTheme.green_accent_color_d0,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(0.0),
               ),
@@ -742,7 +742,7 @@ class _ShippingInfoState extends State<ShippingInfo> {
                 AppLocalizations.of(context)
                     .shipping_info_screen_btn_proceed_to_checkout,
                 style: TextStyle(
-                    color: Colors.white,
+                    color: Colors.black,
                     fontSize: 16,
                     fontWeight: FontWeight.w600),
               ),

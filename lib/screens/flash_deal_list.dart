@@ -27,7 +27,7 @@ class _FlashDealListState extends State<FlashDealList> {
   Widget build(BuildContext context) {
     return Directionality(
       textDirection: app_language_rtl.$ ? TextDirection.rtl : TextDirection.ltr,
-      child: Scaffold(
+      child: Scaffold(backgroundColor: Colors.white,
         appBar: buildAppBar(context),
         body: buildFlashDealList(context),
       ),

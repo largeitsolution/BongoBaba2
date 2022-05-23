@@ -79,7 +79,7 @@ class _SplashState extends State<Splash> {
       backgroundImage:
           Image.asset("assets/splash_login_registration_background_image.png"),
       // backgroundColor: MyTheme.splash_screen_color,
-      backgroundColor: MyTheme.white,
+      backgroundColor: Colors.white,
 
       photoSize: 00.0,
       backgroundPhotoSize: 00.0,
@@ -296,7 +296,8 @@ class _CustomSplashScreenState extends State<CustomSplashScreen> {
     return Directionality(
       textDirection: app_language_rtl.$ ? TextDirection.rtl : TextDirection.ltr,
       child: Scaffold(
-             backgroundColor: Color(0xffeafbf0),
+            //  backgroundColor: Color(0xffeafbf0),
+            backgroundColor: MyTheme.green_accent_color_d0,
         body: InkWell(
           onTap: widget.onClick,
           child: Stack(

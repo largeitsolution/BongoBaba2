@@ -769,10 +769,10 @@ Navigator.push(context, MaterialPageRoute(builder: (context)=>Login()));
     return Directionality(
       textDirection: app_language_rtl.$ ? TextDirection.rtl : TextDirection.ltr,
       child: SafeArea(
-        child: Scaffold(
+        child: Scaffold(backgroundColor: Colors.white,
             bottomNavigationBar:
                 buildBottomAppBar(context, _addedToCartSnackbar),
-            backgroundColor: Colors.white,
+         
             appBar: buildAppBar(statusBarHeight, context),
             body: RefreshIndicator(
               color: MyTheme.accent_color,
@@ -2127,7 +2127,8 @@ Navigator.push(context, MaterialPageRoute(builder: (context)=>Login()));
               FlatButton(
                 minWidth: MediaQuery.of(context).size.width / 2 - .5,
                 height: 50,
-                color: MyTheme.black_color,
+             
+                  color: MyTheme.green_accent_color_f1,
                 shape: RoundedRectangleBorder(
                   side: BorderSide(color: Colors.white),
                   borderRadius: BorderRadius.circular(0.0),
@@ -2136,7 +2137,7 @@ Navigator.push(context, MaterialPageRoute(builder: (context)=>Login()));
                   AppLocalizations.of(context)
                       .product_details_screen_button_add_to_cart,
                   style: TextStyle(
-                      color: Colors.white,
+                      color: Colors.black,
                       fontSize: 16,
                       fontWeight: FontWeight.w600),
                 ),
@@ -2150,7 +2151,8 @@ Navigator.push(context, MaterialPageRoute(builder: (context)=>Login()));
               FlatButton(
                 minWidth: MediaQuery.of(context).size.width / 2 - .5,
                 height: 50,
-                color: MyTheme.blue_color,
+                // color: MyTheme.blue_color,
+                     color: MyTheme.green_accent_color_d0,  
                 shape: RoundedRectangleBorder(
                   side: BorderSide(color: Colors.white),
                   borderRadius: BorderRadius.circular(0.0),
@@ -2159,7 +2161,7 @@ Navigator.push(context, MaterialPageRoute(builder: (context)=>Login()));
                   AppLocalizations.of(context)
                       .product_details_screen_button_buy_now,
                   style: TextStyle(
-                      color: Colors.white,
+                      color: Colors.black,
                       fontSize: 16,
                       fontWeight: FontWeight.w600),
                 ),

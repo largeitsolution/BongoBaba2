@@ -388,7 +388,7 @@ class _FilterState2 extends State<Filter2> {
       child: Scaffold(
         endDrawer: buildFilterDrawer(),
         key: _scaffoldKey,
-         backgroundColor: Color(0xffeafbf0),
+backgroundColor: Colors.white,
         body: Stack(overflow: Overflow.visible, children: [
           _selectedFilter.option_key == 'product'
               ? buildProductList()

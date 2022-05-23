@@ -34,7 +34,7 @@ class _MiniProductCardState extends State<MiniProductCard> {
           return ProductDetails(id: widget.id);
         }));
       },
-      child: Card(
+      child: Card(color: MyTheme.green_accent_color_fb,
         shape: RoundedRectangleBorder(
           side: new BorderSide(color: MyTheme.light_grey, width: 0.0),
           borderRadius: BorderRadius.circular(16.0),

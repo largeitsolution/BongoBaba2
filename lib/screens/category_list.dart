@@ -36,7 +36,7 @@ class _CategoryListState extends State<CategoryList> {
     return Directionality(
       textDirection: app_language_rtl.$ ? TextDirection.rtl : TextDirection.ltr,
       child: Scaffold(
-          // backgroundColor: Color(0xffeafbf0),
+           backgroundColor: Colors.white,
           key: _scaffoldKey,
           drawer: MainDrawer(),
           // backgroundColor: Color(0xfff1eafb),
@@ -67,7 +67,7 @@ class _CategoryListState extends State<CategoryList> {
 
   AppBar buildAppBar(BuildContext context) {
     return AppBar(
-       backgroundColor: Color(0xffd5f8f2),
+       backgroundColor: Colors.white,
     
       centerTitle: true,
       flexibleSpace: Container(

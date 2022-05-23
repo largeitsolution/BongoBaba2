@@ -85,7 +85,7 @@ class _CategoryProductsState extends State<CategoryProducts> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Color(0xffeafbf0),
+        backgroundColor: Colors.white,
         appBar: buildAppBar(context),
         body: Stack(
           children: [

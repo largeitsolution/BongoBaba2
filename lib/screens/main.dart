@@ -74,7 +74,7 @@ class _MainState extends State<Main> {
       child: Directionality(
         textDirection:
             app_language_rtl.$ ? TextDirection.rtl : TextDirection.ltr,
-        child: Scaffold(
+        child: Scaffold(backgroundColor: Colors.white,
           extendBody: true,
           body: _children[_currentIndex],
           floatingActionButtonLocation:
@@ -230,9 +230,9 @@ class _MainState extends State<Main> {
                             print('yes selected');
                             exit(0);
                           },
-                          child: Text("Yes"),
+                          child: Text("Yes", style: TextStyle(color: Colors.black)),
                           style: ElevatedButton.styleFrom(
-                              primary: Colors.red.shade800),
+                              primary: MyTheme.green_accent_color_d0),
                         ),
                       ),
                       SizedBox(width: 15),
@@ -245,7 +245,7 @@ class _MainState extends State<Main> {
                         child:
                             Text("No", style: TextStyle(color: Colors.black)),
                         style: ElevatedButton.styleFrom(
-                          primary: Colors.white,
+                          primary: MyTheme.green_accent_color_f1,
                         ),
                       ))
                     ],

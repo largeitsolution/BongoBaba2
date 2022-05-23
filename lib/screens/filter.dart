@@ -389,10 +389,10 @@ class _FilterState extends State<Filter> {
     print(MediaQuery.of(context).padding.top.toString() +" MediaQuery.of(context).padding.top");*/
     return Directionality(
       textDirection: app_language_rtl.$ ? TextDirection.rtl : TextDirection.ltr,
-      child: Scaffold(
+      child: Scaffold(  
         endDrawer: buildFilterDrawer(),
         key: _scaffoldKey,
-          backgroundColor: Color(0xffeafbf0),
+     backgroundColor: Colors.white,
         body: Stack(overflow: Overflow.visible, children: [
           _selectedFilter.option_key == 'product'
               ? buildProductList()
