@@ -140,7 +140,7 @@ class _CategoryProductsState extends State<CategoryProducts> {
           preferredSize: Size.fromHeight(4.0)),*/
       leading: Builder(
         builder: (context) => IconButton(
-          icon: Icon(Icons.arrow_back, color: MyTheme.white),
+          icon: Icon(Icons.arrow_back, color: MyTheme.black_color),
           onPressed: () => Navigator.of(context).pop(),
         ),
       ),
@@ -169,7 +169,7 @@ class _CategoryProductsState extends State<CategoryProducts> {
                         widget.category_name,
                 hintStyle: TextStyle(
                   fontSize: 14.0,
-                  color: MyTheme.textfield_grey,
+                  color: MyTheme.black_color,
                 ),
                 enabledBorder: OutlineInputBorder(
                   borderSide: BorderSide(color: MyTheme.white, width: 0.0),
@@ -185,7 +185,7 @@ class _CategoryProductsState extends State<CategoryProducts> {
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 0.0, horizontal: 0.0),
           child: IconButton(
-            icon: Icon(Icons.search, color: MyTheme.white),
+            icon: Icon(Icons.search, color: MyTheme.black_color),
             onPressed: () {
               _searchKey = _searchController.text.toString();
               reset();

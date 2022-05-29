@@ -141,13 +141,13 @@ class _RefundRequestState extends State<RefundRequest> {
       centerTitle: true,
       leading: Builder(
         builder: (context) => IconButton(
-          icon: Icon(Icons.arrow_back, color: MyTheme.white),
+          icon: Icon(Icons.arrow_back, color: MyTheme.black_color),
           onPressed: () => Navigator.of(context).pop(),
         ),
       ),
       title: Text(
         AppLocalizations.of(context).refund_request_screen_refund_status,
-        style: TextStyle(fontSize: 16, color: MyTheme.white),
+        style: TextStyle(fontSize: 16, color: MyTheme.black_color),
       ),
       elevation: 0.0,
       titleSpacing: 0,

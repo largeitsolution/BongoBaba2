@@ -1,6 +1,7 @@
 import 'package:active_ecommerce_flutter/my_theme.dart';
 import 'package:active_ecommerce_flutter/screens/change_language.dart';
 import 'package:active_ecommerce_flutter/screens/common_webview_screen.dart';
+import 'package:active_ecommerce_flutter/ui_sections/dropdown.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -16,6 +17,7 @@ import 'package:active_ecommerce_flutter/helpers/shared_value_helper.dart';
 import 'package:active_ecommerce_flutter/app_config.dart';
 import 'package:active_ecommerce_flutter/helpers/auth_helper.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class MainDrawer extends StatefulWidget {
@@ -28,6 +30,17 @@ class MainDrawer extends StatefulWidget {
 }
 
 class _MainDrawerState extends State<MainDrawer> {
+  Future<void> _makePhoneCall(String url) async {
+  IconButton(icon: new Icon(Icons.phone),
+    onPressed: () 
+    {
+       setState(() {
+          _makePhoneCall('tel:0597924917');
+       });
+    },
+  );
+  }
+
   onTapLogout(context) async {
     AuthHelper().clearUserData();
 
@@ -52,6 +65,7 @@ class _MainDrawerState extends State<MainDrawer> {
       child: Container(
         decoration: BoxDecoration(
           color: Color(0xffeafbf0),
+          // color: Colors.black
         ),
         child: Directionality(
           textDirection:
@@ -384,90 +398,151 @@ class _MainDrawerState extends State<MainDrawer> {
                       color: Colors.cyan,
                     ),
                   ),
+
+                  ExpansionTile(
+                    title: Row(
+                      children: [
+                        Icon(
+                          Icons.fact_check,
+                          color: Colors.cyan,
+                        ),
+                        SizedBox(
+                          width: 20,
+                        ),
+                        Text('Company Info',
+                            style: TextStyle(
+                                color: Colors.black,
+                                //color: Color.fromRGBO(153, 153, 153, 1),
+                                fontSize: 14,
+                                fontWeight: FontWeight.w600)),
+                      ],
+                    ),
+                    children: [
+                      ListTile(
+                          visualDensity:
+                              VisualDensity(horizontal: -4, vertical: -4),
+                          leading: Icon(Icons.privacy_tip)
+                          // Image.asset(
+                          //   "assets/wallet.png",
+                          //   height: 18,
+                          //   //  color: Color.fromRGBO(153, 153, 153, 1),
+                          //   color: Colors.brown,
+                          // )
+                          ,
+                          title: Text(
+                              // AppLocalizations.of(context).main_drawer_wallet,
+                              'Privacy Policy',
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  //color: Color.fromRGBO(153, 153, 153, 1),
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w600)),
+                          onTap: () {
+                            Navigator.push(context,
+                                MaterialPageRoute(builder: (context) {
+                              return CommonWebviewScreen(
+                                url:
+                                    'https://bongobaba.com/privacy-policy-page',
+                              );
+                            }));
+                          }),
+                      ListTile(
+                          visualDensity:
+                              VisualDensity(horizontal: -4, vertical: -4),
+                          leading: Image.asset(
+                            "assets/product-return.png",
+                            height: 22,
+                            //  color: Color.fromRGBO(153, 153, 153, 1),
+                            color: Colors.brown,
+                          ),
+                          title: Text(
+                              // AppLocalizations.of(context).main_drawer_wallet,
+                              'Return Policy',
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  //color: Color.fromRGBO(153, 153, 153, 1),
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w600)),
+                          onTap: () {
+                            Navigator.push(context,
+                                MaterialPageRoute(builder: (context) {
+                              return CommonWebviewScreen(
+                                url: 'https://bongobaba.com/return-refund-page',
+                              );
+                            }));
+                          }),
+                      ListTile(
+                          visualDensity:
+                              VisualDensity(horizontal: -4, vertical: -4),
+                          leading: Image.asset(
+                            "assets/condition.png",
+                            height: 22,
+                            //  color: Color.fromRGBO(153, 153, 153, 1),
+                            color: Colors.brown,
+                          ),
+                          title: Text(
+                              // AppLocalizations.of(context).main_drawer_wallet,
+                              'Terms & Condition',
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  //color: Color.fromRGBO(153, 153, 153, 1),
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w600)),
+                          onTap: () {
+                            Navigator.push(context,
+                                MaterialPageRoute(builder: (context) {
+                              return CommonWebviewScreen(
+                                url:
+                                    'https://bongobaba.com/terms-conditions-page',
+                              );
+                            }));
+                          }),
+                      ListTile(
+                          visualDensity:
+                              VisualDensity(horizontal: -4, vertical: -4),
+                          leading: Icon(
+                            Icons.support_agent,
+                            color: Colors.green,
+                          )
+
+                          // Image.asset(
+                          //   "assets/wallet.png",
+                          //   height: 18,
+                          //   //  color: Color.fromRGBO(153, 153, 153, 1),
+                          //   color: Colors.brown,
+                          // )
+                          ,
+                          title: Text(
+                              // AppLocalizations.of(context).main_drawer_wallet,
+                              'Support Policy',
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  //color: Color.fromRGBO(153, 153, 153, 1),
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w600)),
+                          onTap: () {
+                            Navigator.push(context,
+                                MaterialPageRoute(builder: (context) {
+                              return CommonWebviewScreen(
+                                url:
+                                    'https://bongobaba.com/support-policy-page',
+                              );
+                            }));
+                          }),
+                    ],
+                  ),
+                  IconButton(
+                    icon: new Icon(Icons.phone),
+                    onPressed: () {
+                      setState(() {
+                        _makePhoneCall('tel:0597924917');
+                      });
+                    },
+                  ),
                   ListTile(
                       visualDensity:
                           VisualDensity(horizontal: -4, vertical: -4),
-                      leading: Icon(Icons.privacy_tip)
-                      // Image.asset(
-                      //   "assets/wallet.png",
-                      //   height: 18,
-                      //   //  color: Color.fromRGBO(153, 153, 153, 1),
-                      //   color: Colors.brown,
-                      // )
-                      ,
-                      title: Text(
-                          // AppLocalizations.of(context).main_drawer_wallet,
-                          'Privacy Policy',
-                          style: TextStyle(
-                              color: Colors.black,
-                              //color: Color.fromRGBO(153, 153, 153, 1),
-                              fontSize: 14,
-                              fontWeight: FontWeight.w600)),
-                      onTap: () {
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (context) {
-                          return CommonWebviewScreen(
-                            url: 'https://bongobaba.com/privacy-policy-page',
-                          );
-                        }));
-                      }),
-                  ListTile(
-                      visualDensity:
-                          VisualDensity(horizontal: -4, vertical: -4),
-                      leading: Image.asset(
-                        "assets/product-return.png",
-                        height: 22,
-                        //  color: Color.fromRGBO(153, 153, 153, 1),
-                        color: Colors.brown,
-                      ),
-                      title: Text(
-                          // AppLocalizations.of(context).main_drawer_wallet,
-                          'Return Policy',
-                          style: TextStyle(
-                              color: Colors.black,
-                              //color: Color.fromRGBO(153, 153, 153, 1),
-                              fontSize: 14,
-                              fontWeight: FontWeight.w600)),
-                      onTap: () {
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (context) {
-                          return CommonWebviewScreen(
-                            url: 'https://bongobaba.com/return-refund-page',
-                          );
-                        }));
-                      }),
-                  ListTile(
-                      visualDensity:
-                          VisualDensity(horizontal: -4, vertical: -4),
-                      leading: Image.asset(
-                        "assets/condition.png",
-                        height: 22,
-                        //  color: Color.fromRGBO(153, 153, 153, 1),
-                        color: Colors.brown,
-                      ),
-                      title: Text(
-                          // AppLocalizations.of(context).main_drawer_wallet,
-                          'Terms & Condition',
-                          style: TextStyle(
-                              color: Colors.black,
-                              //color: Color.fromRGBO(153, 153, 153, 1),
-                              fontSize: 14,
-                              fontWeight: FontWeight.w600)),
-                      onTap: () {
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (context) {
-                          return CommonWebviewScreen(
-                            url: 'https://bongobaba.com/terms-conditions-page',
-                          );
-                        }));
-                      }),
-                  ListTile(
-                      visualDensity:
-                          VisualDensity(horizontal: -4, vertical: -4),
-                      leading: Icon(
-                        Icons.support_agent,
-                        color: Colors.green,
-                      )
+                      leading: Icon(Icons.call, color: Colors.blue)
 
                       // Image.asset(
                       //   "assets/wallet.png",
@@ -478,7 +553,7 @@ class _MainDrawerState extends State<MainDrawer> {
                       ,
                       title: Text(
                           // AppLocalizations.of(context).main_drawer_wallet,
-                          'Support Policy',
+                          '+8801922-228111',
                           style: TextStyle(
                               color: Colors.black,
                               //color: Color.fromRGBO(153, 153, 153, 1),
@@ -492,6 +567,7 @@ class _MainDrawerState extends State<MainDrawer> {
                           );
                         }));
                       }),
+
                   // Divider(height: 24),
                   is_logged_in.$ == false
                       ? ListTile(

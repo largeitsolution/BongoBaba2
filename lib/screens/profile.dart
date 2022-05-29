@@ -681,7 +681,7 @@ class _ProfileState extends State<Profile> {
                       child: Image.asset(
                         'assets/hamburger.png',
                         height: 16,
-                        color: MyTheme.white,
+                        color: MyTheme.black_color,
                       ),
                     ),
                   ),
@@ -690,7 +690,7 @@ class _ProfileState extends State<Profile> {
       ),
       title: Text(
         AppLocalizations.of(context).profile_screen_account,
-        style: TextStyle(fontSize: 20, color: MyTheme.white),
+        style: TextStyle(fontSize: 20, color: MyTheme.black_color),
       ),
       elevation: 0.0,
       titleSpacing: 0,

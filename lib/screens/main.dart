@@ -17,6 +17,8 @@ import 'package:active_ecommerce_flutter/helpers/shared_value_helper.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:platform/platform.dart';
 
+import 'filter3.dart';
+
 class Main extends StatefulWidget {
   Main({Key key, go_back = true}) : super(key: key);
 
@@ -117,14 +119,16 @@ class _MainState extends State<Main> {
                  backgroundColor:    Color(0xff66F1D0),
                 // fixedColor: Theme.of(context).accentColor,
                      fixedColor: MyTheme.red_color,
-                unselectedItemColor: Color.fromRGBO(153, 153, 153, 1),
+                unselectedItemColor:Colors.red,
+                // Color.fromRGBO(153, 153, 153, 1),
                 items: [
                   BottomNavigationBarItem(
                       icon: Image.asset(
                         "assets/home.png",
                         color: _currentIndex == 0
                             ? MyTheme.black_color
-                            : Color.fromRGBO(153, 153, 153, 1),
+                            :Colors.black87,
+                            // Color.fromRGBO(153, 153, 153, 1),
                         height: 20,
                       ),
                       title: Padding(
@@ -136,7 +140,8 @@ class _MainState extends State<Main> {
                             fontSize: 12,
                             color: _currentIndex == 0
                             ? MyTheme.black_color
-                            : Color.fromRGBO(153, 153, 153, 1),
+                            :Colors.black87,
+                            // Color.fromRGBO(153, 153, 153, 1),
                             ),
                         ),
                       )),
@@ -145,7 +150,8 @@ class _MainState extends State<Main> {
                         "assets/categories.png",
                         color: _currentIndex == 1
                             ?MyTheme.black_color
-                            : Color.fromRGBO(153, 153, 153, 1),
+                            : Colors.black87,
+                            //Color.fromRGBO(153, 153, 153, 1),
                         height: 20,
                       ),
                       title: Padding(
@@ -155,7 +161,9 @@ class _MainState extends State<Main> {
                               .main_screen_bottom_navigation_categories,
                           style: TextStyle(fontSize: 12,  color: _currentIndex == 1
                             ? MyTheme.black_color
-                            : Color.fromRGBO(153, 153, 153, 1),),
+                            : Colors.black87,
+                            //Color.fromRGBO(153, 153, 153, 1),
+                            ),
                         ),
                       )),
                   BottomNavigationBarItem(
@@ -170,7 +178,8 @@ class _MainState extends State<Main> {
                         "assets/cart.png",
                         color: _currentIndex == 3
                             ? MyTheme.black_color
-                            : Color.fromRGBO(153, 153, 153, 1),
+                            : Colors.black87,
+                            //Color.fromRGBO(153, 153, 153, 1),
                         height: 20,
                       ),
                       title: Padding(
@@ -180,7 +189,9 @@ class _MainState extends State<Main> {
                               .main_screen_bottom_navigation_cart,
                           style: TextStyle(fontSize: 12,  color: _currentIndex == 3
                             ? MyTheme.black_color
-                            : Color.fromRGBO(153, 153, 153, 1),),
+                            : Colors.black87,
+                            //Color.fromRGBO(153, 153, 153, 1),
+                            ),
                         ),
                       )),
                   BottomNavigationBarItem(
@@ -188,7 +199,8 @@ class _MainState extends State<Main> {
                         "assets/profile.png",
                         color: _currentIndex == 4
                             ? MyTheme.black_color
-                            : Color.fromRGBO(153, 153, 153, 1),
+                            :Colors.black87,
+                            // Color.fromRGBO(153, 153, 153, 1),
                         height: 20,
                       ),
                       title: Padding(
@@ -198,7 +210,10 @@ class _MainState extends State<Main> {
                               .main_screen_bottom_navigation_profile,
                           style: TextStyle(fontSize: 12,  color: _currentIndex == 4
                             ? MyTheme.black_color
-                            : Color.fromRGBO(153, 153, 153, 1),),
+                            : Colors.black87,
+                            
+                            //Color.fromRGBO(153, 153, 153, 1),
+                            ),
                         ),
                       )),
                 ],

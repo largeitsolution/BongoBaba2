@@ -1,11 +1,13 @@
 import 'package:active_ecommerce_flutter/my_theme.dart';
 import 'package:active_ecommerce_flutter/repositories/flash_deal_repository.dart';
 import 'package:active_ecommerce_flutter/screens/filter.dart';
+import 'package:active_ecommerce_flutter/screens/filter3.dart';
 import 'package:active_ecommerce_flutter/screens/flash_deal_list.dart';
 import 'package:active_ecommerce_flutter/screens/todays_deal_products.dart';
 import 'package:active_ecommerce_flutter/screens/top_selling_products.dart';
 import 'package:active_ecommerce_flutter/screens/category_products.dart';
 import 'package:active_ecommerce_flutter/screens/category_list.dart';
+import 'package:active_ecommerce_flutter/ui_elements/mini_product_card.dart';
 import 'package:active_ecommerce_flutter/ui_sections/drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -42,21 +44,20 @@ class Home extends StatefulWidget {
   final String title;
   bool show_back_button;
   bool go_back;
-
+  @override
   @override
   _HomeState createState() => _HomeState();
 }
 
 class _HomeState extends State<Home> with TickerProviderStateMixin {
-
-   List<CountdownTimerController> _timerControllerList = [];
+  List<CountdownTimerController> _timerControllerList = [];
 
   DateTime convertTimeStampToDateTime(int timeStamp) {
     var dateToTimeStamp = DateTime.fromMillisecondsSinceEpoch(timeStamp * 1000);
     return dateToTimeStamp;
   }
-   ScrollController _scrollController;
 
+  ScrollController _scrollController;
 
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   int _current_slider = 0;
@@ -274,7 +275,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                               0.0,
                               0.0,
                               0.0,
-                              0.0,
+                              10.0,
                             ),
                             child: buildHomeMenuRow(context),
                           ),
@@ -290,8 +291,8 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                               0.0,
                             ),
                             child: Container(
-                              padding: EdgeInsets.only(left: 16, top: 10),
-                              color: MyTheme.green_accent_color_e6,
+                              padding: EdgeInsets.only(left: 9, top: 10),
+                              color: MyTheme.green_accent_color_f1,
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
@@ -334,9 +335,9 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                           ),
                           child: Container(
                             padding: EdgeInsets.only(
-                              left: 14,
+                              left: 5,
                             ),
-                            color: MyTheme.green_accent_color_e6,
+                            color: MyTheme.green_accent_color_f1,
                             height: 154,
                             child: buildHomeFeaturedCategories(context),
                           ),
@@ -347,12 +348,12 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                           Padding(
                             padding: const EdgeInsets.fromLTRB(
                               0.0,
-                              9.0,
+                              0.0,
                               5.0,
                               0.0,
                             ),
                             child: Container(
-                              padding: EdgeInsets.only(left: 16, top: 10),
+                              padding: EdgeInsets.only(left: 9, top: 16),
                               // color: MyTheme.green_accent_color_e6,
                               child: Row(
                                 mainAxisAlignment:
@@ -388,17 +389,20 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                                       ),
                                     ],
                                   ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(right: 16),
-                                    child: Container(
-                                      padding: const EdgeInsets.all(5),
-                                      color: MyTheme.green_accent_color_e6,
-                                      child: Icon(
-                                        Icons.arrow_forward_ios,
-                                        size: 16,
-                                      ),
-                                    ),
-                                  )
+                                  // Padding(
+                                  //   padding: const EdgeInsets.only(right: 9),
+                                  //   child: Container(
+                                  //     decoration: BoxDecoration(
+                                  //         color: MyTheme.green_accent_color_e6,
+                                  //         borderRadius:
+                                  //             BorderRadius.circular(5)),
+                                  //     padding: const EdgeInsets.all(5),
+                                  //     child: Icon(
+                                  //       Icons.arrow_forward_ios,
+                                  //       size: 16,
+                                  //     ),
+                                  //   ),
+                                  // )
                                 ],
                               ),
                             ),
@@ -408,18 +412,18 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                       SliverToBoxAdapter(
                         child: Padding(
                           padding: const EdgeInsets.fromLTRB(
-                            0.0,
+                            9.0,
                             9.0,
                             0.0,
                             0.0,
                           ),
                           child: Container(
                             padding: EdgeInsets.only(
-                              left: 14,
+                              left: 0,
                             ),
                             //color: MyTheme.green_accent_color_e6,
                             height: 154,
-                            child:  buildProductList(context),
+                            child: buildProductList(context),
                           ),
                         ),
                       ),
@@ -427,51 +431,94 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                         delegate: SliverChildListDelegate([
                           Padding(
                             padding: const EdgeInsets.fromLTRB(
-                              0.0,
+                              9.0,
                               9.0,
                               5.0,
                               0.0,
                             ),
-                            child: Container(
-                              padding: EdgeInsets.only(left: 16, top: 10),
-                              // color: MyTheme.green_accent_color_e6,
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        'Campaign',
-                                        // AppLocalizations.of(context)
-                                        //     .home_screen_featured_categories,
-                                        style: TextStyle(fontSize: 16),
-                                      ),
-                                      SizedBox(
-                                        height: 5,
-                                      ),
-                                      Row(
-                                        children: [
-                                          Container(
-                                            height: 3,
-                                            width: 70,
-                                            color:
-                                                MyTheme.green_accent_color_d0,
-                                          ),
-                                          // Container(
-                                          //   height: 1,
-                                          //   width: 240,
-                                          //   color: MyTheme.dark_grey,
-                                          // )
-                                        ],
-                                      ),
-                            ],
-                                  ),
-                               
-                                ],
+                            child: Row(
+                              children: [
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      'Campaign',
+                                      // AppLocalizations.of(context)
+                                      //     .home_screen_featured_products,
+                                      style: TextStyle(fontSize: 16),
+                                    ),
+                                    SizedBox(
+                                      height: 5,
+                                    ),
+                                    Row(
+                                      children: [
+                                        Container(
+                                          height: 3,
+                                          width: 70,
+                                          color: MyTheme.green_accent_color_d0,
+                                        ),
+                                        // Container(
+                                        //   height: 1,
+                                        //   width: 252,
+                                        //   color: MyTheme.dark_grey,
+                                        // )
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                                SizedBox(
+                                  width: 20,
+                                ),
+                                //  CountdownTimer(
+                                //     controller: _timerControllerList[0],
+                                //     widgetBuilder:
+                                //         (_, CurrentRemainingTime time) {
+                                //       return GestureDetector(
+                                //         onTap: () {
+                                //           if (time == null) {
+                                //             ToastComponent.showDialog(
+                                //                 AppLocalizations.of(context)
+                                //                     .flash_deal_list_screen_flash_deal_has_ended,
+                                //                 context,
+                                //                 gravity: Toast.CENTER,
+                                //                 duration: Toast.LENGTH_LONG);
+                                //           } else {}
+                                //         },
+                                //         child: Container(
+                                //           width: 150,
+                                //           child: Center(
+                                //               child: time == null
+                                //                   ? Text(
+                                //                       AppLocalizations.of(
+                                //                               context)
+                                //                           .flash_deal_list_screen_ended,
+                                //                       style: TextStyle(
+                                //                           color: MyTheme
+                                //                               .accent_color,
+                                //                           fontSize:
+                                //                               16.0,
+                                //                           fontWeight:
+                                //                               FontWeight
+                                //                                   .w600),
+                                //                     )
+                                //                   : buildTimerRowRow(
+                                //                       time)),
+                                //         ),
+                                //       );
+                                //     },
+                                //   ),
+                              ],
+                            ),
+                          ),
+                          SingleChildScrollView(
+                            child: Padding(
+                              padding: const EdgeInsets.fromLTRB(
+                                0.0,
+                                9.0,
+                                5.0,
+                                0.0,
                               ),
+                              child: buildFlashDealList(context),
                             ),
                           ),
                         ]),
@@ -480,14 +527,14 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                         delegate: SliverChildListDelegate([
                           Padding(
                             padding: const EdgeInsets.fromLTRB(
-                              16.0,
                               9.0,
                               5.0,
+                              0.0,
                               0.0,
                             ),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [       buildFlashDealList(context) ,
+                              children: [
                                 Text(
                                   AppLocalizations.of(context)
                                       .home_screen_featured_products,
@@ -528,21 +575,21 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                               ],
                             ),
                           ),
-                          Container(
-                            height: 80,
-                          )
+                          Container(height: 80,)
                         ]),
                       ),
                     ],
                   ),
                 ),
 
-             ],
+                Align(alignment: Alignment.center,
+                child: buildProductLoadingContainer(),)
+              ],
             )),
       ),
     );
   }
-  
+
   buildHomeFeaturedProducts(context) {
     if (_isProductInitial && _featuredProductList.length == 0) {
       return SingleChildScrollView(
@@ -624,7 +671,8 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                   }));
                 },
                 child: Card(
-                  color: MyTheme.green_accent_color_e6,
+                   color: MyTheme.green_accent_color_f1,
+                 // color:Colors.amber,
                   clipBehavior: Clip.antiAliasWithSaveLayer,
                   shape: RoundedRectangleBorder(
                     side: new BorderSide(color: MyTheme.light_grey, width: 0.0),
@@ -637,7 +685,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                       Container(
                           //width: 100,
                           height: 100,
-                          color: MyTheme.green_accent_color_e6,
+                           color: MyTheme.green_accent_color_f1,
                           child: ClipRRect(
                               borderRadius: BorderRadius.vertical(
                                   top: Radius.circular(16),
@@ -645,7 +693,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                               child: FadeInImage.assetNetwork(
                                 placeholder: 'assets/placeholder.png',
                                 image: AppConfig.BASE_PATH +
-                                    _featuredCategoryList[index].banner,
+                                    _featuredCategoryList[index].icon,
                                 fit: BoxFit.contain,
                               ))),
                       Expanded(
@@ -653,7 +701,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                           padding: EdgeInsets.fromLTRB(8, 0, 8, 4),
                           child: Container(
                             // height: 32,
-                            color: MyTheme.green_accent_color_e6,
+                            color: MyTheme.green_accent_color_f1,
                             child: Text(
                               _featuredCategoryList[index].name,
                               textAlign: TextAlign.center,
@@ -689,7 +737,6 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
     }
   }
 
-
   buildProductList(context) {
     return FutureBuilder(
         future: ProductRepository().getTodaysDealProducts(),
@@ -701,23 +748,26 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
             return Container();
           } else if (snapshot.hasData) {
             var productResponse = snapshot.data;
-            return SingleChildScrollView(
-              child: GridView.builder(
+            return Container(
+              height: 175,
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
                 // 2
                 //addAutomaticKeepAlives: true,
                 itemCount: productResponse.products.length,
-                controller: _scrollController,
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    crossAxisSpacing: 10,
-                    mainAxisSpacing: 10,
-                    childAspectRatio: 0.618),
-                padding: EdgeInsets.all(16),
-                physics: NeverScrollableScrollPhysics(),
+                // controller: _scrollController,
+                // gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                //     crossAxisCount: 2,
+                //     crossAxisSpacing: 10,
+                //     mainAxisSpacing: 10,
+                //     childAspectRatio: 0.618),
+                // padding: EdgeInsets.only(left: 9),
+                // physics: NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
+                itemExtent: 120,
                 itemBuilder: (context, index) {
                   // 3
-                  return ProductCard(
+                  return MiniProductCard(
                     id: productResponse.products[index].id,
                     image: productResponse.products[index].thumbnail_image,
                     name: productResponse.products[index].name,
@@ -731,8 +781,8 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
             );
           } else {
             return ShimmerHelper()
-                 .buildProductGridShimmer(scontroller: _scrollController);
-                // .buildProductGridShimmer();
+                .buildProductGridShimmer(scontroller: _scrollController);
+            // .buildProductGridShimmer();
           }
         });
   }
@@ -762,8 +812,8 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
           // )
           ),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           GestureDetector(
             onTap: () {
@@ -793,7 +843,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                         child: Image.asset("assets/top_categories.png"),
                       )),
                   Padding(
-                    padding: const EdgeInsets.only(top: 3),
+                    padding: const EdgeInsets.only(top: 3,),
                     child: Text(
                       // AppLocalizations.of(context).home_screen_top_categories,
                       'Depertment',
@@ -877,7 +927,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                       padding: const EdgeInsets.only(top: 3),
                       child: Text(
                           // AppLocalizations.of(context).home_screen_top_sellers,
-                          'Top Selling',
+                          'Best Selling',
                           textAlign: TextAlign.center,
                           style: TextStyle(
                               // color: Color.fromRGBO(132, 132, 132, 1),
@@ -890,7 +940,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
           GestureDetector(
             onTap: () {
               Navigator.push(context, MaterialPageRoute(builder: (context) {
-                return TodaysDealProducts();
+                return Filter3(selected_filter: "Products",);
               }));
             },
             child: Container(
@@ -914,13 +964,25 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                       )),
                   Padding(
                       padding: const EdgeInsets.only(top: 3),
-                      child: Text(
-                          AppLocalizations.of(context).home_screen_todays_deal,
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              // color: Color.fromRGBO(132, 132, 132, 1),
-                              color: Colors.black,
-                              fontWeight: FontWeight.w600))),
+                      child: GestureDetector(
+                        onTap: (){
+                          Navigator.push(context,
+                            MaterialPageRoute(builder: (context) {
+                          return Filter3(
+                            selected_filter: "Products",
+                          );
+                        })); 
+                        },
+                        child: Container(
+                          child: Text('New Arrival',
+                              // AppLocalizations.of(context).home_screen_todays_deal,
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  // color: Color.fromRGBO(132, 132, 132, 1),
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.w600)),
+                        ),
+                      )),
                 ],
               ),
             ),
@@ -953,8 +1015,8 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                       )),
                   Padding(
                       padding: const EdgeInsets.only(top: 3),
-                      child: Text(
-                          AppLocalizations.of(context).home_screen_flash_deal,
+                      child: Text('All Offers',
+                          // AppLocalizations.of(context).home_screen_flash_deal,
                           textAlign: TextAlign.center,
                           style: TextStyle(
                               // color: Color.fromRGBO(132, 132, 132, 1),
@@ -972,7 +1034,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
   buildHomeCarouselSlider(context) {
     if (_isCarouselInitial && _carouselImageList.length == 0) {
       return Container(
-        color: Colors.black,
+        color: MyTheme.green_accent_color_bb,
         child: Padding(
           padding: const EdgeInsets.only(left: 0.0, right: 0.0),
           child: Shimmer.fromColors(
@@ -993,7 +1055,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
         margin:
             const EdgeInsets.only(left: 16.0, right: 16.0, top: 16, bottom: 16),
         //color: Color(0xffeafbf0),
-        color: Colors.black,
+        color: MyTheme.green_accent_color_bb,
         child: CarouselSlider(
           options: CarouselOptions(
               height: 140,
@@ -1025,7 +1087,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                         child: FadeInImage.assetNetwork(
                           placeholder: 'assets/placeholder_rectangle.png',
                           image: AppConfig.BASE_PATH + i,
-                          fit: BoxFit.fitHeight,
+                          fit: BoxFit.fill,
                           height: double.infinity,
                           width: double.infinity,
                         )),
@@ -1117,8 +1179,8 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                   child: Container(
                     child: Image.asset(
                       'assets/hamburger.png',
-                      height: 16,
-                      color: MyTheme.white,
+                      height: 14,
+                      color: MyTheme.black_color,
                       //color: MyTheme.dark_grey,
                     ),
                   ),
@@ -1187,8 +1249,9 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
               filled: true,
               fillColor: Colors.white,
               contentPadding: EdgeInsets.all(5),
-              prefixIcon: Icon(Icons.search),
+              prefixIcon: Icon(Icons.search,color:MyTheme.black_color),
               hintText: 'Search ',
+              hintStyle:TextStyle(color: Colors.black),
               border:
                   OutlineInputBorder(borderRadius: BorderRadius.circular(10))),
         ),
@@ -1244,19 +1307,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
     // );
   }
 
-  Container buildProductLoadingContainer() {
-    return Container(
-      height: _showProductLoadingContainer ? 36 : 0,
-      width: double.infinity,
-      color: Colors.white,
-      child: Center(
-        child: Text(_totalProductData == _featuredProductList.length
-            ? AppLocalizations.of(context).common_no_more_products
-            : AppLocalizations.of(context).common_loading_more_products),
-      ),
-    );
-  }
-   buildFlashDealList(context) {
+  buildFlashDealList(context) {
     return FutureBuilder(
         future: FlashDealRepository().getFlashDeals(),
         builder: (context, snapshot) {
@@ -1269,18 +1320,24 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
             //snapshot.hasData
             var flashDealResponse = snapshot.data;
             return SingleChildScrollView(
-              child: ListView.builder(
-                itemCount: flashDealResponse.flash_deals.length,
-                scrollDirection: Axis.vertical,
-                physics: NeverScrollableScrollPhysics(),
-                shrinkWrap: true,
-                itemBuilder: (context, index) {
-                  return Padding(
-                    padding: const EdgeInsets.only(
-                        top: 0.0, left: 16.0, right: 16.0, bottom: 16.0),
-                    child: buildFlashDealListItem(flashDealResponse, index),
-                  );
-                },
+              child: Container(
+                height: 90,
+                child: ListView.builder(
+                  itemCount: flashDealResponse.flash_deals.length,
+                  scrollDirection: Axis.horizontal,
+                  // physics: NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  itemBuilder: (context, index) {
+                    return Padding(
+                        padding: const EdgeInsets.only(
+                            top: 0.0, left: 9.0, right: 0.0, bottom: .0),
+                        child: Container(
+                          width: 170,
+                          child:
+                              buildFlashDealListItem(flashDealResponse, index),
+                        ));
+                  },
+                ),
               ),
             );
           } else {
@@ -1293,7 +1350,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                 itemBuilder: (context, index) {
                   return Padding(
                     padding: const EdgeInsets.only(
-                        top: 0.0, left: 16.0, right: 16.0, bottom: 16.0),
+                        top: 9.0, left: 0.0, right: 0.0, bottom: 0.0),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
@@ -1389,8 +1446,12 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
           return GestureDetector(
             onTap: () {
               if (time == null) {
-                ToastComponent.showDialog(AppLocalizations.of(context).flash_deal_list_screen_flash_deal_has_ended, context,
-                    gravity: Toast.CENTER, duration: Toast.LENGTH_LONG);
+                ToastComponent.showDialog(
+                    AppLocalizations.of(context)
+                        .flash_deal_list_screen_flash_deal_has_ended,
+                    context,
+                    gravity: Toast.CENTER,
+                    duration: Toast.LENGTH_LONG);
               } else {
                 Navigator.push(context, MaterialPageRoute(builder: (context) {
                   return FlashDealProducts(
@@ -1400,51 +1461,64 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                 }));
               }
             },
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Card(
-                  shape: RoundedRectangleBorder(
-                    side: new BorderSide(color: MyTheme.light_grey, width: 1.0),
-                    borderRadius: BorderRadius.circular(16.0),
-                  ),
-                  elevation: 0.0,
-                  child: Container(
-                      width: double.infinity,
-                      height: 100,
-                      child: ClipRRect(
-                          borderRadius: BorderRadius.circular(16.0),
-                          child: FadeInImage.assetNetwork(
-                            placeholder: 'assets/placeholder_rectangle.png',
-                            image: AppConfig.BASE_PATH +
-                                flashDealResponse.flash_deals[index].banner,
-                            fit: BoxFit.cover,
-                          ))),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Card(
+                      shape: RoundedRectangleBorder(
+                        side: new BorderSide(
+                            color: MyTheme.light_grey, width: 1.0),
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                      elevation: 0.0,
+                      child: Container(
+                          width: 150,
+                          height: 50,
+                          child: ClipRRect(
+                              borderRadius: BorderRadius.circular(10.0),
+                              child: FadeInImage.assetNetwork(
+                                placeholder: 'assets/placeholder_rectangle.png',
+                                image: AppConfig.BASE_PATH +
+                                    flashDealResponse.flash_deals[index].banner,
+                                fit: BoxFit.fill,
+                              ))),
+                    ),
+                    // Padding(
+                    //   padding: const EdgeInsets.only(bottom: 8.0),
+                    //   child: Text(
+                    //     flashDealResponse.flash_deals[index].title,
+                    //     maxLines: 1,
+                    //     style: TextStyle(
+                    //         color: MyTheme.dark_grey,
+                    //         fontSize: 16,
+                    //         fontWeight: FontWeight.w600),
+                    //   ),
+                    // ),
+                    Container(
+                      width: 150,
+                      child: Center(
+                          child: time == null
+                              ? Text(
+                                  AppLocalizations.of(context)
+                                      .flash_deal_list_screen_ended,
+                                  style: TextStyle(
+                                      color: MyTheme.accent_color,
+                                      fontSize: 16.0,
+                                      fontWeight: FontWeight.w600),
+                                )
+                              : buildTimerRowRow(time)),
+                    ),
+                  ],
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 8.0),
-                  child: Text(
-                    flashDealResponse.flash_deals[index].title,
-                    maxLines: 1,
-                    style: TextStyle(
-                        color: MyTheme.dark_grey,
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600),
-                  ),
-                ),
-                Container(
-                  width: 150,
-                  child: Center(
-                      child: time == null
-                          ? Text(
-                        AppLocalizations.of(context).flash_deal_list_screen_ended,
-                              style: TextStyle(
-                                  color: MyTheme.accent_color,
-                                  fontSize: 16.0,
-                                  fontWeight: FontWeight.w600),
-                            )
-                          : buildTimerRowRow(time)),
-                ),
+                // IconButton(
+                //     onPressed: () {},
+                //     icon: Icon(
+                //       Icons.arrow_forward_ios,
+                //       color: MyTheme.green_accent_color_bb,
+                //     )),
               ],
             ),
           );
@@ -1453,100 +1527,109 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
     );
   }
 
-  Row buildTimerRowRow(CurrentRemainingTime time) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
-      children: [
-        Text(
-          timeText(time.days.toString(), default_length: 3),
-          style: TextStyle(
-              color: MyTheme.accent_color,
-              fontSize: 16.0,
-              fontWeight: FontWeight.w600),
-        ),
-        Padding(
-          padding: const EdgeInsets.only(left: 4.0, right: 4.0),
-          child: Text(
-            ":",
-            style: TextStyle(
-                color: MyTheme.accent_color,
-                fontSize: 16.0,
-                fontWeight: FontWeight.w600),
+   buildTimerRowRow(CurrentRemainingTime time) {
+    return Container(padding: EdgeInsets.symmetric(horizontal: 8),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          Container(
+            decoration: BoxDecoration(
+                color: MyTheme.green_accent_color_e0,
+                borderRadius: BorderRadius.circular(3)),
+            padding: EdgeInsets.all(3),
+            child: Text(
+              timeText(time.days.toString(), default_length: 3),
+              style: TextStyle(
+                  color: MyTheme.black_color,
+                  fontSize: 12.0,
+                  fontWeight: FontWeight.w600),
+            ),
           ),
-        ),
-        Text(
-          timeText(time.hours.toString(), default_length: 2),
-          style: TextStyle(
-              color: MyTheme.accent_color,
-              fontSize: 16.0,
-              fontWeight: FontWeight.w600),
-        ),
-        Padding(
-          padding: const EdgeInsets.only(left: 4.0, right: 4.0),
-          child: Text(
-            ":",
-            style: TextStyle(
-                color: MyTheme.accent_color,
-                fontSize: 16.0,
-                fontWeight: FontWeight.w600),
+          Padding(
+            padding: const EdgeInsets.only(left: 0.0, right: 0.0),
+            child: Text(
+              ":",
+              style: TextStyle(
+                  color: MyTheme.black_color,
+                  fontSize: 12.0,
+                  fontWeight: FontWeight.w600),
+            ),
           ),
-        ),
-        Text(
-          timeText(time.min.toString(), default_length: 2),
-          style: TextStyle(
-              color: MyTheme.accent_color,
-              fontSize: 16.0,
-              fontWeight: FontWeight.w600),
-        ),
-        Padding(
-          padding: const EdgeInsets.only(left: 4.0, right: 4.0),
-          child: Text(
-            ":",
-            style: TextStyle(
-                color: MyTheme.accent_color,
-                fontSize: 16.0,
-                fontWeight: FontWeight.w600),
+          Container(
+            decoration: BoxDecoration(
+                color: MyTheme.green_accent_color_e0,
+                borderRadius: BorderRadius.circular(3)),
+            padding: EdgeInsets.all(3),
+            child: Text(
+
+              timeText(time.hours.toString(), default_length: 2),
+              style: TextStyle(
+                  color: MyTheme.black_color,
+                  fontSize: 12.0,
+                  fontWeight: FontWeight.w600),
+            ),
           ),
-        ),
-        Text(
-          timeText(time.sec.toString(), default_length: 2),
-          style: TextStyle(
-              color: MyTheme.accent_color,
-              fontSize: 16.0,
-              fontWeight: FontWeight.w600),
-        ),
-      ],
+          Padding(
+            padding: const EdgeInsets.only(left: 0.0, right: 0.0),
+            child: Text(
+              ":",
+              style: TextStyle(
+                  color: MyTheme.black_color,
+                  fontSize: 12.0,
+                  fontWeight: FontWeight.w600),
+            ),
+          ),
+          Container(
+            decoration: BoxDecoration(
+                color: MyTheme.green_accent_color_e0,
+                borderRadius: BorderRadius.circular(3)),
+            padding: EdgeInsets.all(3),
+            child: Text(
+              '${timeText(time.min.toString(), default_length: 2)}',
+              style: TextStyle(
+                  color: MyTheme.black_color,
+                  fontSize: 12.0,
+                  fontWeight: FontWeight.w600),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(left: 0.0, right: 0.0),
+            child: Text(
+              ":",
+              style: TextStyle(
+                  color: MyTheme.black_color,
+                  fontSize: 12.0,
+                  fontWeight: FontWeight.w600),
+            ),
+          ),
+          Container(
+            decoration: BoxDecoration(
+                color: MyTheme.green_accent_color_e0,
+                borderRadius: BorderRadius.circular(3)),
+            padding: EdgeInsets.all(3),
+            child: Text(
+              timeText(time.sec.toString(), default_length: 2),
+              style: TextStyle(
+                  color: MyTheme.black_color,
+                  fontSize: 12.0,
+                  fontWeight: FontWeight.w600),
+            ),
+          ),
+        ],
+      ),
     );
   }
 
-  // AppBar buildAppBar(BuildContext context) {
-  //   return AppBar(
-  //     backgroundColor: Colors.white,
-  //      flexibleSpace: Container(
-  //       decoration: BoxDecoration(
-  //        color: MyTheme.green_accent_color_d0
-  //           // gradient: LinearGradient(colors: [
-  //           //   // Color(0xff0fc744),
-  //           //   // Color(0xff3fcad2)
-  //           //   Color.fromRGBO(206, 35, 43, 1),
-  //           //   Color.fromRGBO(237, 101, 85, 1),
-  //           // ], begin: Alignment.topCenter,end:Alignment.bottomCenter),
-        
-  //       ,borderRadius: BorderRadius.horizontal(left: Radius.circular(20),right: Radius.circular(20))),
-  //     ),
-  //     centerTitle: true,
-  //     leading: Builder(
-  //       builder: (context) => IconButton(
-  //         icon: Icon(Icons.arrow_back, color: MyTheme.white),
-  //         onPressed: () => Navigator.of(context).pop(),
-  //       ),
-  //     ),
-  //     title: Text(
-  //       AppLocalizations.of(context).flash_deal_list_flash_deals,
-  //       style: TextStyle(fontSize: 20, color: MyTheme.white),
-  //     ),
-  //     elevation: 0.0,
-  //     titleSpacing: 0,
-  //   );
-  // }
+  Container buildProductLoadingContainer() {
+    return Container(
+      height: _showProductLoadingContainer ? 36 : 0,
+      width: double.infinity,
+      color: Colors.white,
+      child: Center(
+        child: Text(_totalProductData == _featuredProductList.length
+            ? AppLocalizations.of(context).common_no_more_products
+            : AppLocalizations.of(context).common_loading_more_products),
+      ),
+    );
+  }
 }

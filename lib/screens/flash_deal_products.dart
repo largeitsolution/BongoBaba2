@@ -604,7 +604,7 @@ class _FlashDealProductsState extends State<FlashDealProducts> {
     return Container(
       height: _showLoadingContainer ? 36 : 0,
       width: double.infinity,
-      color: Colors.white,
+      color: Colors.red,
       child: Center(
         child: Text(_totalData ==  _fullList.length
             ? AppLocalizations.of(context).common_no_more_products
@@ -716,7 +716,7 @@ class _FlashDealProductsState extends State<FlashDealProducts> {
           preferredSize: Size.fromHeight(4.0)),*/
       leading: Builder(
         builder: (context) => IconButton(
-          icon: Icon(Icons.arrow_back, color: MyTheme.white),
+          icon: Icon(Icons.arrow_back, color: MyTheme.black_color),
           onPressed: () => Navigator.of(context).pop(),
         ),
       ),
@@ -731,12 +731,12 @@ class _FlashDealProductsState extends State<FlashDealProducts> {
               // print(_searchList.length);
             },
             onTap: () {},
-            autofocus: true,
+            // autofocus: true,
             decoration: InputDecoration(
                 hintText:
                     "${AppLocalizations.of(context).flash_deal_products_screen_search_products_from} : " +
                         widget.flash_deal_name,
-                hintStyle: TextStyle(fontSize: 14.0, color: MyTheme.white),
+                hintStyle: TextStyle(fontSize: 14.0, color: MyTheme.black_color),
                 enabledBorder: OutlineInputBorder(
                   borderSide: BorderSide(color: MyTheme.white, width: 0.0),
                 ),
@@ -751,7 +751,7 @@ class _FlashDealProductsState extends State<FlashDealProducts> {
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 0.0, horizontal: 0.0),
           child: IconButton(
-            icon: Icon(Icons.search, color: MyTheme.white),
+            icon: Icon(Icons.search, color: MyTheme.black_color),
             onPressed: () {},
           ),
         ),
@@ -761,7 +761,7 @@ class _FlashDealProductsState extends State<FlashDealProducts> {
 
   buildProductList(context) {
     return FutureBuilder(
-        future: _future,
+        future:  _future,
         builder: (context, snapshot) {
           if (snapshot.hasError) {
             //snapshot.hasError

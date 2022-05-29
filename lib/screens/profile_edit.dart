@@ -176,13 +176,13 @@ flexibleSpace: Container(
       centerTitle: true,
       leading: Builder(
         builder: (context) => IconButton(
-          icon: Icon(Icons.arrow_back, color: MyTheme.white),
+          icon: Icon(Icons.arrow_back, color: MyTheme.black_color),
           onPressed: () => Navigator.of(context).pop(),
         ),
       ),
       title: Text(
         AppLocalizations.of(context).profile_edit_screen_edit_profile,
-        style: TextStyle(fontSize: 20, color: MyTheme.white),
+        style: TextStyle(fontSize: 20, color: MyTheme.black_color),
       ),
       elevation: 0.0,
       titleSpacing: 0,
@@ -402,7 +402,7 @@ flexibleSpace: Container(
                       child: Text(
                         AppLocalizations.of(context).profile_edit_screen_btn_update_profile,
                         style: TextStyle(
-                            color: Colors.white,
+                            color: Colors.black,
                             fontSize: 13,
                             fontWeight: FontWeight.w600),
                       ),

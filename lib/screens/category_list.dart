@@ -100,7 +100,7 @@ class _CategoryListState extends State<CategoryList> {
                     child: Image.asset(
                       'assets/hamburger.png',
                       height: 16,
-                      color: MyTheme.white,
+                      color: MyTheme.black_color,
                     ),
                   ),
                 ),
@@ -108,13 +108,13 @@ class _CategoryListState extends State<CategoryList> {
             )
           : Builder(
               builder: (context) => IconButton(
-                icon: Icon(Icons.arrow_back, color: MyTheme.white),
+                icon: Icon(Icons.arrow_back, color: MyTheme.black_color),
                 onPressed: () => Navigator.of(context).pop(),
               ),
             ),
       title: Text(
         getAppBarTitle(),
-        style: TextStyle(fontSize: 20, color: MyTheme.white),
+        style: TextStyle(fontSize: 20, color: MyTheme.black_color),
       ),
       elevation: 0.0,
       titleSpacing: 0,
@@ -375,7 +375,7 @@ class _CategoryListState extends State<CategoryList> {
                 child: FlatButton(
                   minWidth: MediaQuery.of(context).size.width,
                   //height: 50,
-                  color: MyTheme.accent_color,
+                  color: MyTheme.green_accent_color_d0,
                   shape: RoundedRectangleBorder(
                       borderRadius:
                           const BorderRadius.all(Radius.circular(8.0))),
@@ -385,7 +385,7 @@ class _CategoryListState extends State<CategoryList> {
                         " " +
                         widget.parent_category_name,
                     style: TextStyle(
-                        color: Colors.white,
+                        color: Colors.black,
                         fontSize: 13,
                         fontWeight: FontWeight.w600),
                   ),

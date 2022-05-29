@@ -723,7 +723,7 @@ backgroundColor: Colors.white,
                 left: Radius.circular(20), right: Radius.circular(20))),
       ),
       IconButton(
-        icon: Icon(Icons.arrow_back, color: MyTheme.white),
+        icon: Icon(Icons.arrow_back, color: MyTheme.black_color),
         onPressed: () => Navigator.of(context).pop(),
       ),
       Container(
@@ -823,7 +823,7 @@ backgroundColor: Colors.white,
         ),
       ),
       IconButton(
-          icon: Icon(Icons.search, color: MyTheme.white),
+          icon: Icon(Icons.search, color: MyTheme.black_color),
           onPressed: () {
             _searchKey = _searchController.text.toString();
             setState(() {});

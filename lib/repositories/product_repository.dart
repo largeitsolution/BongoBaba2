@@ -111,7 +111,8 @@ class ProductRepository {
     final response = await http.get(url, headers: {
       "App-Language": app_language.$,
     });
-    print(response.body.toString());
+    // print("Product details");
+    print('Product details: ${response.body.toString()}');
     return productDetailsResponseFromJson(response.body);
   }
   Future<ProductDetailsResponse> getProductShortDetails(

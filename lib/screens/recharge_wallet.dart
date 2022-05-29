@@ -289,26 +289,32 @@ class _RechargeWalletState extends State<RechargeWallet> {
 
   AppBar buildAppBar(BuildContext context) {
     return AppBar(
+      backgroundColor: Colors.white,
       flexibleSpace: Container(
         decoration: BoxDecoration(
-            gradient: LinearGradient(colors: [
-          // Color(0xff0fc744),
-          // Color(0xff3fcad2)
-          Color.fromRGBO(206, 35, 43, 1),
-          Color.fromRGBO(237, 101, 85, 1),
-        ], begin: Alignment.topCenter,end:Alignment.bottomCenter),borderRadius: BorderRadius.horizontal(left: Radius.circular(20),right: Radius.circular(20))),
+          
+         color:   MyTheme.green_accent_color_d0,
+          
+        //     gradient: LinearGradient(colors: [
+        //   // Color(0xff0fc744),
+        //   // Color(0xff3fcad2)
+        //   Color.fromRGBO(206, 35, 43, 1),
+        //   Color.fromRGBO(237, 101, 85, 1),
+        // ], begin: Alignment.topCenter,end:Alignment.bottomCenter)
+        
+      borderRadius: BorderRadius.horizontal(left: Radius.circular(20),right: Radius.circular(20))),
       ),
-      backgroundColor: Colors.white,
+     
       centerTitle: true,
       leading: Builder(
         builder: (context) => IconButton(
-          icon: Icon(Icons.arrow_back, color: MyTheme.white),
+          icon: Icon(Icons.arrow_back, color: MyTheme.black_color),
           onPressed: () => Navigator.of(context).pop(),
         ),
       ),
       title: Text(
         AppLocalizations.of(context).recharge_wallet_screen_recharge_wallet,
-        style: TextStyle(fontSize: 16, color: MyTheme.white),
+        style: TextStyle(fontSize: 16, color: MyTheme.black_color),
       ),
       elevation: 0.0,
       titleSpacing: 0,
@@ -450,14 +456,14 @@ class _RechargeWalletState extends State<RechargeWallet> {
             FlatButton(
               minWidth: MediaQuery.of(context).size.width,
               height: 50,
-              color: MyTheme.accent_color,
+              color: MyTheme.green_accent_color_d0,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(0.0),
               ),
               child: Text(
                 AppLocalizations.of(context).recharge_wallet_screen_recharge_wallet,
                 style: TextStyle(
-                    color: Colors.white,
+                    color: Colors.black,
                     fontSize: 16,
                     fontWeight: FontWeight.w600),
               ),
