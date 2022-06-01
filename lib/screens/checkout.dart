@@ -1,3 +1,4 @@
+import 'package:active_ecommerce_flutter/screens/live_chat.dart';
 import 'package:flutter/material.dart';
 import 'package:active_ecommerce_flutter/my_theme.dart';
 import 'package:active_ecommerce_flutter/screens/order_list.dart';
@@ -654,17 +655,17 @@ class _CheckoutState extends State<Checkout> {
                           width: double.infinity,
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(8.0),
-                              color: MyTheme.soft_accent_color),
+                              color: MyTheme.green_accent_color_f1),
                           child: Padding(
                             padding: const EdgeInsets.all(4.0),
                             child: Row(
-                              children: [
+                              children: [  
                                 Padding(
                                   padding: const EdgeInsets.only(left: 16.0),
                                   child: Text(
                                     AppLocalizations.of(context).checkout_screen_total_amount,
                                     style: TextStyle(
-                                        color: MyTheme.font_grey, fontSize: 14),
+                                        color: MyTheme.black_color, fontSize: 14),
                                   ),
                                 ),
                                 Padding(
@@ -676,7 +677,7 @@ class _CheckoutState extends State<Checkout> {
                                     child: Text(
                                       AppLocalizations.of(context).common_see_details,
                                       style: TextStyle(
-                                        color: MyTheme.font_grey,
+                                        color: MyTheme.black_color,
                                         fontSize: 12,
                                         decoration: TextDecoration.underline,
                                       ),
@@ -701,7 +702,7 @@ class _CheckoutState extends State<Checkout> {
                   ),
                 ),
               )
-            ],
+             , LiveChat()   ],
           )),
     );
   }
@@ -719,7 +720,7 @@ class _CheckoutState extends State<Checkout> {
             decoration: InputDecoration(
                 hintText: AppLocalizations.of(context).checkout_screen_enter_coupon_code,
                 hintStyle:
-                    TextStyle(fontSize: 14.0, color: MyTheme.textfield_grey),
+                    TextStyle(fontSize: 14.0, color: MyTheme.black_color),
                 enabledBorder: OutlineInputBorder(
                   borderSide:
                       BorderSide(color: MyTheme.textfield_grey, width: 0.5),
@@ -746,7 +747,7 @@ class _CheckoutState extends State<Checkout> {
                 child: FlatButton(
                   minWidth: MediaQuery.of(context).size.width,
                   //height: 50,
-                  color: MyTheme.accent_color,
+                  color: MyTheme.green_accent_color_d0,
                   shape: RoundedRectangleBorder(
                       borderRadius: const BorderRadius.only(
                     topRight: const Radius.circular(8.0),
@@ -755,7 +756,7 @@ class _CheckoutState extends State<Checkout> {
                   child: Text(
                     AppLocalizations.of(context).checkout_screen_apply_coupon,
                     style: TextStyle(
-                        color: Colors.white,
+                        color: Colors.black,
                         fontSize: 13,
                         fontWeight: FontWeight.w600),
                   ),
@@ -795,16 +796,27 @@ class _CheckoutState extends State<Checkout> {
   AppBar buildAppBar(BuildContext context) {
     return AppBar(
 backgroundColor: Colors.white,
+ flexibleSpace: Container(
+        decoration: BoxDecoration(color:MyTheme.green_accent_color_d0
+            // gradient: LinearGradient(colors: [
+            //   // Color(0xff0fc744),
+            //   // Color(0xff3fcad2)
+            //   Color.fromRGBO(206, 35, 43, 1),
+            //   Color.fromRGBO(237, 101, 85, 1),
+            // ], begin: Alignment.topCenter, end: Alignment.bottomCenter),
+           , borderRadius: BorderRadius.horizontal(
+                left: Radius.circular(20), right: Radius.circular(20))),
+      ),
       centerTitle: true,
       leading: Builder(
         builder: (context) => IconButton(
-          icon: Icon(Icons.arrow_back, color: MyTheme.dark_grey),
+          icon: Icon(Icons.arrow_back, color: MyTheme.black_color),
           onPressed: () => Navigator.of(context).pop(),
         ),
       ),
       title: Text(
         AppLocalizations.of(context).checkout_screen_checkout,
-        style: TextStyle(fontSize: 16, color: MyTheme.accent_color),
+        style: TextStyle(fontSize: 18, color: MyTheme.black_color),
       ),
       elevation: 0.0,
       titleSpacing: 0,
@@ -942,7 +954,7 @@ backgroundColor: Colors.white,
             FlatButton(
               minWidth: MediaQuery.of(context).size.width,
               height: 50,
-              color: MyTheme.accent_color,
+              color: MyTheme.green_accent_color_d0,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(0.0),
               ),
@@ -951,7 +963,7 @@ backgroundColor: Colors.white,
                     ? AppLocalizations.of(context).common_proceed_in_all_caps
                     : AppLocalizations.of(context).checkout_screen_place_my_order,
                 style: TextStyle(
-                    color: Colors.white,
+                    color: Colors.black,
                     fontSize: 16,
                     fontWeight: FontWeight.w600),
               ),

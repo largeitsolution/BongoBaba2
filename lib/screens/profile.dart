@@ -1,3 +1,4 @@
+import 'package:active_ecommerce_flutter/screens/live_chat.dart';
 import 'package:flutter/material.dart';
 import 'package:active_ecommerce_flutter/my_theme.dart';
 import 'package:active_ecommerce_flutter/ui_sections/drawer.dart';
@@ -128,7 +129,11 @@ class _ProfileState extends State<Profile> {
         drawer: MainDrawer(),
         backgroundColor: Colors.white,
         appBar: buildAppBar(context),
-        body: buildBody(context),
+        body:Stack(children: [
+ buildBody(context),
+ LiveChat()
+        ],)
+        
       ),
     );
   }
@@ -690,7 +695,7 @@ class _ProfileState extends State<Profile> {
       ),
       title: Text(
         AppLocalizations.of(context).profile_screen_account,
-        style: TextStyle(fontSize: 20, color: MyTheme.black_color),
+        style: TextStyle(fontSize: 18, color: MyTheme.black_color),
       ),
       elevation: 0.0,
       titleSpacing: 0,

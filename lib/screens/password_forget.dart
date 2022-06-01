@@ -1,4 +1,5 @@
 import 'package:active_ecommerce_flutter/my_theme.dart';
+import 'package:active_ecommerce_flutter/screens/live_chat.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:active_ecommerce_flutter/custom/input_decorations.dart';
@@ -233,14 +234,14 @@ class _PasswordForgetState extends State<PasswordForget> {
                             child: FlatButton(
                               minWidth: MediaQuery.of(context).size.width,
                               //height: 50,
-                              color: MyTheme.accent_color,
+                              color: MyTheme.green_accent_color_d0,
                               shape: RoundedRectangleBorder(
                                   borderRadius: const BorderRadius.all(
                                       Radius.circular(12.0))),
                               child: Text(
                                 "Send Code",
                                 style: TextStyle(
-                                    color: Colors.white,
+                                    color: Colors.black,
                                     fontSize: 14,
                                     fontWeight: FontWeight.w600),
                               ),
@@ -255,8 +256,8 @@ class _PasswordForgetState extends State<PasswordForget> {
                   )
                 ],
               )),
-            )
-          ],
+            ),
+         LiveChat() ],
         ),
       ),
     );

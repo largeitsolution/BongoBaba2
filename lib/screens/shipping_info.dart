@@ -18,6 +18,8 @@ import 'package:toast/toast.dart';
 import 'package:active_ecommerce_flutter/screens/address.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import 'live_chat.dart';
+
 class ShippingInfo extends StatefulWidget {
   int owner_id;
 
@@ -28,6 +30,8 @@ class ShippingInfo extends StatefulWidget {
 }
 
 class _ShippingInfoState extends State<ShippingInfo> {
+  bool isClick = true;
+
   ScrollController _mainScrollController = ScrollController();
 
   // integer type variables
@@ -91,6 +95,7 @@ class _ShippingInfoState extends State<ShippingInfo> {
         }
       });
     }
+    isClick = true;
     _isInitial = false;
     setState(() {});
 
@@ -263,12 +268,12 @@ class _ShippingInfoState extends State<ShippingInfo> {
               child: Stack(
                 children: [
                   Padding(
-                    padding:
-                        const EdgeInsets.only(top: 130.0, left: 16, right: 16),
+                    padding: const EdgeInsets.only(
+                        top: 105.0, left: 16, right: 16, bottom: 5),
                     child: Container(
                       // padding: EdgeInsets.all(10),
                       height: 35,
-                      color: MyTheme.green_accent_color_f1,
+                      // color: MyTheme.green_accent_color_f1,
                       child: Center(
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -358,14 +363,17 @@ class _ShippingInfoState extends State<ShippingInfo> {
                                     ),
                                   )))
                               : Container(),
-                          SizedBox(
-                            height: 100,
-                          )
+                          // SizedBox(
+                          //   height: 100,
+                          // )
                         ]))
                       ],
                     ),
                   ),
                   Positioned(top: 0.0, child: customAppBar(context)),
+                  LiveChat(
+                    position: 350,
+                  )
                 ],
               ),
             ),
@@ -803,7 +811,10 @@ class _ShippingInfoState extends State<ShippingInfo> {
                     fontWeight: FontWeight.w600),
               ),
               onPressed: () {
-                onPressProceed(context);
+                if (isClick) {
+                  isClick = false;
+                  onPressProceed(context);
+                }
               },
             )
           ],
@@ -838,9 +849,10 @@ class _ShippingInfoState extends State<ShippingInfo> {
                     ),
                   ),
                   Container(
+                    alignment: Alignment.center,
                     width: MediaQuery.of(context).size.width - 40,
                     child: Text(
-                      'Checkout',
+                      'Shipping Address',
                       // "${AppLocalizations.of(context).shipping_info_screen_shipping_cost} ${_shipping_cost_string}",
                       style:
                           TextStyle(fontSize: 18, color: MyTheme.black_color),

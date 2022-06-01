@@ -1,4 +1,5 @@
 import 'package:active_ecommerce_flutter/my_theme.dart';
+import 'package:active_ecommerce_flutter/screens/live_chat.dart';
 import 'package:active_ecommerce_flutter/screens/seller_details.dart';
 import 'package:flutter/material.dart';
 import 'package:active_ecommerce_flutter/ui_elements/product_card.dart';
@@ -408,7 +409,7 @@ backgroundColor: Colors.white,
                   : (_selectedFilter.option_key == 'brands'
                       ? buildBrandLoadingContainer()
                       : buildShopLoadingContainer()))
-        ]),
+      , LiveChat(position: 370,)  ]),
       ),
     );
   }

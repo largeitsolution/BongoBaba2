@@ -92,4 +92,10 @@
         <!-- <meta-data android:name="com.google.android.geo.API_KEY"
             android:value='AIzaSyCTI7TTfUWkoURb3G2gV6eA9xNixpOwzAA'/>   -->
     </application>
+    <queries>
+        <intent>
+            <action android:name="android.intent.action.DIAL" />
+            <data android:scheme="tel" />
+        </intent>
+    </queries>
 </manifest>

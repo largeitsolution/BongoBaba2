@@ -1,3 +1,4 @@
+import 'package:active_ecommerce_flutter/screens/live_chat.dart';
 import 'package:flutter/material.dart';
 import 'package:active_ecommerce_flutter/my_theme.dart';
 import 'dart:ui';
@@ -181,7 +182,7 @@ class _WalletState extends State<Wallet> {
                 Align(
                     alignment: Alignment.bottomCenter,
                     child: buildLoadingContainer())
-              ],
+             ,LiveChat() ],
             )),
       ),
     );

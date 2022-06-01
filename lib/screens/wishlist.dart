@@ -1,3 +1,4 @@
+import 'package:active_ecommerce_flutter/screens/live_chat.dart';
 import 'package:flutter/material.dart';
 import 'package:active_ecommerce_flutter/my_theme.dart';
 import 'package:active_ecommerce_flutter/helpers/shimmer_helper.dart';
@@ -76,38 +77,51 @@ class _WishlistState extends State<Wishlist> {
       child: Scaffold(
           backgroundColor: Colors.white,
           appBar: buildAppBar(context),
-          body: RefreshIndicator(
-            color: MyTheme.accent_color,
-            backgroundColor: Colors.white,
-            onRefresh: _onPageRefresh,
-            child: CustomScrollView(
-              controller: _mainScrollController,
-              physics: const BouncingScrollPhysics(
-                  parent: AlwaysScrollableScrollPhysics()),
-              slivers: [
-                SliverList(
-                    delegate: SliverChildListDelegate([
-                  buildWishlist(),
-                ])),
-              ],
+          body: Stack(children: [
+             RefreshIndicator(
+              color: MyTheme.accent_color,
+              backgroundColor: Colors.white,
+              onRefresh: _onPageRefresh,
+              child: CustomScrollView(
+                controller: _mainScrollController,
+                physics: const BouncingScrollPhysics(
+                    parent: AlwaysScrollableScrollPhysics()),
+                slivers: [
+                  SliverList(
+                      delegate: SliverChildListDelegate([
+                    buildWishlist(),
+                  ])),
+                ],
+              ),
             ),
-          )),
+         LiveChat() ])),
     );
   }
 
   AppBar buildAppBar(BuildContext context) {
     return AppBar(
       backgroundColor: Colors.white,
+      flexibleSpace: Container(
+        decoration: BoxDecoration(color:MyTheme.green_accent_color_d0
+            // gradient: LinearGradient(colors: [
+            //   // Color(0xff0fc744),
+            //   // Color(0xff3fcad2)
+            //   Color.fromRGBO(206, 35, 43, 1),
+            //   Color.fromRGBO(237, 101, 85, 1),
+            // ], begin: Alignment.topCenter, end: Alignment.bottomCenter),
+           , borderRadius: BorderRadius.horizontal(
+                left: Radius.circular(20), right: Radius.circular(20))),
+      ),
       centerTitle: true,
       leading: Builder(
         builder: (context) => IconButton(
-          icon: Icon(Icons.arrow_back, color: MyTheme.dark_grey),
+          icon: Icon(Icons.arrow_back, color: MyTheme.black_color),
           onPressed: () => Navigator.of(context).pop(),
         ),
       ),
       title: Text(
         AppLocalizations.of(context).wishlist_screen_my_wishlist,
-        style: TextStyle(fontSize: 16, color: MyTheme.accent_color),
+        style: TextStyle(fontSize: 16, color: MyTheme.black_color),
       ),
       elevation: 0.0,
       titleSpacing: 0,

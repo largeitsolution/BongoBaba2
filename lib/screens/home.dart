@@ -3,6 +3,8 @@ import 'package:active_ecommerce_flutter/repositories/flash_deal_repository.dart
 import 'package:active_ecommerce_flutter/screens/filter.dart';
 import 'package:active_ecommerce_flutter/screens/filter3.dart';
 import 'package:active_ecommerce_flutter/screens/flash_deal_list.dart';
+import 'package:active_ecommerce_flutter/screens/login.dart';
+import 'package:active_ecommerce_flutter/screens/messenger_list.dart';
 import 'package:active_ecommerce_flutter/screens/todays_deal_products.dart';
 import 'package:active_ecommerce_flutter/screens/top_selling_products.dart';
 import 'package:active_ecommerce_flutter/screens/category_products.dart';
@@ -18,6 +20,7 @@ import 'package:active_ecommerce_flutter/app_config.dart';
 import 'package:flutter_countdown_timer/countdown_timer_controller.dart';
 import 'package:flutter_countdown_timer/current_remaining_time.dart';
 import 'package:flutter_countdown_timer/flutter_countdown_timer.dart';
+import 'package:flutter_html/shims/dart_ui_real.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:active_ecommerce_flutter/custom/toast_component.dart';
 import 'package:toast/toast.dart';
@@ -26,7 +29,11 @@ import 'package:active_ecommerce_flutter/helpers/shimmer_helper.dart';
 import 'package:active_ecommerce_flutter/helpers/shared_value_helper.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import 'common_webview_screen.dart';
 import 'flash_deal_products.dart';
+import 'package:sticky_float_button/sticky_float_button.dart';
+
+import 'live_chat.dart';
 
 class Home extends StatefulWidget {
   Home({Key key, this.title, this.show_back_button = false, go_back = true})
@@ -50,6 +57,18 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> with TickerProviderStateMixin {
+  // Widget _floatButton() {
+  //   return StickyFloatButton(
+  //     child: CircleAvatar(
+  //       backgroundColor: Colors.red,
+  //       child: Icon(
+  //         Icons.add,
+  //         color: Colors.white,
+  //       ),
+  //     ),
+  //   );
+  // }
+
   List<CountdownTimerController> _timerControllerList = [];
 
   DateTime convertTimeStampToDateTime(int timeStamp) {
@@ -205,6 +224,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
             drawer: MainDrawer(),
             body: Stack(
               children: [
+                // _floatButton(),
                 RefreshIndicator(
                   color: MyTheme.accent_color,
                   backgroundColor: Colors.white,
@@ -575,15 +595,19 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                               ],
                             ),
                           ),
-                          Container(height: 80,)
+                          Container(
+                            height: 80,
+                          )
                         ]),
                       ),
                     ],
                   ),
                 ),
-
-                Align(alignment: Alignment.center,
-                child: buildProductLoadingContainer(),)
+                Align(
+                  alignment: Alignment.center,
+                  child: buildProductLoadingContainer(),
+                ),
+               LiveChat()
               ],
             )),
       ),
@@ -671,8 +695,8 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                   }));
                 },
                 child: Card(
-                   color: MyTheme.green_accent_color_f1,
-                 // color:Colors.amber,
+                  color: MyTheme.green_accent_color_f1,
+                  // color:Colors.amber,
                   clipBehavior: Clip.antiAliasWithSaveLayer,
                   shape: RoundedRectangleBorder(
                     side: new BorderSide(color: MyTheme.light_grey, width: 0.0),
@@ -685,7 +709,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                       Container(
                           //width: 100,
                           height: 100,
-                           color: MyTheme.green_accent_color_f1,
+                          color: MyTheme.green_accent_color_f1,
                           child: ClipRRect(
                               borderRadius: BorderRadius.vertical(
                                   top: Radius.circular(16),
@@ -843,7 +867,9 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                         child: Image.asset("assets/top_categories.png"),
                       )),
                   Padding(
-                    padding: const EdgeInsets.only(top: 3,),
+                    padding: const EdgeInsets.only(
+                      top: 3,
+                    ),
                     child: Text(
                       // AppLocalizations.of(context).home_screen_top_categories,
                       'Depertment',
@@ -940,7 +966,9 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
           GestureDetector(
             onTap: () {
               Navigator.push(context, MaterialPageRoute(builder: (context) {
-                return Filter3(selected_filter: "Products",);
+                return Filter3(
+                  selected_filter: "Products",
+                );
               }));
             },
             child: Container(
@@ -965,13 +993,13 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                   Padding(
                       padding: const EdgeInsets.only(top: 3),
                       child: GestureDetector(
-                        onTap: (){
+                        onTap: () {
                           Navigator.push(context,
-                            MaterialPageRoute(builder: (context) {
-                          return Filter3(
-                            selected_filter: "Products",
-                          );
-                        })); 
+                              MaterialPageRoute(builder: (context) {
+                            return Filter3(
+                              selected_filter: "Products",
+                            );
+                          }));
                         },
                         child: Container(
                           child: Text('New Arrival',
@@ -1249,9 +1277,9 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
               filled: true,
               fillColor: Colors.white,
               contentPadding: EdgeInsets.all(5),
-              prefixIcon: Icon(Icons.search,color:MyTheme.black_color),
+              prefixIcon: Icon(Icons.search, color: MyTheme.black_color),
               hintText: 'Search ',
-              hintStyle:TextStyle(color: Colors.black),
+              hintStyle: TextStyle(color: Colors.black),
               border:
                   OutlineInputBorder(borderRadius: BorderRadius.circular(10))),
         ),
@@ -1527,8 +1555,9 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
     );
   }
 
-   buildTimerRowRow(CurrentRemainingTime time) {
-    return Container(padding: EdgeInsets.symmetric(horizontal: 8),
+  buildTimerRowRow(CurrentRemainingTime time) {
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 8),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
@@ -1561,7 +1590,6 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                 borderRadius: BorderRadius.circular(3)),
             padding: EdgeInsets.all(3),
             child: Text(
-
               timeText(time.hours.toString(), default_length: 2),
               style: TextStyle(
                   color: MyTheme.black_color,

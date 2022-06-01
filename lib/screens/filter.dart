@@ -18,6 +18,8 @@ import 'package:active_ecommerce_flutter/helpers/shared_value_helper.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:one_context/one_context.dart';
 
+import 'live_chat.dart';
+
 class WhichFilter {
   String option_key;
   String name;
@@ -412,7 +414,7 @@ class _FilterState extends State<Filter> {
                   : (_selectedFilter.option_key == 'brands'
                       ? buildBrandLoadingContainer()
                       : buildShopLoadingContainer()))
-        ]),
+         , LiveChat(position: 370,)   ]),
       ),
     );
   }

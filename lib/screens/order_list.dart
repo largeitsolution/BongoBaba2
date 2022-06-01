@@ -1,3 +1,4 @@
+import 'package:active_ecommerce_flutter/screens/live_chat.dart';
 import 'package:active_ecommerce_flutter/screens/order_details.dart';
 import 'package:active_ecommerce_flutter/screens/main.dart';
 import 'package:flutter/material.dart';
@@ -222,7 +223,7 @@ class _OrderListState extends State<OrderList> {
                   Align(
                       alignment: Alignment.bottomCenter,
                       child: buildLoadingContainer())
-                ],
+              , LiveChat(position: 200,) ],
               )),
         ));
   }

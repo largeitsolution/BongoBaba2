@@ -10,6 +10,8 @@ import 'package:active_ecommerce_flutter/app_config.dart';
 import 'package:active_ecommerce_flutter/helpers/shared_value_helper.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import 'live_chat.dart';
+
 class CategoryList extends StatefulWidget {
   CategoryList(
       {Key key,
@@ -60,8 +62,8 @@ class _CategoryListState extends State<CategoryList> {
                       height: 0,
                     )
                   : buildBottomContainer(),
-            )
-          ])),
+            ),
+          LiveChat() ])),
     );
   }
 
@@ -114,7 +116,7 @@ class _CategoryListState extends State<CategoryList> {
             ),
       title: Text(
         getAppBarTitle(),
-        style: TextStyle(fontSize: 20, color: MyTheme.black_color),
+        style: TextStyle(fontSize: 18, color: MyTheme.black_color),
       ),
       elevation: 0.0,
       titleSpacing: 0,

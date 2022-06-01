@@ -1,3 +1,4 @@
+import 'package:active_ecommerce_flutter/screens/live_chat.dart';
 import 'package:flutter/material.dart';
 import 'package:active_ecommerce_flutter/my_theme.dart';
 import 'package:active_ecommerce_flutter/screens/stripe_screen.dart';
@@ -282,7 +283,7 @@ class _RechargeWalletState extends State<RechargeWallet> {
                   ],
                 ),
               ),
-            ],
+           LiveChat() ],
           )),
     );
   }

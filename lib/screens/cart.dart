@@ -11,6 +11,8 @@ import 'package:active_ecommerce_flutter/custom/toast_component.dart';
 import 'package:toast/toast.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import 'live_chat.dart';
+
 class Cart extends StatefulWidget {
   Cart({Key key, this.has_bottomnav}) : super(key: key);
   final bool has_bottomnav;
@@ -293,8 +295,8 @@ class _CartState extends State<Cart> {
               Align(
                 alignment: Alignment.bottomCenter,
                 child: buildBottomContainer(),
-              )
-            ],
+              ),
+             LiveChat() ],
           )),
     );
   }
@@ -392,7 +394,7 @@ class _CartState extends State<Cart> {
                         AppLocalizations.of(context).cart_screen_update_cart,
                         style: TextStyle(
                             color: Colors.black87,
-                            fontSize: 13,
+                            fontSize: 10,
                             fontWeight: FontWeight.w600),
                       ),
                       onPressed: () {

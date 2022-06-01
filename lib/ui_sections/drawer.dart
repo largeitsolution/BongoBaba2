@@ -30,15 +30,12 @@ class MainDrawer extends StatefulWidget {
 }
 
 class _MainDrawerState extends State<MainDrawer> {
-  Future<void> _makePhoneCall(String url) async {
-  IconButton(icon: new Icon(Icons.phone),
-    onPressed: () 
-    {
-       setState(() {
-          _makePhoneCall('tel:0597924917');
-       });
-    },
-  );
+  Future<void> _dialCall() async {
+    final Uri launchUri = Uri(
+      scheme: 'tel',
+      path: '+8801922-228111',
+    );
+    await launch(launchUri.toString());
   }
 
   onTapLogout(context) async {
@@ -59,562 +56,593 @@ class _MainDrawerState extends State<MainDrawer> {
     }));
   }
 
+  bool isDivider = true;
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      child: Container(
-        decoration: BoxDecoration(
-          color: Color(0xffeafbf0),
-          // color: Colors.black
-        ),
-        child: Directionality(
-          textDirection:
-              app_language_rtl.$ ? TextDirection.rtl : TextDirection.ltr,
-          child: Container(
-            // padding: EdgeInsets.only(top: 50),
-            child: SingleChildScrollView(
-              child: Column(
-                children: <Widget>[
-                  is_logged_in.$ == true
-                      ?
-                      //  Card(
-                      //   child: ListTile(
-                      //       leading: CircleAvatar(
-                      //         backgroundImage: NetworkImage(
-                      //           AppConfig.BASE_PATH + "${avatar_original.$}",
-                      //         ),radius: 60,
-                      //       ),
-                      //       title: Text("${user_name.$}"),
-                      //       subtitle:                 Text(
-                      //         //if user email is not available then check user phone if user phone is not available use empty string
-                      //         "${user_email.$ != "" && user_email.$ != null?
-                      //         user_email.$:user_phone.$ != "" && user_phone.$ != null?user_phone.$:''}",
-                      //       )
+      child: SingleChildScrollView(
+        child: Container(
+          height: 900,
+          decoration: BoxDecoration(
+            color: Color(0xffeafbf0),
+            // color: Colors.black
+          ),
+          child: Directionality(
+            textDirection:
+                app_language_rtl.$ ? TextDirection.rtl : TextDirection.ltr,
+            child: Container(
+              // padding: EdgeInsets.only(top: 50),
+              child: SingleChildScrollView(
+                child: Column(
+                  children: <Widget>[
+                    is_logged_in.$ == true
+                        ?
+                        //  Card(
+                        //   child: ListTile(
+                        //       leading: CircleAvatar(
+                        //         backgroundImage: NetworkImage(
+                        //           AppConfig.BASE_PATH + "${avatar_original.$}",
+                        //         ),radius: 60,
+                        //       ),
+                        //       title: Text("${user_name.$}"),
+                        //       subtitle:                 Text(
+                        //         //if user email is not available then check user phone if user phone is not available use empty string
+                        //         "${user_email.$ != "" && user_email.$ != null?
+                        //         user_email.$:user_phone.$ != "" && user_phone.$ != null?user_phone.$:''}",
+                        //       )
 
-                      //                   ),
-                      // )
-                      // : Text(
-                      //     AppLocalizations.of(context).main_drawer_not_logged_in,
-                      //     style: TextStyle(
-                      //         color: Color.fromRGBO(153, 153, 153, 1),
-                      //         fontSize: 14)
-                      // ),
+                        //                   ),
+                        // )
+                        // : Text(
+                        //     AppLocalizations.of(context).main_drawer_not_logged_in,
+                        //     style: TextStyle(
+                        //         color: Color.fromRGBO(153, 153, 153, 1),
+                        //         fontSize: 14)
+                        // ),
 
-                      Container(
-                          height: 140,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.only(
-                                bottomLeft: Radius.circular(10),
-                                bottomRight: Radius.circular(10)),
-                            gradient: LinearGradient(
-                                colors: [
-                                  // Color(0xff0fc744),
-                                  // Color(0xff3fcad2)
-                                  // Color.fromRGBO(206, 35, 43, 2),
-                                  // Color.fromRGBO(237, 101, 85, 1),
-                                  MyTheme.green_accent_color_e6,
-                                  MyTheme.green_accent_color_d0,
+                        Container(
+                            height: 140,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.only(
+                                  bottomLeft: Radius.circular(10),
+                                  bottomRight: Radius.circular(10)),
+                              gradient: LinearGradient(
+                                  colors: [
+                                    // Color(0xff0fc744),
+                                    // Color(0xff3fcad2)
+                                    // Color.fromRGBO(206, 35, 43, 2),
+                                    // Color.fromRGBO(237, 101, 85, 1),
+                                    MyTheme.green_accent_color_e6,
+                                    MyTheme.green_accent_color_d0,
 
-                                  // Colors.red[100],
-                                  // Colors.green[100]
-                                ],
-                                begin: Alignment.topCenter,
-                                end: Alignment.bottomCenter),
-                          ),
-                          child: Column(
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.only(top: 50),
-                                child: Row(
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.only(
-                                          top: 16.0, bottom: 8.0, left: 15),
-                                      child: Container(
-                                        width: 60,
-                                        height: 60,
-                                        decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(100),
-                                          border: Border.all(
-                                              color: Color.fromRGBO(
-                                                  112, 112, 112, .3),
-                                              width: 2),
-                                          //shape: BoxShape.rectangle,
-                                        ),
-                                        child: ClipRRect(
-                                            clipBehavior: Clip.hardEdge,
-                                            borderRadius: BorderRadius.all(
-                                                Radius.circular(100.0)),
-                                            child: FadeInImage.assetNetwork(
-                                              placeholder:
-                                                  'assets/placeholder.png',
-                                              image: AppConfig.BASE_PATH +
-                                                  "${avatar_original.$}",
-                                              fit: BoxFit.fill,
-                                            )),
-                                      ),
-                                    ),
-                                    Column(
-                                      children: [
-                                        Padding(
-                                          padding: const EdgeInsets.only(
-                                              top: 8.0, left: 10),
-                                          child: Text(
-                                            "${user_name.$}",
-                                            style: TextStyle(
-                                                fontSize: 14,
-                                                color: MyTheme.font_grey,
-                                                fontWeight: FontWeight.w600),
-                                          ),
-                                        ),
-                                        Padding(
-                                            padding: const EdgeInsets.only(
-                                                top: 4.0, left: 10),
-                                            child: Text(
-                                              //if user email is not available then check user phone if user phone is not available use empty string
-                                              "${user_email.$ != "" && user_email.$ != null ? user_email.$ : user_phone.$ != "" && user_phone.$ != null ? user_phone.$ : ''}",
-                                              style: TextStyle(
-                                                color: MyTheme.medium_grey,
-                                              ),
-                                            )),
-                                      ],
-                                    )
+                                    // Colors.red[100],
+                                    // Colors.green[100]
                                   ],
+                                  begin: Alignment.topCenter,
+                                  end: Alignment.bottomCenter),
+                            ),
+                            child: Column(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.only(top: 50),
+                                  child: Row(
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.only(
+                                            top: 16.0, bottom: 8.0, left: 15),
+                                        child: Container(
+                                          width: 60,
+                                          height: 60,
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(100),
+                                            border: Border.all(
+                                                color: Color.fromRGBO(
+                                                    112, 112, 112, .3),
+                                                width: 2),
+                                            //shape: BoxShape.rectangle,
+                                          ),
+                                          child: ClipRRect(
+                                              clipBehavior: Clip.hardEdge,
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(100.0)),
+                                              child: FadeInImage.assetNetwork(
+                                                placeholder:
+                                                    'assets/placeholder.png',
+                                                image: AppConfig.BASE_PATH +
+                                                    "${avatar_original.$}",
+                                                fit: BoxFit.fill,
+                                              )),
+                                        ),
+                                      ),
+                                      Column(
+                                        children: [
+                                          Padding(
+                                            padding: const EdgeInsets.only(
+                                                top: 8.0, left: 10),
+                                            child: Text(
+                                              "${user_name.$}",
+                                              style: TextStyle(
+                                                  fontSize: 14,
+                                                  color: MyTheme.font_grey,
+                                                  fontWeight: FontWeight.w600),
+                                            ),
+                                          ),
+                                          Padding(
+                                              padding: const EdgeInsets.only(
+                                                  top: 4.0, left: 10),
+                                              child: Text(
+                                                //if user email is not available then check user phone if user phone is not available use empty string
+                                                "${user_email.$ != "" && user_email.$ != null ? user_email.$ : user_phone.$ != "" && user_phone.$ != null ? user_phone.$ : ''}",
+                                                style: TextStyle(
+                                                  color: MyTheme.medium_grey,
+                                                ),
+                                              )),
+                                        ],
+                                      )
+                                    ],
+                                  ),
                                 ),
-                              ),
-                            ],
-                          ),
-                        )
-                      : Container(
-                          height: 140,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.only(
-                                bottomLeft: Radius.circular(10),
-                                bottomRight: Radius.circular(10)),
-                            gradient: LinearGradient(
-                                colors: [
-                                  // Color(0xff0fc744),
-                                  // Color(0xff3fcad2)
-                                  // Color.fromRGBO(206, 35, 43, 2),
-                                  // Color.fromRGBO(237, 101, 85, 1),
+                              ],
+                            ),
+                          )
+                        : Container(
+                            height: 140,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.only(
+                                  bottomLeft: Radius.circular(10),
+                                  bottomRight: Radius.circular(10)),
+                              gradient: LinearGradient(
+                                  colors: [
+                                    // Color(0xff0fc744),
+                                    // Color(0xff3fcad2)
+                                    // Color.fromRGBO(206, 35, 43, 2),
+                                    // Color.fromRGBO(237, 101, 85, 1),
 
-                                  MyTheme.green_accent_color_e6,
-                                  MyTheme.green_accent_color_d0,
-                                  // Colors.red[100],
-                                  // Colors.green[100]
-                                ],
-                                begin: Alignment.topCenter,
-                                end: Alignment.bottomCenter),
+                                    MyTheme.green_accent_color_e6,
+                                    MyTheme.green_accent_color_d0,
+                                    // Colors.red[100],
+                                    // Colors.green[100]
+                                  ],
+                                  begin: Alignment.topCenter,
+                                  end: Alignment.bottomCenter),
+                            ),
+                            child: Center(
+                              child: Text(
+                                  AppLocalizations.of(context)
+                                      .main_drawer_not_logged_in,
+                                  style: TextStyle(
+                                      color: Colors.red,
+
+                                      //color: Color.fromRGBO(153, 153, 153, 1),
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w600)),
+                            ),
                           ),
-                          child: Center(
-                            child: Text(
-                                AppLocalizations.of(context)
-                                    .main_drawer_not_logged_in,
+                    // Divider(
+                    //   height: 5,
+                    //   color: Colors.red,
+                    // ),
+                    ListTile(
+                        visualDensity:
+                            VisualDensity(horizontal: -4, vertical: -4),
+                        leading: Image.asset(
+                          "assets/language.png",
+                          height: 18,
+
+                          // color: Color.fromRGBO(153, 153, 153, 1),
+                          color: Colors.indigo,
+                        ),
+                        title: Text(
+                            AppLocalizations.of(context)
+                                .main_drawer_change_language,
+                            style: TextStyle(
+                                color: Colors.black,
+
+                                // color: Color.fromRGBO(153, 153, 153, 1),
+                                fontSize: 14,
+                                fontWeight: FontWeight.w600)),
+                        onTap: () {
+                          Navigator.push(context,
+                              MaterialPageRoute(builder: (context) {
+                            return ChangeLanguage();
+                          }));
+                        }),
+                    ListTile(
+                        visualDensity:
+                            VisualDensity(horizontal: -4, vertical: -4),
+                        leading: Image.asset(
+                          "assets/home.png",
+                          height: 18,
+                          //  color: Color.fromRGBO(153, 153, 153, 1),
+                          color: Colors.red,
+                        ),
+                        title:
+                            Text(AppLocalizations.of(context).main_drawer_home,
                                 style: TextStyle(
-                                    color: Colors.red,
-
+                                    color: Colors.black,
                                     //color: Color.fromRGBO(153, 153, 153, 1),
-                                    fontSize: 18,
+                                    fontSize: 14,
                                     fontWeight: FontWeight.w600)),
-                          ),
-                        ),
-                  // Divider(
-                  //   height: 5,
-                  //   color: Colors.red,
-                  // ),
-                  ListTile(
-                      visualDensity:
-                          VisualDensity(horizontal: -4, vertical: -4),
-                      leading: Image.asset(
-                        "assets/language.png",
-                        height: 18,
+                        onTap: () {
+                          Navigator.push(context,
+                              MaterialPageRoute(builder: (context) {
+                            return Main();
+                          }));
+                        }),
+                    is_logged_in.$ == true
+                        ? ListTile(
+                            visualDensity:
+                                VisualDensity(horizontal: -4, vertical: -4),
+                            leading: Image.asset(
+                              "assets/profile.png",
+                              height: 20,
 
-                        // color: Color.fromRGBO(153, 153, 153, 1),
-                        color: Colors.indigo,
-                      ),
-                      title: Text(
-                          AppLocalizations.of(context)
-                              .main_drawer_change_language,
-                          style: TextStyle(
-                              color: Colors.black,
-
-                              // color: Color.fromRGBO(153, 153, 153, 1),
-                              fontSize: 14,
-                              fontWeight: FontWeight.w600)),
-                      onTap: () {
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (context) {
-                          return ChangeLanguage();
-                        }));
-                      }),
-                  ListTile(
-                      visualDensity:
-                          VisualDensity(horizontal: -4, vertical: -4),
-                      leading: Image.asset(
-                        "assets/home.png",
-                        height: 18,
-                        //  color: Color.fromRGBO(153, 153, 153, 1),
-                        color: Colors.red,
-                      ),
-                      title: Text(AppLocalizations.of(context).main_drawer_home,
-                          style: TextStyle(
-                              color: Colors.black,
                               //color: Color.fromRGBO(153, 153, 153, 1),
-                              fontSize: 14,
-                              fontWeight: FontWeight.w600)),
-                      onTap: () {
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (context) {
-                          return Main();
-                        }));
-                      }),
-                  is_logged_in.$ == true
-                      ? ListTile(
-                          visualDensity:
-                              VisualDensity(horizontal: -4, vertical: -4),
-                          leading: Image.asset(
-                            "assets/profile.png",
-                            height: 20,
+                              color: Colors.green,
+                            ),
+                            title: Text(
+                                AppLocalizations.of(context)
+                                    .main_drawer_profile,
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    //color: Color.fromRGBO(153, 153, 153, 1),
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w600)),
+                            onTap: () {
+                              Navigator.push(context,
+                                  MaterialPageRoute(builder: (context) {
+                                return Profile(show_back_button: true);
+                              }));
+                            })
+                        : Container(),
 
-                            //color: Color.fromRGBO(153, 153, 153, 1),
-                            color: Colors.green,
-                          ),
-                          title: Text(
-                              AppLocalizations.of(context).main_drawer_profile,
-                              style: TextStyle(
-                                  color: Colors.black,
-                                  //color: Color.fromRGBO(153, 153, 153, 1),
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w600)),
-                          onTap: () {
-                            Navigator.push(context,
-                                MaterialPageRoute(builder: (context) {
-                              return Profile(show_back_button: true);
-                            }));
-                          })
-                      : Container(),
-                  is_logged_in.$ == true
-                      ? ListTile(
-                          visualDensity:
-                              VisualDensity(horizontal: -4, vertical: -4),
-                          leading: Image.asset(
-                            "assets/order.png",
-                            height: 18,
-                            //color: Color.fromRGBO(153, 153, 153, 1),
-                            color: Colors.pink,
-                          ),
-                          title: Text(
-                              AppLocalizations.of(context).main_drawer_orders,
-                              style: TextStyle(
-                                  color: Colors.black,
-                                  //color: Color.fromRGBO(153, 153, 153, 1),
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w600)),
-                          onTap: () {
-                            Navigator.push(context,
-                                MaterialPageRoute(builder: (context) {
-                              return OrderList(from_checkout: false);
-                            }));
-                          })
-                      : Container(),
-                  is_logged_in.$ == true
-                      ? ListTile(
-                          visualDensity:
-                              VisualDensity(horizontal: -4, vertical: -4),
-                          leading: Image.asset(
-                            "assets/heart.png",
-                            height: 18,
-                            // color: Color.fromRGBO(153, 153, 153, 1),
-                            color: Colors.purple,
-                          ),
-                          title: Text(
-                              AppLocalizations.of(context)
-                                  .main_drawer_my_wishlist,
-                              style: TextStyle(
-                                  color: Colors.black,
-                                  // color: Color.fromRGBO(153, 153, 153, 1),
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w600)),
-                          onTap: () {
-                            Navigator.push(context,
-                                MaterialPageRoute(builder: (context) {
-                              return Wishlist();
-                            }));
-                          })
-                      : Container(),
-                  (is_logged_in.$ == true)
-                      ? ListTile(
-                          visualDensity:
-                              VisualDensity(horizontal: -4, vertical: -4),
-                          leading: Image.asset(
-                            "assets/chat.png",
-                            height: 18,
-                            // color: Color.fromRGBO(153, 153, 153, 1),
-                            color: Colors.blue,
-                          ),
-                          title: Text(
-                              AppLocalizations.of(context).main_drawer_messages,
-                              style: TextStyle(
-                                  color: Colors.black,
-                                  //color: Color.fromRGBO(153, 153, 153, 1),
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w600)),
-                          onTap: () {
-                            Navigator.push(context,
-                                MaterialPageRoute(builder: (context) {
-                              return MessengerList();
-                            }));
-                          })
-                      : Container(),
-                  is_logged_in.$ == true
-                      ? ListTile(
-                          visualDensity:
-                              VisualDensity(horizontal: -4, vertical: -4),
-                          leading: Image.asset(
-                            "assets/wallet.png",
-                            height: 18,
-                            //  color: Color.fromRGBO(153, 153, 153, 1),
-                            color: Colors.brown,
-                          ),
-                          title: Text(
-                              AppLocalizations.of(context).main_drawer_wallet,
-                              style: TextStyle(
-                                  color: Colors.black,
-                                  //color: Color.fromRGBO(153, 153, 153, 1),
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w600)),
-                          onTap: () {
-                            Navigator.push(context,
-                                MaterialPageRoute(builder: (context) {
-                              return Wallet();
-                            }));
-                          })
-                      : Container(),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 16, right: 16),
-                    child: Divider(
-                      height: 5,
-                      color: Colors.cyan,
-                    ),
-                  ),
+                    is_logged_in.$ == true
+                        ? ListTile(
+                            visualDensity:
+                                VisualDensity(horizontal: -4, vertical: -4),
+                            leading: Image.asset(
+                              "assets/order.png",
+                              height: 18,
+                              //color: Color.fromRGBO(153, 153, 153, 1),
+                              color: Colors.pink,
+                            ),
+                            title: Text(
+                                AppLocalizations.of(context).main_drawer_orders,
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    //color: Color.fromRGBO(153, 153, 153, 1),
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w600)),
+                            onTap: () {
+                              Navigator.push(context,
+                                  MaterialPageRoute(builder: (context) {
+                                return OrderList(from_checkout: false);
+                              }));
+                            })
+                        : Container(),
+                    is_logged_in.$ == true
+                        ? ListTile(
+                            visualDensity:
+                                VisualDensity(horizontal: -4, vertical: -4),
+                            leading: Image.asset(
+                              "assets/heart.png",
+                              height: 18,
+                              // color: Color.fromRGBO(153, 153, 153, 1),
+                              color: Colors.purple,
+                            ),
+                            title: Text(
+                                AppLocalizations.of(context)
+                                    .main_drawer_my_wishlist,
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    // color: Color.fromRGBO(153, 153, 153, 1),
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w600)),
+                            onTap: () {
+                              Navigator.push(context,
+                                  MaterialPageRoute(builder: (context) {
+                                return Wishlist();
+                              }));
+                            })
+                        : Container(),
+                    (is_logged_in.$ == true)
+                        ? ListTile(
+                            visualDensity:
+                                VisualDensity(horizontal: -4, vertical: -4),
+                            leading: Image.asset(
+                              "assets/chat.png",
+                              height: 18,
+                              // color: Color.fromRGBO(153, 153, 153, 1),
+                              color: Colors.blue,
+                            ),
+                            title: Text('Live Chat',
+                                // AppLocalizations.of(context).main_drawer_messages,
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    //color: Color.fromRGBO(153, 153, 153, 1),
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w600)),
+                            onTap: () {
+                              Navigator.push(context,
+                                  MaterialPageRoute(builder: (context) {
+                                return CommonWebviewScreen(
+                                    url:
+                                        // 'https://bongobaba.com/privacy-policy-page',
+                                        'https://tawk.to/chat/6259340e7b967b11798add85/1g0m76mod');
+                              }));
+                            })
+                        : Container(),
+                    is_logged_in.$ == true
+                        ? ListTile(
+                            visualDensity:
+                                VisualDensity(horizontal: -4, vertical: -4),
+                            leading: Image.asset(
+                              "assets/wallet.png",
+                              height: 18,
+                              //  color: Color.fromRGBO(153, 153, 153, 1),
+                              color: Colors.brown,
+                            ),
+                            title: Text(
+                                AppLocalizations.of(context).main_drawer_wallet,
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    //color: Color.fromRGBO(153, 153, 153, 1),
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w600)),
+                            onTap: () {
+                              Navigator.push(context,
+                                  MaterialPageRoute(builder: (context) {
+                                return Wallet();
+                              }));
+                            })
+                        : Container(),
+                      ListTile(
+                            visualDensity:
+                                VisualDensity(horizontal: -4, vertical: -4),
+                            leading:// Icon(Icons.privacy_tip)
+                            Image.asset(
+                              "assets/promos.png",
+                              height: 18,
+                              //  color: Color.fromRGBO(153, 153, 153, 1),
+                              color: Colors.brown,
+                            )
+                            ,
+                            title: Text(
+                                // AppLocalizations.of(context).main_drawer_wallet,
+                                'Promos',
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    //color: Color.fromRGBO(153, 153, 153, 1),
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w600)),
+                            onTap: () {
+                              Navigator.push(context,
+                                  MaterialPageRoute(builder: (context) {
+                                return CommonWebviewScreen(
+                                  url:
+                                      'https://bongobaba.com/promos',
+                                );
+                              }));
+                            }),
 
-                  ExpansionTile(
-                    title: Row(
+                    // isDivider
+                    //     ? Padding(
+                    //         padding: const EdgeInsets.only(left: 16, right: 16),
+                    //         child: Divider(
+                    //           height: 5,
+                    //           color: Colors.cyan,
+                    //         ),
+                    //       )
+                    //     : Container(),
+
+                    
+                    ExpansionTile(
+                      title: Row(
+                        children: [
+                          Icon(
+                            Icons.fact_check,
+                            color: Colors.cyan,
+                          ),
+                          SizedBox(
+                            width: 20,
+                          ),
+                          Text('Company Info',
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  //color: Color.fromRGBO(153, 153, 153, 1),
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w600)),
+                        ],
+                      ),
                       children: [
-                        Icon(
-                          Icons.fact_check,
-                          color: Colors.cyan,
-                        ),
-                        SizedBox(
-                          width: 20,
-                        ),
-                        Text('Company Info',
+                        ListTile(
+                            visualDensity:
+                                VisualDensity(horizontal: -4, vertical: -4),
+                            leading: Icon(Icons.privacy_tip)
+                            // Image.asset(
+                            //   "assets/wallet.png",
+                            //   height: 18,
+                            //   //  color: Color.fromRGBO(153, 153, 153, 1),
+                            //   color: Colors.brown,
+                            // )
+                            ,
+                            title: Text(
+                                // AppLocalizations.of(context).main_drawer_wallet,
+                                'Privacy Policy',
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    //color: Color.fromRGBO(153, 153, 153, 1),
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w600)),
+                            onTap: () {
+                              Navigator.push(context,
+                                  MaterialPageRoute(builder: (context) {
+                                return CommonWebviewScreen(
+                                  url:
+                                      'https://bongobaba.com/privacy-policy-page',
+                                );
+                              }));
+                            }),
+                        ListTile(
+                            visualDensity:
+                                VisualDensity(horizontal: -4, vertical: -4),
+                            leading: Image.asset(
+                              "assets/product-return.png",
+                              height: 22,
+                              //  color: Color.fromRGBO(153, 153, 153, 1),
+                              color: Colors.brown,
+                            ),
+                            title: Text(
+                                // AppLocalizations.of(context).main_drawer_wallet,
+                                'Return Policy',
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    //color: Color.fromRGBO(153, 153, 153, 1),
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w600)),
+                            onTap: () {
+                              Navigator.push(context,
+                                  MaterialPageRoute(builder: (context) {
+                                return CommonWebviewScreen(
+                                  url:
+                                      'https://bongobaba.com/return-refund-page',
+                                );
+                              }));
+                            }),
+                        ListTile(
+                            visualDensity:
+                                VisualDensity(horizontal: -4, vertical: -4),
+                            leading: Image.asset(
+                              "assets/condition.png",
+                              height: 22,
+                              //  color: Color.fromRGBO(153, 153, 153, 1),
+                              color: Colors.brown,
+                            ),
+                            title: Text(
+                                // AppLocalizations.of(context).main_drawer_wallet,
+                                'Terms & Condition',
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    //color: Color.fromRGBO(153, 153, 153, 1),
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w600)),
+                            onTap: () {
+                              Navigator.push(context,
+                                  MaterialPageRoute(builder: (context) {
+                                return CommonWebviewScreen(
+                                  url:
+                                      'https://bongobaba.com/terms-conditions-page',
+                                );
+                              }));
+                            }),
+                        ListTile(
+                            visualDensity:
+                                VisualDensity(horizontal: -4, vertical: -4),
+                            leading: Icon(
+                              Icons.support_agent,
+                              color: Colors.green,
+                            )
+
+                            // Image.asset(
+                            //   "assets/wallet.png",
+                            //   height: 18,
+                            //   //  color: Color.fromRGBO(153, 153, 153, 1),
+                            //   color: Colors.brown,
+                            // )
+                            ,
+                            title: Text(
+                                // AppLocalizations.of(context).main_drawer_wallet,
+                                'Support Policy',
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    //color: Color.fromRGBO(153, 153, 153, 1),
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w600)),
+                            onTap: () {
+                              Navigator.push(context,
+                                  MaterialPageRoute(builder: (context) {
+                                return CommonWebviewScreen(
+                                  url:
+                                      'https://bongobaba.com/support-policy-page',
+                                );
+                              }));
+                            }),
+                      ],
+                    ),
+
+                    ListTile(
+                        visualDensity:
+                            VisualDensity(horizontal: -4, vertical: -4),
+                        leading: Icon(Icons.call, color: Colors.blue)
+
+                        // Image.asset(
+                        //   "assets/wallet.png",
+                        //   height: 18,
+                        //   //  color: Color.fromRGBO(153, 153, 153, 1),
+                        //   color: Colors.brown,
+                        // )
+                        ,
+                        title: Text(
+                            // AppLocalizations.of(context).main_drawer_wallet,
+                            '+8801922-228111',
                             style: TextStyle(
                                 color: Colors.black,
                                 //color: Color.fromRGBO(153, 153, 153, 1),
                                 fontSize: 14,
                                 fontWeight: FontWeight.w600)),
-                      ],
-                    ),
-                    children: [
-                      ListTile(
-                          visualDensity:
-                              VisualDensity(horizontal: -4, vertical: -4),
-                          leading: Icon(Icons.privacy_tip)
-                          // Image.asset(
-                          //   "assets/wallet.png",
-                          //   height: 18,
-                          //   //  color: Color.fromRGBO(153, 153, 153, 1),
-                          //   color: Colors.brown,
-                          // )
-                          ,
-                          title: Text(
-                              // AppLocalizations.of(context).main_drawer_wallet,
-                              'Privacy Policy',
-                              style: TextStyle(
-                                  color: Colors.black,
-                                  //color: Color.fromRGBO(153, 153, 153, 1),
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w600)),
-                          onTap: () {
-                            Navigator.push(context,
-                                MaterialPageRoute(builder: (context) {
-                              return CommonWebviewScreen(
-                                url:
-                                    'https://bongobaba.com/privacy-policy-page',
-                              );
-                            }));
-                          }),
-                      ListTile(
-                          visualDensity:
-                              VisualDensity(horizontal: -4, vertical: -4),
-                          leading: Image.asset(
-                            "assets/product-return.png",
-                            height: 22,
-                            //  color: Color.fromRGBO(153, 153, 153, 1),
-                            color: Colors.brown,
-                          ),
-                          title: Text(
-                              // AppLocalizations.of(context).main_drawer_wallet,
-                              'Return Policy',
-                              style: TextStyle(
-                                  color: Colors.black,
-                                  //color: Color.fromRGBO(153, 153, 153, 1),
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w600)),
-                          onTap: () {
-                            Navigator.push(context,
-                                MaterialPageRoute(builder: (context) {
-                              return CommonWebviewScreen(
-                                url: 'https://bongobaba.com/return-refund-page',
-                              );
-                            }));
-                          }),
-                      ListTile(
-                          visualDensity:
-                              VisualDensity(horizontal: -4, vertical: -4),
-                          leading: Image.asset(
-                            "assets/condition.png",
-                            height: 22,
-                            //  color: Color.fromRGBO(153, 153, 153, 1),
-                            color: Colors.brown,
-                          ),
-                          title: Text(
-                              // AppLocalizations.of(context).main_drawer_wallet,
-                              'Terms & Condition',
-                              style: TextStyle(
-                                  color: Colors.black,
-                                  //color: Color.fromRGBO(153, 153, 153, 1),
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w600)),
-                          onTap: () {
-                            Navigator.push(context,
-                                MaterialPageRoute(builder: (context) {
-                              return CommonWebviewScreen(
-                                url:
-                                    'https://bongobaba.com/terms-conditions-page',
-                              );
-                            }));
-                          }),
-                      ListTile(
-                          visualDensity:
-                              VisualDensity(horizontal: -4, vertical: -4),
-                          leading: Icon(
-                            Icons.support_agent,
-                            color: Colors.green,
-                          )
+                        onTap: () {
+                          _dialCall();
+                        }),
 
-                          // Image.asset(
-                          //   "assets/wallet.png",
-                          //   height: 18,
-                          //   //  color: Color.fromRGBO(153, 153, 153, 1),
-                          //   color: Colors.brown,
-                          // )
-                          ,
-                          title: Text(
-                              // AppLocalizations.of(context).main_drawer_wallet,
-                              'Support Policy',
-                              style: TextStyle(
-                                  color: Colors.black,
-                                  //color: Color.fromRGBO(153, 153, 153, 1),
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w600)),
-                          onTap: () {
-                            Navigator.push(context,
-                                MaterialPageRoute(builder: (context) {
-                              return CommonWebviewScreen(
-                                url:
-                                    'https://bongobaba.com/support-policy-page',
-                              );
-                            }));
-                          }),
-                    ],
-                  ),
-                  IconButton(
-                    icon: new Icon(Icons.phone),
-                    onPressed: () {
-                      setState(() {
-                        _makePhoneCall('tel:0597924917');
-                      });
-                    },
-                  ),
-                  ListTile(
-                      visualDensity:
-                          VisualDensity(horizontal: -4, vertical: -4),
-                      leading: Icon(Icons.call, color: Colors.blue)
-
-                      // Image.asset(
-                      //   "assets/wallet.png",
-                      //   height: 18,
-                      //   //  color: Color.fromRGBO(153, 153, 153, 1),
-                      //   color: Colors.brown,
-                      // )
-                      ,
-                      title: Text(
-                          // AppLocalizations.of(context).main_drawer_wallet,
-                          '+8801922-228111',
-                          style: TextStyle(
-                              color: Colors.black,
+                    // Divider(height: 24),
+                    is_logged_in.$ == false
+                        ? ListTile(
+                            visualDensity:
+                                VisualDensity(horizontal: -4, vertical: -4),
+                            leading: Image.asset(
+                              "assets/login.png",
+                              height: 18,
                               //color: Color.fromRGBO(153, 153, 153, 1),
-                              fontSize: 14,
-                              fontWeight: FontWeight.w600)),
-                      onTap: () {
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (context) {
-                          return CommonWebviewScreen(
-                            url: 'https://bongobaba.com/support-policy-page',
-                          );
-                        }));
-                      }),
-
-                  // Divider(height: 24),
-                  is_logged_in.$ == false
-                      ? ListTile(
-                          visualDensity:
-                              VisualDensity(horizontal: -4, vertical: -4),
-                          leading: Image.asset(
-                            "assets/login.png",
-                            height: 18,
-                            //color: Color.fromRGBO(153, 153, 153, 1),
-                            color: Colors.cyan,
-                          ),
-                          title: Text(
-                              AppLocalizations.of(context).main_drawer_login,
-                              style: TextStyle(
-                                  // color: Color.fromRGBO(153, 153, 153, 1),
-                                  color: Colors.green,
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w600)),
-                          onTap: () {
-                            Navigator.push(context,
-                                MaterialPageRoute(builder: (context) {
-                              return Login();
-                            }));
-                          })
-                      : Container(),
-                  is_logged_in.$ == true
-                      ? ListTile(
-                          visualDensity:
-                              VisualDensity(horizontal: -4, vertical: -4),
-                          leading: Image.asset(
-                            "assets/logout.png",
-                            height: 16,
-                            // color: Color.fromRGBO(153, 153, 153, 1),
-                            color: Colors.red,
-                          ),
-                          title: Text(
-                              AppLocalizations.of(context).main_drawer_logout,
-                              style: TextStyle(
-//color: Color.fromRGBO(153, 153, 153, 1),
-                                  color: Colors.red,
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w600)),
-                          onTap: () {
-                            onTapLogout(context);
-                          })
-                      : Container(),
-                ],
+                              color: Colors.cyan,
+                            ),
+                            title: Text(
+                                AppLocalizations.of(context).main_drawer_login,
+                                style: TextStyle(
+                                    // color: Color.fromRGBO(153, 153, 153, 1),
+                                    color: Colors.green,
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w600)),
+                            onTap: () {
+                              Navigator.push(context,
+                                  MaterialPageRoute(builder: (context) {
+                                return Login();
+                              }));
+                            })
+                        : Container(),
+                    is_logged_in.$ == true
+                        ? ListTile(
+                            visualDensity:
+                                VisualDensity(horizontal: -4, vertical: -4),
+                            leading: Image.asset(
+                              "assets/logout.png",
+                              height: 16,
+                              // color: Color.fromRGBO(153, 153, 153, 1),
+                              color: Colors.red,
+                            ),
+                            title: Text(
+                                AppLocalizations.of(context).main_drawer_logout,
+                                style: TextStyle(
+                                    //color: Color.fromRGBO(153, 153, 153, 1),
+                                    color: Colors.red,
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w600)),
+                            onTap: () {
+                              onTapLogout(context);
+                            })
+                        : Container(),
+                  ],
+                ),
               ),
             ),
           ),

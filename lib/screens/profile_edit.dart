@@ -1,3 +1,4 @@
+import 'package:active_ecommerce_flutter/screens/live_chat.dart';
 import 'package:flutter/material.dart';
 import 'package:active_ecommerce_flutter/my_theme.dart';
 import 'package:active_ecommerce_flutter/helpers/shared_value_helper.dart';
@@ -37,7 +38,8 @@ class _ProfileEditState extends State<ProfileEdit> {
       showDialog(
           context: context,
           builder: (BuildContext context) => CupertinoAlertDialog(
-                title: Text(AppLocalizations.of(context).common_photo_permission),
+                title:
+                    Text(AppLocalizations.of(context).common_photo_permission),
                 content: Text(
                     AppLocalizations.of(context).common_app_needs_permission),
                 actions: <Widget>[
@@ -53,16 +55,15 @@ class _ProfileEditState extends State<ProfileEdit> {
               ));
     } else if (status.isRestricted) {
       ToastComponent.showDialog(
-          AppLocalizations.of(context).common_give_photo_permission,
-          context,
-          gravity: Toast.CENTER,
-          duration: Toast.LENGTH_LONG);
+          AppLocalizations.of(context).common_give_photo_permission, context,
+          gravity: Toast.CENTER, duration: Toast.LENGTH_LONG);
     } else if (status.isGranted) {
       //file = await ImagePicker.pickImage(source: ImageSource.camera);
       _file = await _picker.pickImage(source: ImageSource.gallery);
 
       if (_file == null) {
-        ToastComponent.showDialog(AppLocalizations.of(context).common_no_file_chosen, context,
+        ToastComponent.showDialog(
+            AppLocalizations.of(context).common_no_file_chosen, context,
             gravity: Toast.CENTER, duration: Toast.LENGTH_LONG);
         return;
       }
@@ -103,29 +104,46 @@ class _ProfileEditState extends State<ProfileEdit> {
             ""; // if both fields are empty we will not change user's password
 
     if (name == "") {
-      ToastComponent.showDialog(AppLocalizations.of(context).profile_edit_screen_name_warning, context,
-          gravity: Toast.CENTER, duration: Toast.LENGTH_LONG);
+      ToastComponent.showDialog(
+          AppLocalizations.of(context).profile_edit_screen_name_warning,
+          context,
+          gravity: Toast.CENTER,
+          duration: Toast.LENGTH_LONG);
       return;
     }
     if (change_password && password == "") {
-      ToastComponent.showDialog(AppLocalizations.of(context).profile_edit_screen_password_warning, context,
-          gravity: Toast.CENTER, duration: Toast.LENGTH_LONG);
+      ToastComponent.showDialog(
+          AppLocalizations.of(context).profile_edit_screen_password_warning,
+          context,
+          gravity: Toast.CENTER,
+          duration: Toast.LENGTH_LONG);
       return;
     }
     if (change_password && password_confirm == "") {
-      ToastComponent.showDialog(AppLocalizations.of(context).profile_edit_screen_password_confirm_warning, context,
-          gravity: Toast.CENTER, duration: Toast.LENGTH_LONG);
+      ToastComponent.showDialog(
+          AppLocalizations.of(context)
+              .profile_edit_screen_password_confirm_warning,
+          context,
+          gravity: Toast.CENTER,
+          duration: Toast.LENGTH_LONG);
       return;
     }
     if (change_password && password.length < 6) {
       ToastComponent.showDialog(
-          AppLocalizations.of(context).password_otp_screen_password_length_warning, context,
-          gravity: Toast.CENTER, duration: Toast.LENGTH_LONG);
+          AppLocalizations.of(context)
+              .password_otp_screen_password_length_warning,
+          context,
+          gravity: Toast.CENTER,
+          duration: Toast.LENGTH_LONG);
       return;
     }
     if (change_password && password != password_confirm) {
-      ToastComponent.showDialog(AppLocalizations.of(context).profile_edit_screen_password_match_warning, context,
-          gravity: Toast.CENTER, duration: Toast.LENGTH_LONG);
+      ToastComponent.showDialog(
+          AppLocalizations.of(context)
+              .profile_edit_screen_password_match_warning,
+          context,
+          gravity: Toast.CENTER,
+          duration: Toast.LENGTH_LONG);
       return;
     }
 
@@ -152,26 +170,30 @@ class _ProfileEditState extends State<ProfileEdit> {
     return Directionality(
       textDirection: app_language_rtl.$ ? TextDirection.rtl : TextDirection.ltr,
       child: Scaffold(
-        backgroundColor: Colors.white,
-        appBar: buildAppBar(context),
-        body: buildBody(context),
-      ),
+          backgroundColor: Colors.white,
+          appBar: buildAppBar(context),
+          body: Stack(
+            children: [buildBody(context), LiveChat()],
+          )),
     );
   }
 
   AppBar buildAppBar(BuildContext context) {
     return AppBar(
-backgroundColor: Colors.white,
-flexibleSpace: Container(
-        decoration: BoxDecoration(color: MyTheme.green_accent_color_d0
-        //     gradient: LinearGradient(colors: [
-        //   // Color(0xff0fc744),
-        //   // Color(0xff3fcad2)
-        //   Color.fromRGBO(206, 35, 43, 1),
-        //   Color.fromRGBO(237, 101, 85, 1),
-        // ], begin: Alignment.topCenter,end:Alignment.bottomCenter)
-        
-        ,borderRadius: BorderRadius.horizontal(left: Radius.circular(20),right: Radius.circular(20))),
+      backgroundColor: Colors.white,
+      flexibleSpace: Container(
+        decoration: BoxDecoration(
+            color: MyTheme.green_accent_color_d0
+            //     gradient: LinearGradient(colors: [
+            //   // Color(0xff0fc744),
+            //   // Color(0xff3fcad2)
+            //   Color.fromRGBO(206, 35, 43, 1),
+            //   Color.fromRGBO(237, 101, 85, 1),
+            // ], begin: Alignment.topCenter,end:Alignment.bottomCenter)
+
+            ,
+            borderRadius: BorderRadius.horizontal(
+                left: Radius.circular(20), right: Radius.circular(20))),
       ),
       centerTitle: true,
       leading: Builder(
@@ -195,7 +217,7 @@ flexibleSpace: Container(
           height: 100,
           child: Center(
               child: Text(
-                AppLocalizations.of(context).profile_edit_screen_login_warning,
+            AppLocalizations.of(context).profile_edit_screen_login_warning,
             style: TextStyle(color: MyTheme.font_grey),
           )));
     } else {
@@ -294,7 +316,8 @@ flexibleSpace: Container(
             Padding(
               padding: const EdgeInsets.only(bottom: 8.0),
               child: Text(
-                AppLocalizations.of(context).profile_edit_screen_basic_information,
+                AppLocalizations.of(context)
+                    .profile_edit_screen_basic_information,
                 style: TextStyle(
                     color: MyTheme.grey_153,
                     fontWeight: FontWeight.w600,
@@ -347,7 +370,8 @@ flexibleSpace: Container(
                     ),
                   ),
                   Text(
-                    AppLocalizations.of(context).profile_edit_screen_password_length_recommendation,
+                    AppLocalizations.of(context)
+                        .profile_edit_screen_password_length_recommendation,
                     style: TextStyle(
                         color: MyTheme.textfield_grey,
                         fontStyle: FontStyle.italic),
@@ -358,7 +382,8 @@ flexibleSpace: Container(
             Padding(
               padding: const EdgeInsets.only(bottom: 4.0),
               child: Text(
-                  AppLocalizations.of(context).profile_edit_screen_retype_password,
+                AppLocalizations.of(context)
+                    .profile_edit_screen_retype_password,
                 style: TextStyle(
                     color: MyTheme.accent_color, fontWeight: FontWeight.w600),
               ),
@@ -400,7 +425,8 @@ flexibleSpace: Container(
                           borderRadius:
                               const BorderRadius.all(Radius.circular(8.0))),
                       child: Text(
-                        AppLocalizations.of(context).profile_edit_screen_btn_update_profile,
+                        AppLocalizations.of(context)
+                            .profile_edit_screen_btn_update_profile,
                         style: TextStyle(
                             color: Colors.black,
                             fontSize: 13,

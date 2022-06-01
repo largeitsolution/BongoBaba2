@@ -15,6 +15,8 @@ import 'package:active_ecommerce_flutter/screens/map_location.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 
+import 'live_chat.dart';
+
 class Address extends StatefulWidget {
   Address({Key key,this.from_shipping_info = false}) : super(key: key);
   bool from_shipping_info;
@@ -464,49 +466,51 @@ class _AddressState extends State<Address> {
         backgroundColor: Colors.white,
         appBar: buildAppBar(context),
         bottomNavigationBar: buildBottomAppBar(context),
-        body: RefreshIndicator(
-          color: MyTheme.green_accent_color_d0,
-          backgroundColor: Colors.white,
-          onRefresh: _onRefresh,
-          displacement: 0,
-          child: CustomScrollView(
-            controller: _mainScrollController,
-            physics: const BouncingScrollPhysics(
-                parent: AlwaysScrollableScrollPhysics()),
-            slivers: [
-              SliverList(
-                  delegate: SliverChildListDelegate([
-                Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: buildAddressList(),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: FlatButton(
-                    minWidth: MediaQuery.of(context).size.width - 16,
-                    height: 60,
-                    color: Color.fromRGBO(252, 252, 252, 1),
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8.0),
-                        side:
-                            BorderSide(color: MyTheme.light_grey, width: 1.0)),
-                    child: Icon(
-                      FontAwesome.plus,
-                      color: MyTheme.dark_grey,
-                      size: 16,
-                    ),
-                    onPressed: () {
-                      buildShowAddFormDialog(context);
-                    },
+        body: Stack(children: [
+           RefreshIndicator(
+            color: MyTheme.green_accent_color_d0,
+            backgroundColor: Colors.white,
+            onRefresh: _onRefresh,
+            displacement: 0,
+            child: CustomScrollView(
+              controller: _mainScrollController,
+              physics: const BouncingScrollPhysics(
+                  parent: AlwaysScrollableScrollPhysics()),
+              slivers: [
+                SliverList(
+                    delegate: SliverChildListDelegate([
+                  Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: buildAddressList(),
                   ),
-                ),
-                SizedBox(
-                  height: 100,
-                )
-              ]))
-            ],
+                  Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: FlatButton(
+                      minWidth: MediaQuery.of(context).size.width - 16,
+                      height: 60,
+                      color: Color.fromRGBO(252, 252, 252, 1),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8.0),
+                          side:
+                              BorderSide(color: MyTheme.light_grey, width: 1.0)),
+                      child: Icon(
+                        FontAwesome.plus,
+                        color: MyTheme.dark_grey,
+                        size: 16,
+                      ),
+                      onPressed: () {
+                        buildShowAddFormDialog(context);
+                      },
+                    ),
+                  ),
+                  SizedBox(
+                    height: 100,
+                  )
+                ]))
+              ],
+            ),
           ),
-        ));
+     LiveChat()  ] ));
   }
 
   Future buildShowAddFormDialog(BuildContext context) {

@@ -35,6 +35,8 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:http/http.dart' as http;
 
+import 'live_chat.dart';
+
 class ProductDetails extends StatefulWidget {
   int id;
 
@@ -751,7 +753,7 @@ Navigator.push(context, MaterialPageRoute(builder: (context)=>Login()));
             .product_details_screen_snackbar_added_to_cart,
         style: TextStyle(color: MyTheme.font_grey),
       ),
-      backgroundColor: MyTheme.soft_accent_color,
+      backgroundColor: MyTheme.green_accent_color_f1,
       duration: const Duration(seconds: 10),
       action: SnackBarAction(
         label: AppLocalizations.of(context)
@@ -763,7 +765,7 @@ Navigator.push(context, MaterialPageRoute(builder: (context)=>Login()));
             onPopped(value);
           });
         },
-        textColor: MyTheme.accent_color,
+        textColor: MyTheme.black_color,
         disabledTextColor: Colors.grey,
       ),
     );
@@ -775,26 +777,49 @@ Navigator.push(context, MaterialPageRoute(builder: (context)=>Login()));
                 buildBottomAppBar(context, _addedToCartSnackbar),
          
             appBar: buildAppBar(statusBarHeight, context),
-            body: CustomScrollView(
-              controller: _mainScrollController,
-              physics: const BouncingScrollPhysics(
-                  parent: AlwaysScrollableScrollPhysics()),
-              slivers: <Widget>[
-                SliverList(
-                    delegate: SliverChildListDelegate([
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(
-                      16.0,
-                      0.0,
-                      16.0,
-                      0.0,
+            body: Stack(children: [
+               CustomScrollView(
+                controller: _mainScrollController,
+                physics: const BouncingScrollPhysics(
+                    parent: AlwaysScrollableScrollPhysics()),
+                slivers: <Widget>[
+                  SliverList(
+                      delegate: SliverChildListDelegate([
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(
+                        16.0,
+                        0.0,
+                        16.0,
+                        0.0,
+                      ),
+                      child: buildProductImageSection(),
                     ),
-                    child: buildProductImageSection(),
-                  ),
-                ])),
-                SliverList(
-                    delegate: SliverChildListDelegate([
-                  Padding(
+                  ])),
+                  SliverList(
+                      delegate: SliverChildListDelegate([
+                    Padding(
+                        padding: const EdgeInsets.fromLTRB(
+                          16.0,
+                          8.0,
+                          16.0,
+                          0.0,
+                        ),
+                        child: _productDetails != null
+                            ? Text(
+                                _productDetails.name,
+                                style: TextStyle(
+                                    fontSize: 16,
+                                    color: MyTheme.font_grey,
+                                    fontWeight: FontWeight.w600),
+                                maxLines: 2,
+                              )
+                            : ShimmerHelper().buildBasicShimmer(
+                                height: 30.0,
+                              )),
+                  ])),
+                  SliverList(
+                      delegate: SliverChildListDelegate([
+                    Padding(
                       padding: const EdgeInsets.fromLTRB(
                         16.0,
                         8.0,
@@ -802,755 +827,734 @@ Navigator.push(context, MaterialPageRoute(builder: (context)=>Login()));
                         0.0,
                       ),
                       child: _productDetails != null
-                          ? Text(
-                              _productDetails.name,
-                              style: TextStyle(
-                                  fontSize: 16,
-                                  color: MyTheme.font_grey,
-                                  fontWeight: FontWeight.w600),
-                              maxLines: 2,
-                            )
+                          ? buildRatingAndWishButtonRow()
                           : ShimmerHelper().buildBasicShimmer(
                               height: 30.0,
-                            )),
-                ])),
-                SliverList(
-                    delegate: SliverChildListDelegate([
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(
-                      16.0,
-                      8.0,
-                      16.0,
-                      0.0,
+                            ),
                     ),
-                    child: _productDetails != null
-                        ? buildRatingAndWishButtonRow()
-                        : ShimmerHelper().buildBasicShimmer(
-                            height: 30.0,
-                          ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(
-                      16.0,
-                      16.0,
-                      16.0,
-                      0.0,
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(
+                        16.0,
+                        16.0,
+                        16.0,
+                        0.0,
+                      ),
+                      child: _productDetails != null
+                          ? buildBrandRow()
+                          : ShimmerHelper().buildBasicShimmer(
+                              height: 50.0,
+                            ),
                     ),
-                    child: _productDetails != null
-                        ? buildBrandRow()
-                        : ShimmerHelper().buildBasicShimmer(
-                            height: 50.0,
-                          ),
-                  ),
-                  Divider(
-                    height: 24.0,
-                  ),
-                ])),
-                SliverList(
-                    delegate: SliverChildListDelegate([
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(
-                      16.0,
-                      8.0,
-                      16.0,
-                      0.0,
+                    Divider(
+                      height: 24.0,
                     ),
-                    child: _productDetails != null
-                        ? buildMainPriceRow()
-                        : ShimmerHelper().buildBasicShimmer(
-                            height: 30.0,
-                          ),
+                  ])),
+                  SliverList(
+                      delegate: SliverChildListDelegate([
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(
+                        16.0,
+                        8.0,
+                        16.0,
+                        0.0,
+                      ),
+                      child: _productDetails != null
+                          ? buildMainPriceRow()
+                          : ShimmerHelper().buildBasicShimmer(
+                              height: 30.0,
+                            ),
+                    ),
+                  ])),
+                  SliverList(
+                      delegate: SliverChildListDelegate([
+                    club_point_addon_installed.$
+                        ? Padding(
+                            padding: const EdgeInsets.fromLTRB(
+                              16.0,
+                              8.0,
+                              16.0,
+                              0.0,
+                            ),
+                            child: _productDetails != null
+                                ? buildClubPointRow()
+                                : ShimmerHelper().buildBasicShimmer(
+                                    height: 30.0,
+                                  ),
+                          )
+                        : Container(),
+                    Divider(
+                      height: 24.0,
+                    ),
+                  ])),
+                  SliverList(
+                      delegate: SliverChildListDelegate([
+                    _productDetails != null
+                        ? buildChoiceOptionList()
+                        : buildVariantShimmers(),
+                  ])),
+                  SliverToBoxAdapter(
+                    child: Padding(
+                      padding: const EdgeInsets.fromLTRB(
+                        16.0,
+                        16.0,
+                        16.0,
+                        0.0,
+                      ),
+                      child: _productDetails != null
+                          ? (_colorList.length > 0
+                              ? buildColorRow()
+                              : Container())
+                          : ShimmerHelper().buildBasicShimmer(
+                              height: 30.0,
+                            ),
+                    ),
                   ),
-                ])),
-                SliverList(
+                  SliverList(
+                      delegate: SliverChildListDelegate([
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(
+                        16.0,
+                        8.0,
+                        16.0,
+                        0.0,
+                      ),
+                      child: _productDetails != null
+                          ? buildQuantityRow()
+                          : ShimmerHelper().buildBasicShimmer(
+                              height: 30.0,
+                            ),
+                    ),
+                  ])),
+                  SliverList(
+                      delegate: SliverChildListDelegate([
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(
+                        16.0,
+                        16.0,
+                        16.0,
+                        0.0,
+                      ),
+                      child: _productDetails != null
+                          ? buildTotalPriceRow()
+                          : ShimmerHelper().buildBasicShimmer(
+                              height: 30.0,
+                            ),
+                    ),
+                    Divider(
+                      height: 24.0,
+                    ),
+                  ])),
+                  SliverList(
+                      delegate: SliverChildListDelegate([
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(
+                        16.0,
+                        0.0,
+                        16.0,
+                        0.0,
+                      ),
+                      child: _productDetails != null
+                          ? buildSellerRow(context)
+                          : ShimmerHelper().buildBasicShimmer(
+                              height: 50.0,
+                            ),
+                    ),
+                    Divider(
+                      height: 4,
+                    ),
+            
+                    // ListView.separated(
+                    //     // padding: EdgeInsets.all(16),
+                    //     separatorBuilder: (context, index) => Divider(
+                    //           color: index.isEven ? Colors.amber : Colors.blue,
+                    //         ),
+                    //     shrinkWrap: true,
+                    //     itemCount: mylist.length,
+                    //     itemBuilder: (context, index) {
+                    //       var list = mylist[index];
+                    //       // Padding(padding: EdgeInsets.all(16));
+                    //       return Container(
+                    //           child: Column(
+                    //         children: [
+            
+                    //       list["is_short_description"] != null
+                    //           ?
+                    //           //  ExpansionTile(
+                    //           //     title: Text('Short Description'),
+                    //           //     children: [
+                    //           //         ListTile(
+                    //           //             title: Wrap(children: [
+                    //           //           Text(
+                    //           //             '${list['short_description']}',
+                    //           //           )
+                    //           //         ]))
+                    //           //       ])
+                    //           // : Container(),
+            
+                    //           ExpandableNotifier(
+                    //               child: ScrollOnExpand(
+                    //               child: Column(
+                    //                 crossAxisAlignment:
+                    //                     CrossAxisAlignment.start,
+                    //                 children: <Widget>[
+                    //                   Container(
+                    //                     padding: EdgeInsets.only(left: 14),
+                    //                     child: Text('Short description :',style: TextStyle(fontSize: 18),)),
+                    //                   Expandable(
+                    //                     collapsed: Container(
+                    //                         height: 20,
+                    //                         child: Html(
+                    //                           data:
+                    //                               '${list['short_description']}',
+                    //                         )),
+                    //                     expanded: Container(
+                    //                         child: Html(
+                    //                             data:
+                    //                                 '${list['short_description']}')),
+                    //                   ),
+                    //                   Row(
+                    //                     mainAxisAlignment:
+                    //                         MainAxisAlignment.end,
+                    //                     children: <Widget>[
+                    //                       Builder(
+                    //                         builder: (context) {
+                    //                           var controller =
+                    //                               ExpandableController.of(
+                    //                                   context);
+                    //                           return FlatButton(
+                    //                             child: Text(
+                    //                               !controller.expanded
+                    //                                   ? 'View More'
+                    //                                   : 'View Less',
+                    //                               style: TextStyle(
+                    //                                   color: Colors.blue,
+                    //                                   fontSize: 15),
+                    //                             ),
+                    //                             onPressed: () {
+                    //                               controller.toggle();
+                    //                             },
+                    //                           );
+                    //                         },
+                    //                       ),
+                    //                     ],
+                    //                   ),
+                    //                 ],
+                    //               ),
+                    //             ))
+                    //           : Container()
+            
+                    //         ],
+                    //       ));
+            
+                    //       // ListTile(
+                    //       //   // trailing: Image(image: NetworkImage('${list['urlToImage']}')),
+                    //       //     title: Text(
+                    //       //       '${list[ "short_description"]}',
+                    //       //       style: TextStyle(
+                    //       //           color: index.isEven ? Colors.pink : Colors.purple),
+                    //       //     ));
+                    //       // subtitle: Text(
+                    //       //   '${list['source']['name']}',
+                    //       //   style: TextStyle(
+                    //       //       color: index.isOdd ? Colors.pink : Colors.purple),
+                    //       // ),
+                    //       // leading: Container(
+                    //       //     child: Text('${list['author'].toString()[0]}')));
+                    //     }),
+                    // Divider(
+                    //   height: 24,
+                    // ),
+            
+                    // Container(margin: EdgeInsets.only(left: 16),
+                    //   child: Text(
+                    //     'Shorts Description : ',
+                    //     style: TextStyle(fontSize: 20),
+                    //   ),
+                    // ),
+                    // Divider(
+                    //   height: 24,
+                    // ),
+                  ])),
+                  SliverList(
                     delegate: SliverChildListDelegate([
-                  club_point_addon_installed.$
-                      ? Padding(
-                          padding: const EdgeInsets.fromLTRB(
-                            16.0,
-                            8.0,
-                            16.0,
-                            0.0,
-                          ),
-                          child: _productDetails != null
-                              ? buildClubPointRow()
-                              : ShimmerHelper().buildBasicShimmer(
-                                  height: 30.0,
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(
+                          8.0,
+                          0.0,
+                          8.0,
+                          0.0,
+                        ),
+                        child: _productDetails != null
+                            ? buildExpandableShortDescription()
+                            : Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 8.0, vertical: 8.0),
+                                child: ShimmerHelper().buildBasicShimmer(
+                                  height: 60.0,
+                                )),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(
+                          16.0,
+                          0.0,
+                          16.0,
+                          0.0,
+                        ),
+                        child: Text(
+                          AppLocalizations.of(context)
+                              .product_details_screen_description,
+                          style: TextStyle(
+                              color: MyTheme.font_grey,
+                              fontSize: 16,
+                              fontWeight: FontWeight.w600),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(
+                          8.0,
+                          0.0,
+                          8.0,
+                          8.0,
+                        ),
+                        child: _productDetails != null
+                            ? buildExpandableDescription()
+                            : Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 8.0, vertical: 8.0),
+                                child: ShimmerHelper().buildBasicShimmer(
+                                  height: 60.0,
+                                )),
+                      ),
+                      Divider(
+                        height: 1,
+                      ),
+                      InkWell(
+                        onTap: () {
+                          if (_productDetails.video_link == "") {
+                            ToastComponent.showDialog(
+                                AppLocalizations.of(context)
+                                    .product_details_screen_video_not_available,
+                                context,
+                                gravity: Toast.CENTER,
+                                duration: Toast.LENGTH_LONG);
+                            return;
+                          }
+            
+                          Navigator.push(context,
+                              MaterialPageRoute(builder: (context) {
+                            return VideoDescription(
+                              url: _productDetails.video_link,
+                            );
+                          })).then((value) {
+                            onPopped(value);
+                          });
+                        },
+                        child: Container(
+                          height: 40,
+                          child: Padding(
+                            padding: const EdgeInsets.fromLTRB(
+                              16.0,
+                              0.0,
+                              8.0,
+                              0.0,
+                            ),
+                            child: Row(
+                              children: [
+                                Text(
+                                  AppLocalizations.of(context)
+                                      .product_details_screen_video,
+                                  style: TextStyle(
+                                      color: MyTheme.font_grey,
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w600),
                                 ),
-                        )
-                      : Container(),
-                  Divider(
-                    height: 24.0,
-                  ),
-                ])),
-                SliverList(
-                    delegate: SliverChildListDelegate([
-                  _productDetails != null
-                      ? buildChoiceOptionList()
-                      : buildVariantShimmers(),
-                ])),
-                SliverToBoxAdapter(
-                  child: Padding(
-                    padding: const EdgeInsets.fromLTRB(
-                      16.0,
-                      16.0,
-                      16.0,
-                      0.0,
-                    ),
-                    child: _productDetails != null
-                        ? (_colorList.length > 0
-                            ? buildColorRow()
-                            : Container())
-                        : ShimmerHelper().buildBasicShimmer(
-                            height: 30.0,
-                          ),
-                  ),
-                ),
-                SliverList(
-                    delegate: SliverChildListDelegate([
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(
-                      16.0,
-                      8.0,
-                      16.0,
-                      0.0,
-                    ),
-                    child: _productDetails != null
-                        ? buildQuantityRow()
-                        : ShimmerHelper().buildBasicShimmer(
-                            height: 30.0,
-                          ),
-                  ),
-                ])),
-                SliverList(
-                    delegate: SliverChildListDelegate([
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(
-                      16.0,
-                      16.0,
-                      16.0,
-                      0.0,
-                    ),
-                    child: _productDetails != null
-                        ? buildTotalPriceRow()
-                        : ShimmerHelper().buildBasicShimmer(
-                            height: 30.0,
-                          ),
-                  ),
-                  Divider(
-                    height: 24.0,
-                  ),
-                ])),
-                SliverList(
-                    delegate: SliverChildListDelegate([
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(
-                      16.0,
-                      0.0,
-                      16.0,
-                      0.0,
-                    ),
-                    child: _productDetails != null
-                        ? buildSellerRow(context)
-                        : ShimmerHelper().buildBasicShimmer(
-                            height: 50.0,
-                          ),
-                  ),
-                  Divider(
-                    height: 4,
-                  ),
-
-                  // ListView.separated(
-                  //     // padding: EdgeInsets.all(16),
-                  //     separatorBuilder: (context, index) => Divider(
-                  //           color: index.isEven ? Colors.amber : Colors.blue,
-                  //         ),
-                  //     shrinkWrap: true,
-                  //     itemCount: mylist.length,
-                  //     itemBuilder: (context, index) {
-                  //       var list = mylist[index];
-                  //       // Padding(padding: EdgeInsets.all(16));
-                  //       return Container(
-                  //           child: Column(
-                  //         children: [
-
-                  //       list["is_short_description"] != null
-                  //           ?
-                  //           //  ExpansionTile(
-                  //           //     title: Text('Short Description'),
-                  //           //     children: [
-                  //           //         ListTile(
-                  //           //             title: Wrap(children: [
-                  //           //           Text(
-                  //           //             '${list['short_description']}',
-                  //           //           )
-                  //           //         ]))
-                  //           //       ])
-                  //           // : Container(),
-
-                  //           ExpandableNotifier(
-                  //               child: ScrollOnExpand(
-                  //               child: Column(
-                  //                 crossAxisAlignment:
-                  //                     CrossAxisAlignment.start,
-                  //                 children: <Widget>[
-                  //                   Container(
-                  //                     padding: EdgeInsets.only(left: 14),
-                  //                     child: Text('Short description :',style: TextStyle(fontSize: 18),)),
-                  //                   Expandable(
-                  //                     collapsed: Container(
-                  //                         height: 20,
-                  //                         child: Html(
-                  //                           data:
-                  //                               '${list['short_description']}',
-                  //                         )),
-                  //                     expanded: Container(
-                  //                         child: Html(
-                  //                             data:
-                  //                                 '${list['short_description']}')),
-                  //                   ),
-                  //                   Row(
-                  //                     mainAxisAlignment:
-                  //                         MainAxisAlignment.end,
-                  //                     children: <Widget>[
-                  //                       Builder(
-                  //                         builder: (context) {
-                  //                           var controller =
-                  //                               ExpandableController.of(
-                  //                                   context);
-                  //                           return FlatButton(
-                  //                             child: Text(
-                  //                               !controller.expanded
-                  //                                   ? 'View More'
-                  //                                   : 'View Less',
-                  //                               style: TextStyle(
-                  //                                   color: Colors.blue,
-                  //                                   fontSize: 15),
-                  //                             ),
-                  //                             onPressed: () {
-                  //                               controller.toggle();
-                  //                             },
-                  //                           );
-                  //                         },
-                  //                       ),
-                  //                     ],
-                  //                   ),
-                  //                 ],
-                  //               ),
-                  //             ))
-                  //           : Container()
-
-                  //         ],
-                  //       ));
-
-                  //       // ListTile(
-                  //       //   // trailing: Image(image: NetworkImage('${list['urlToImage']}')),
-                  //       //     title: Text(
-                  //       //       '${list[ "short_description"]}',
-                  //       //       style: TextStyle(
-                  //       //           color: index.isEven ? Colors.pink : Colors.purple),
-                  //       //     ));
-                  //       // subtitle: Text(
-                  //       //   '${list['source']['name']}',
-                  //       //   style: TextStyle(
-                  //       //       color: index.isOdd ? Colors.pink : Colors.purple),
-                  //       // ),
-                  //       // leading: Container(
-                  //       //     child: Text('${list['author'].toString()[0]}')));
-                  //     }),
-                  // Divider(
-                  //   height: 24,
-                  // ),
-
-                  // Container(margin: EdgeInsets.only(left: 16),
-                  //   child: Text(
-                  //     'Shorts Description : ',
-                  //     style: TextStyle(fontSize: 20),
-                  //   ),
-                  // ),
-                  // Divider(
-                  //   height: 24,
-                  // ),
-                ])),
-                SliverList(
-                  delegate: SliverChildListDelegate([
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(
-                        8.0,
-                        0.0,
-                        8.0,
-                        0.0,
-                      ),
-                      child: _productDetails != null
-                          ? buildExpandableShortDescription()
-                          : Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 8.0, vertical: 8.0),
-                              child: ShimmerHelper().buildBasicShimmer(
-                                height: 60.0,
-                              )),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(
-                        16.0,
-                        0.0,
-                        16.0,
-                        0.0,
-                      ),
-                      child: Text(
-                        AppLocalizations.of(context)
-                            .product_details_screen_description,
-                        style: TextStyle(
-                            color: MyTheme.font_grey,
-                            fontSize: 16,
-                            fontWeight: FontWeight.w600),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(
-                        8.0,
-                        0.0,
-                        8.0,
-                        8.0,
-                      ),
-                      child: _productDetails != null
-                          ? buildExpandableDescription()
-                          : Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 8.0, vertical: 8.0),
-                              child: ShimmerHelper().buildBasicShimmer(
-                                height: 60.0,
-                              )),
-                    ),
-                    Divider(
-                      height: 1,
-                    ),
-                    InkWell(
-                      onTap: () {
-                        if (_productDetails.video_link == "") {
-                          ToastComponent.showDialog(
-                              AppLocalizations.of(context)
-                                  .product_details_screen_video_not_available,
-                              context,
-                              gravity: Toast.CENTER,
-                              duration: Toast.LENGTH_LONG);
-                          return;
-                        }
-
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (context) {
-                          return VideoDescription(
-                            url: _productDetails.video_link,
-                          );
-                        })).then((value) {
-                          onPopped(value);
-                        });
-                      },
-                      child: Container(
-                        height: 40,
-                        child: Padding(
-                          padding: const EdgeInsets.fromLTRB(
-                            16.0,
-                            0.0,
-                            8.0,
-                            0.0,
-                          ),
-                          child: Row(
-                            children: [
-                              Text(
-                                AppLocalizations.of(context)
-                                    .product_details_screen_video,
-                                style: TextStyle(
-                                    color: MyTheme.font_grey,
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w600),
-                              ),
-                              Spacer(),
-                              Icon(
-                                Ionicons.ios_add,
-                                color: MyTheme.font_grey,
-                                size: 24,
-                              )
-                            ],
+                                Spacer(),
+                                Icon(
+                                  Ionicons.ios_add,
+                                  color: MyTheme.font_grey,
+                                  size: 24,
+                                )
+                              ],
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                    Divider(
-                      height: 1,
-                    ),
-                    InkWell(
-                      onTap: () {
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (context) {
-                          return ProductReviews(id: widget.id);
-                        })).then((value) {
-                          onPopped(value);
-                        });
-                      },
-                      child: Container(
-                        height: 40,
-                        child: Padding(
-                          padding: const EdgeInsets.fromLTRB(
-                            16.0,
-                            0.0,
-                            8.0,
-                            0.0,
-                          ),
-                          child: Row(
-                            children: [
-                              Text(
-                                AppLocalizations.of(context)
-                                    .product_details_screen_reviews,
-                                style: TextStyle(
-                                    color: MyTheme.font_grey,
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w600),
-                              ),
-                              Spacer(),
-                              Icon(
-                                Ionicons.ios_add,
-                                color: MyTheme.font_grey,
-                                size: 24,
-                              )
-                            ],
+                      Divider(
+                        height: 1,
+                      ),
+                      InkWell(
+                        onTap: () {
+                          Navigator.push(context,
+                              MaterialPageRoute(builder: (context) {
+                            return ProductReviews(id: widget.id);
+                          })).then((value) {
+                            onPopped(value);
+                          });
+                        },
+                        child: Container(
+                          height: 40,
+                          child: Padding(
+                            padding: const EdgeInsets.fromLTRB(
+                              16.0,
+                              0.0,
+                              8.0,
+                              0.0,
+                            ),
+                            child: Row(
+                              children: [
+                                Text(
+                                  AppLocalizations.of(context)
+                                      .product_details_screen_reviews,
+                                  style: TextStyle(
+                                      color: MyTheme.font_grey,
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w600),
+                                ),
+                                Spacer(),
+                                Icon(
+                                  Ionicons.ios_add,
+                                  color: MyTheme.font_grey,
+                                  size: 24,
+                                )
+                              ],
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                    Divider(
-                      height: 1,
-                    ),
-                    InkWell(
-                      onTap: () {
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (context) {
-                          return CommonWebviewScreen(
-                            url: 'https://bongobaba.com/privacy-policy-page',
-                           
-                          );
-
-                          // CommonWebviewScreen(
-                          //   url:
-                          //       "${AppConfig.RAW_BASE_URL}/mobile-page/sellerpolicy",
-                          //   page_name: AppLocalizations.of(context)
-                          //       .product_details_screen_seller_policy,
-                          // );
-                        }));
-                      },
-                      child: Container(
-                        height: 40,
-                        child: Padding(
-                          padding: const EdgeInsets.fromLTRB(
-                            16.0,
-                            0.0,
-                            8.0,
-                            0.0,
-                          ),
-                          child: Row(
-                            children: [
-                              Text(
-                                // AppLocalizations.of(context)
-                                //     .product_details_screen_seller_policy,
-                                'Privacy Policy',
-                                style: TextStyle(
-                                    color: MyTheme.font_grey,
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w600),
-                              ),
-                              Spacer(),
-                              Icon(
-                                Ionicons.ios_add,
-                                color: MyTheme.font_grey,
-                                size: 24,
-                              )
-                            ],
+                      Divider(
+                        height: 1,
+                      ),
+                      InkWell(
+                        onTap: () {
+                          Navigator.push(context,
+                              MaterialPageRoute(builder: (context) {
+                            return CommonWebviewScreen(
+                              url: 'https://bongobaba.com/privacy-policy-page',
+                             
+                            );
+            
+                            // CommonWebviewScreen(
+                            //   url:
+                            //       "${AppConfig.RAW_BASE_URL}/mobile-page/sellerpolicy",
+                            //   page_name: AppLocalizations.of(context)
+                            //       .product_details_screen_seller_policy,
+                            // );
+                          }));
+                        },
+                        child: Container(
+                          height: 40,
+                          child: Padding(
+                            padding: const EdgeInsets.fromLTRB(
+                              16.0,
+                              0.0,
+                              8.0,
+                              0.0,
+                            ),
+                            child: Row(
+                              children: [
+                                Text(
+                                  // AppLocalizations.of(context)
+                                  //     .product_details_screen_seller_policy,
+                                  'Privacy Policy',
+                                  style: TextStyle(
+                                      color: MyTheme.font_grey,
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w600),
+                                ),
+                                Spacer(),
+                                Icon(
+                                  Ionicons.ios_add,
+                                  color: MyTheme.font_grey,
+                                  size: 24,
+                                )
+                              ],
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                    Divider(
-                      height: 1,
-                    ),                      InkWell(
-                      onTap: () {
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (context) {
-                          return CommonWebviewScreen(
-                            url: 'https://bongobaba.com/return-refund-page',
-                           
-                          );
-
-                          // CommonWebviewScreen(
-                          //   url:
-                          //       "${AppConfig.RAW_BASE_URL}/mobile-page/returnpolicy",
-                          //   page_name: AppLocalizations.of(context)
-                          //       .product_details_screen_return_policy,
-                          // );
-                        }));
-                      },
-                      child: Container(
-                        height: 40,
-                        child: Padding(
-                          padding: const EdgeInsets.fromLTRB(
-                            16.0,
-                            0.0,
-                            8.0,
-                            0.0,
-                          ),
-                          child: Row(
-                            children: [
-                              Text(
-                                AppLocalizations.of(context)
-                                    .product_details_screen_return_policy,
-                                style: TextStyle(
-                                    color: MyTheme.font_grey,
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w600),
-                              ),
-                              Spacer(),
-                              Icon(
-                                Ionicons.ios_add,
-                                color: MyTheme.font_grey,
-                                size: 24,
-                              )
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),   Divider(
-                      height: 1,
-                    ),
-                    InkWell(
-                      onTap: () {
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (context) {
-                          return CommonWebviewScreen(
-                            url: 'https://bongobaba.com/terms-conditions-page',
-                          
-                          );
-                          // CommonWebviewScreen(
-                          //   url:
-                          //       "${AppConfig.RAW_BASE_URL}/mobile-page/returnpolicy",
-                          //   page_name: AppLocalizations.of(context)
-                          //       .product_details_screen_return_policy,
-                          // );
-                        }));
-                      },
-                      child: Container(
-                        height: 40,
-                        child: Padding(
-                          padding: const EdgeInsets.fromLTRB(
-                            16.0,
-                            0.0,
-                            8.0,
-                            0.0,
-                          ),
-                          child: Row(
-                            children: [
-                              Text('Terms & Condition',
-                                // AppLocalizations.of(context)
-                                //     .product_details_screen_return_policy,
-                                style: TextStyle(
-                                    color: MyTheme.font_grey,
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w600),
-                              ),
-                              Spacer(),
-                              Icon(
-                                Ionicons.ios_add,
-                                color: MyTheme.font_grey,
-                                size: 24,
-                              )
-                            ],
+                      Divider(
+                        height: 1,
+                      ),                      InkWell(
+                        onTap: () {
+                          Navigator.push(context,
+                              MaterialPageRoute(builder: (context) {
+                            return CommonWebviewScreen(
+                              url: 'https://bongobaba.com/return-refund-page',
+                             
+                            );
+            
+                            // CommonWebviewScreen(
+                            //   url:
+                            //       "${AppConfig.RAW_BASE_URL}/mobile-page/returnpolicy",
+                            //   page_name: AppLocalizations.of(context)
+                            //       .product_details_screen_return_policy,
+                            // );
+                          }));
+                        },
+                        child: Container(
+                          height: 40,
+                          child: Padding(
+                            padding: const EdgeInsets.fromLTRB(
+                              16.0,
+                              0.0,
+                              8.0,
+                              0.0,
+                            ),
+                            child: Row(
+                              children: [
+                                Text(
+                                  AppLocalizations.of(context)
+                                      .product_details_screen_return_policy,
+                                  style: TextStyle(
+                                      color: MyTheme.font_grey,
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w600),
+                                ),
+                                Spacer(),
+                                Icon(
+                                  Ionicons.ios_add,
+                                  color: MyTheme.font_grey,
+                                  size: 24,
+                                )
+                              ],
+                            ),
                           ),
                         ),
+                      ),   Divider(
+                        height: 1,
                       ),
-                    ),
-                    Divider(
-                      height: 1,
-                    ),
-                    InkWell(
-                      onTap: () {
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (context) {
-                          return CommonWebviewScreen(
-                            url:
-                                'https://bongobaba.com/support-policy-page',
+                      InkWell(
+                        onTap: () {
+                          Navigator.push(context,
+                              MaterialPageRoute(builder: (context) {
+                            return CommonWebviewScreen(
+                              url: 'https://bongobaba.com/terms-conditions-page',
                             
-                          );
-
-                          // CommonWebviewScreen(
-                          //   url:
-                          //       "${AppConfig.RAW_BASE_URL}/mobile-page/supportpolicy",
-                          //   page_name: AppLocalizations.of(context).product_details_screen_support_policy,
-                          // );
-                        }));
-                      },
-                      child: Container(
-                        height: 40,
-                        child: Padding(
-                          padding: const EdgeInsets.fromLTRB(
-                            16.0,
-                            0.0,
-                            8.0,
-                            0.0,
-                          ),
-                          child: Row(
-                            children: [
-                              Text(
-                                AppLocalizations.of(context)
-                                    .product_details_screen_support_policy,
-                                style: TextStyle(
-                                    color: MyTheme.font_grey,
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w600),
-                              ),
-                              Spacer(),
-                              Icon(
-                                Ionicons.ios_add,
-                                color: MyTheme.font_grey,
-                                size: 24,
-                              )
-                            ],
+                            );
+                            // CommonWebviewScreen(
+                            //   url:
+                            //       "${AppConfig.RAW_BASE_URL}/mobile-page/returnpolicy",
+                            //   page_name: AppLocalizations.of(context)
+                            //       .product_details_screen_return_policy,
+                            // );
+                          }));
+                        },
+                        child: Container(
+                          height: 40,
+                          child: Padding(
+                            padding: const EdgeInsets.fromLTRB(
+                              16.0,
+                              0.0,
+                              8.0,
+                              0.0,
+                            ),
+                            child: Row(
+                              children: [
+                                Text('Terms & Condition',
+                                  // AppLocalizations.of(context)
+                                  //     .product_details_screen_return_policy,
+                                  style: TextStyle(
+                                      color: MyTheme.font_grey,
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w600),
+                                ),
+                                Spacer(),
+                                Icon(
+                                  Ionicons.ios_add,
+                                  color: MyTheme.font_grey,
+                                  size: 24,
+                                )
+                              ],
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                    Divider(
-                      height: 1,
-                    ),
-                  ]),
-                ),
-                SliverList(
-                  delegate: SliverChildListDelegate([
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(
-                        16.0,
-                        16.0,
-                        16.0,
-                        0.0,
+                      Divider(
+                        height: 1,
                       ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            AppLocalizations.of(context)
-                                .product_details_screen_products_may_like,
-                            style: TextStyle(
-                                color: MyTheme.black_color,
-                                fontSize: 16,
-                                fontWeight: FontWeight.w500),
-                            //   style: TextStyle(
-                            //       fontSize: 16,
-                            //       color: Colors.transparent,
-                            //       shadows: [
-                            //         Shadow(
-                            //             offset: Offset(0, -7),
-                            //             color: Colors.black)
-                            //       ],
-                            //       decoration: TextDecoration.underline,
-                            //       decorationStyle: TextDecorationStyle.solid,
-                            //       decorationColor: Colors.red[400],
-                            //       decorationThickness: 3),
+                      InkWell(
+                        onTap: () {
+                          Navigator.push(context,
+                              MaterialPageRoute(builder: (context) {
+                            return CommonWebviewScreen(
+                              url:
+                                  'https://bongobaba.com/support-policy-page',
+                              
+                            );
+            
+                            // CommonWebviewScreen(
+                            //   url:
+                            //       "${AppConfig.RAW_BASE_URL}/mobile-page/supportpolicy",
+                            //   page_name: AppLocalizations.of(context).product_details_screen_support_policy,
+                            // );
+                          }));
+                        },
+                        child: Container(
+                          height: 40,
+                          child: Padding(
+                            padding: const EdgeInsets.fromLTRB(
+                              16.0,
+                              0.0,
+                              8.0,
+                              0.0,
+                            ),
+                            child: Row(
+                              children: [
+                                Text(
+                                  AppLocalizations.of(context)
+                                      .product_details_screen_support_policy,
+                                  style: TextStyle(
+                                      color: MyTheme.font_grey,
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w600),
+                                ),
+                                Spacer(),
+                                Icon(
+                                  Ionicons.ios_add,
+                                  color: MyTheme.font_grey,
+                                  size: 24,
+                                )
+                              ],
+                            ),
                           ),
-                          SizedBox(
-                            height: 5,
-                          ),
-                          Row(
-                            children: [
-                              Container(
-                                height: 3,
-                                width: 183,
-                                color: MyTheme.green_accent_color_d0,
-                              ),
-                              // Container(
-                              //   height: 1,
-                              //   width: 177,
-                              //   color: MyTheme.dark_grey,
-                              // )
-                            ],
-                          ),
-                        ],
+                        ),
                       ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(
-                        8.0,
-                        16.0,
-                        0.0,
-                        0.0,
+                      Divider(
+                        height: 1,
                       ),
-                      child: buildProductsMayLikeList(),
-                    )
-                  ]),
-                ),
-                SliverList(
-                  delegate: SliverChildListDelegate([
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(
-                        16.0,
-                        16.0,
-                        16.0,
-                        0.0,
+                    ]),
+                  ),
+                  SliverList(
+                    delegate: SliverChildListDelegate([
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(
+                          16.0,
+                          16.0,
+                          16.0,
+                          0.0,
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              AppLocalizations.of(context)
+                                  .product_details_screen_products_may_like,
+                              style: TextStyle(
+                                  color: MyTheme.black_color,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w500),
+                              //   style: TextStyle(
+                              //       fontSize: 16,
+                              //       color: Colors.transparent,
+                              //       shadows: [
+                              //         Shadow(
+                              //             offset: Offset(0, -7),
+                              //             color: Colors.black)
+                              //       ],
+                              //       decoration: TextDecoration.underline,
+                              //       decorationStyle: TextDecorationStyle.solid,
+                              //       decorationColor: Colors.red[400],
+                              //       decorationThickness: 3),
+                            ),
+                            SizedBox(
+                              height: 5,
+                            ),
+                            Row(
+                              children: [
+                                Container(
+                                  height: 3,
+                                  width: 183,
+                                  color: MyTheme.green_accent_color_d0,
+                                ),
+                                // Container(
+                                //   height: 1,
+                                //   width: 177,
+                                //   color: MyTheme.dark_grey,
+                                // )
+                              ],
+                            ),
+                          ],
+                        ),
                       ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            AppLocalizations.of(context)
-                                .top_selling_products_screen_top_selling_products,
-                            style: TextStyle(
-                                color: MyTheme.black_color,
-                                fontSize: 16,
-                                fontWeight: FontWeight.w500),
-                            // style: TextStyle(
-                            //     fontSize: 16,
-                            //     color: Colors.transparent,
-                            //     shadows: [
-                            //       Shadow(
-                            //           offset: Offset(0, -7), color: Colors.black)
-                            //     ],
-                            //     decoration: TextDecoration.underline,
-                            //     decorationStyle: TextDecorationStyle.solid,
-                            //     decorationColor: Colors.red[400],
-                            //     decorationThickness: 3),
-                          ),
-                          SizedBox(
-                            height: 5,
-                          ),
-                          Row(
-                            children: [
-                              Container(
-                                height: 3,
-                                width: 142,
-                                color: MyTheme.green_accent_color_d0,
-                              ),
-                              // Container(
-                              //   height: 1,
-                              //   width: 218,
-                              //   color: MyTheme.dark_grey,
-                              // )
-                            ],
-                          ),
-                        ],
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(
+                          8.0,
+                          16.0,
+                          0.0,
+                          0.0,
+                        ),
+                        child: buildProductsMayLikeList(),
+                      )
+                    ]),
+                  ),
+                  SliverList(
+                    delegate: SliverChildListDelegate([
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(
+                          16.0,
+                          16.0,
+                          16.0,
+                          0.0,
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              AppLocalizations.of(context)
+                                  .top_selling_products_screen_top_selling_products,
+                              style: TextStyle(
+                                  color: MyTheme.black_color,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w500),
+                              // style: TextStyle(
+                              //     fontSize: 16,
+                              //     color: Colors.transparent,
+                              //     shadows: [
+                              //       Shadow(
+                              //           offset: Offset(0, -7), color: Colors.black)
+                              //     ],
+                              //     decoration: TextDecoration.underline,
+                              //     decorationStyle: TextDecorationStyle.solid,
+                              //     decorationColor: Colors.red[400],
+                              //     decorationThickness: 3),
+                            ),
+                            SizedBox(
+                              height: 5,
+                            ),
+                            Row(
+                              children: [
+                                Container(
+                                  height: 3,
+                                  width: 142,
+                                  color: MyTheme.green_accent_color_d0,
+                                ),
+                                // Container(
+                                //   height: 1,
+                                //   width: 218,
+                                //   color: MyTheme.dark_grey,
+                                // )
+                              ],
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(
-                        16.0,
-                        16.0,
-                        16.0,
-                        0.0,
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(
+                          16.0,
+                          16.0,
+                          16.0,
+                          0.0,
+                        ),
+                        child: buildProductList(context),
                       ),
-                      child: buildProductList(context),
-                    ),
-                    SizedBox(
-                      height: 20,
-                    )
-                  ]),
-                )
-              ],
-            )),
+                      SizedBox(
+                        height: 20,
+                      )
+                    ]),
+                  )
+                ],
+              ),
+             LiveChat(position: 230,)    ])),
       ),
     );
   }
