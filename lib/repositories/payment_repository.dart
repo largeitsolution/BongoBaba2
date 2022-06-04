@@ -260,6 +260,8 @@ class PaymentRepository {
       @required String payment_type,
       @required int combined_order_id,
       @required double amount) async {
+        print('combine: $combined_order_id');
+
     Uri url = Uri.parse(
         "${AppConfig.BASE_URL}/sslcommerz/begin?payment_type=${payment_type}&combined_order_id=${combined_order_id}&amount=${amount}&user_id=${user_id.$}");
 
@@ -270,7 +272,7 @@ class PaymentRepository {
         "App-Language": app_language.$
       },
     );
-
+print(url);
     print(response.body.toString());
     return sslcommerzBeginResponseFromJson(response.body);
   }

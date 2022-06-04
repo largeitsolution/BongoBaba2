@@ -223,31 +223,31 @@ class _MainDrawerState extends State<MainDrawer> {
                     //   height: 5,
                     //   color: Colors.red,
                     // ),
-                    ListTile(
-                        visualDensity:
-                            VisualDensity(horizontal: -4, vertical: -4),
-                        leading: Image.asset(
-                          "assets/language.png",
-                          height: 18,
+                    // ListTile(
+                    //     visualDensity:
+                    //         VisualDensity(horizontal: -4, vertical: -4),
+                    //     leading: Image.asset(
+                    //       "assets/language.png",
+                    //       height: 18,
 
-                          // color: Color.fromRGBO(153, 153, 153, 1),
-                          color: Colors.indigo,
-                        ),
-                        title: Text(
-                            AppLocalizations.of(context)
-                                .main_drawer_change_language,
-                            style: TextStyle(
-                                color: Colors.black,
+                    //       // color: Color.fromRGBO(153, 153, 153, 1),
+                    //       color: Colors.indigo,
+                    //     ),
+                    //     title: Text(
+                    //         AppLocalizations.of(context)
+                    //             .main_drawer_change_language,
+                    //         style: TextStyle(
+                    //             color: Colors.black,
 
-                                // color: Color.fromRGBO(153, 153, 153, 1),
-                                fontSize: 14,
-                                fontWeight: FontWeight.w600)),
-                        onTap: () {
-                          Navigator.push(context,
-                              MaterialPageRoute(builder: (context) {
-                            return ChangeLanguage();
-                          }));
-                        }),
+                    //             // color: Color.fromRGBO(153, 153, 153, 1),
+                    //             fontSize: 14,
+                    //             fontWeight: FontWeight.w600)),
+                    //     onTap: () {
+                    //       Navigator.push(context,
+                    //           MaterialPageRoute(builder: (context) {
+                    //         return ChangeLanguage();
+                    //       }));
+                    //     }),
                     ListTile(
                         visualDensity:
                             VisualDensity(horizontal: -4, vertical: -4),
