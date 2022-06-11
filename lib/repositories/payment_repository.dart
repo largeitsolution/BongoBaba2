@@ -31,8 +31,11 @@ class PaymentRepository {
 
   Future<OrderCreateResponse> getOrderCreateResponse(
       @required payment_method) async {
-    var post_body = jsonEncode(
-        {"user_id": "${user_id.$}", "payment_type": "${payment_method}"});
+    var post_body = jsonEncode({
+      "user_id": "${user_id.$}",
+      "payment_type": "${payment_method}",
+      "order_from": "App"
+    });
 
     Uri url = Uri.parse("${AppConfig.BASE_URL}/order/store");
     final response = await http.post(url,
@@ -83,7 +86,8 @@ class PaymentRepository {
     var post_body = jsonEncode({
       "user_id": "${user_id.$}",
       "payment_type": "${payment_method}",
-      "amount": "${amount}"
+      "amount": "${amount}",
+      "order_from": "App"
     });
 
     final response = await http.post(url,
@@ -100,26 +104,34 @@ class PaymentRepository {
 
   Future<OrderCreateResponse> getOrderCreateResponseFromCod(
       @required payment_method) async {
-    var post_body = jsonEncode(
-        {"user_id": "${user_id.$}", "payment_type": "${payment_method}"});
+    var post_body = jsonEncode({
+      "user_id": "${user_id.$}",
+      "payment_type": "${payment_method}",
+      "order_from": "App"
+    });
 
     Uri url = Uri.parse("${AppConfig.BASE_URL}/payments/pay/cod");
 
     final response = await http.post(url,
         headers: {
           "Content-Type": "application/json",
+          "Accept": "application/json",
           "Authorization": "Bearer ${access_token.$}"
         },
         body: post_body);
-
-    //print(response.body.toString());
+    print(url);
+    print(post_body);
+    print(response.body.toString());
     return orderCreateResponseFromJson(response.body);
   }
 
   Future<OrderCreateResponse> getOrderCreateResponseFromManualPayment(
       @required payment_method) async {
-    var post_body = jsonEncode(
-        {"user_id": "${user_id.$}", "payment_type": "${payment_method}"});
+    var post_body = jsonEncode({
+      "user_id": "${user_id.$}",
+      "payment_type": "${payment_method}",
+      "order_from": "App"
+    });
 
     Uri url = Uri.parse("${AppConfig.BASE_URL}/payments/pay/manual");
 
@@ -145,7 +157,8 @@ class PaymentRepository {
       "payment_type": "${payment_type}",
       "combined_order_id": "${combined_order_id}",
       "amount": "${amount}",
-      "payment_details": "${payment_details}"
+      "payment_details": "${payment_details}",
+      "order_from": "App"
     });
 
     print(post_body.toString());
@@ -174,7 +187,8 @@ class PaymentRepository {
       "payment_type": "${payment_type}",
       "combined_order_id": "${combined_order_id}",
       "amount": "${amount}",
-      "payment_details": "${payment_details}"
+      "payment_details": "${payment_details}",
+      "order_from": "App"
     });
 
     Uri url = Uri.parse("${AppConfig.BASE_URL}/paystack/success");
@@ -199,7 +213,8 @@ class PaymentRepository {
       "payment_type": "${payment_type}",
       "combined_order_id": "${combined_order_id}",
       "amount": "${amount}",
-      "payment_details": "${payment_details}"
+      "payment_details": "${payment_details}",
+      "order_from": "App"
     });
 
     Uri url = Uri.parse("${AppConfig.BASE_URL}/paystack/success");
@@ -240,7 +255,8 @@ class PaymentRepository {
       "payment_type": "${payment_type}",
       "combined_order_id": "${combined_order_id}",
       "amount": "${amount}",
-      "payment_details": "${payment_details}"
+      "payment_details": "${payment_details}",
+      "order_from": "App"
     });
 
     Uri url = Uri.parse("${AppConfig.BASE_URL}/bkash/api/process");
@@ -260,7 +276,7 @@ class PaymentRepository {
       @required String payment_type,
       @required int combined_order_id,
       @required double amount) async {
-        print('combine: $combined_order_id');
+    print('combine: $combined_order_id');
 
     Uri url = Uri.parse(
         "${AppConfig.BASE_URL}/sslcommerz/begin?payment_type=${payment_type}&combined_order_id=${combined_order_id}&amount=${amount}&user_id=${user_id.$}");
@@ -272,7 +288,7 @@ class PaymentRepository {
         "App-Language": app_language.$
       },
     );
-print(url);
+    print(url);
     print(response.body.toString());
     return sslcommerzBeginResponseFromJson(response.body);
   }
@@ -306,7 +322,8 @@ print(url);
       "payment_type": "${payment_type}",
       "combined_order_id": "${combined_order_id}",
       "amount": "${amount}",
-      "payment_details": "${payment_details}"
+      "payment_details": "${payment_details}",
+      "order_from": "App"
     });
 
     Uri url = Uri.parse("${AppConfig.BASE_URL}/nagad/process");

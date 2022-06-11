@@ -1,7 +1,12 @@
+import 'dart:convert';
 import 'dart:io';
 
+import 'package:active_ecommerce_flutter/app_config.dart';
 import 'package:active_ecommerce_flutter/custom/CommonFunctoins.dart';
+import 'package:active_ecommerce_flutter/data_model/popupmodel.dart';
 import 'package:active_ecommerce_flutter/my_theme.dart';
+import 'package:active_ecommerce_flutter/providers/locale_provider.dart';
+import 'package:active_ecommerce_flutter/repositories/popuprepo.dart';
 import 'package:active_ecommerce_flutter/screens/cart.dart';
 import 'package:active_ecommerce_flutter/screens/category_list.dart';
 import 'package:active_ecommerce_flutter/screens/filter2.dart';
@@ -16,8 +21,10 @@ import 'package:flutter/services.dart';
 import 'package:active_ecommerce_flutter/helpers/shared_value_helper.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:platform/platform.dart';
+import 'package:provider/provider.dart';
 
 import 'filter3.dart';
+import 'package:http/http.dart' as http;
 
 class Main extends StatefulWidget {
   Main({Key key, go_back = true}) : super(key: key);
@@ -29,6 +36,15 @@ class Main extends StatefulWidget {
 }
 
 class _MainState extends State<Main> {
+  String popupimage;
+  PopupModel popupData ;
+  List<Datum> imageList=[];
+   LocaleProvider localProvider;
+   var imageLink;
+   
+
+
+bool initialPopup=true;
   int _currentIndex = 0;
   var _children = [
     Home(),
@@ -39,8 +55,7 @@ class _MainState extends State<Main> {
     Cart(has_bottomnav: true),
     // Profile()
 
-    !is_logged_in.$==true?
-    Login():Profile()
+    !is_logged_in.$ == true ? Login() : Profile()
   ];
 
   void onTapped(int i) {
@@ -48,14 +63,125 @@ class _MainState extends State<Main> {
       _currentIndex = i;
     });
   }
+  fatchPopupData()async{
+ popupData = await Popuprepo().getdata() ;
+ imageLink= popupData.data[0].value;
+
+ localProvider.isPopUp = false;
+ localProvider.setIsPopUp(localProvider.isPopUp );
+    setState(() {
+    
+      // imageList=  popupData.data;
+      
+    });
+    print('imgLink: $imageLink');
+    print(initialPopup);
+    imageLink ==""? ShowNothing():showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            content: Stack(
+              alignment: Alignment.center,
+              children: <Widget>[
+              localProvider.isPopUp==true ?CircularProgressIndicator(color: Colors.blue,):
+               Image.network(
+                  // 'https://thumbs.dreamstime.com/b/environment-earth-day-hands-trees-growing-seedlings-bokeh-green-background-female-hand-holding-tree-nature-field-gra-130247647.jpg',
+                 AppConfig.BASE_PATH + popupData.data[0].value,
+                  height: 200,
+                  fit: BoxFit.cover,
+                ),
+                Text(
+                  '',
+                  style: TextStyle(
+                    fontSize: 24,
+                  ),
+                ),
+              ],
+            ),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.pop(context),
+                child: const Text('Dismiss'),
+              ),
+            ],
+          ),
+        );
+    
+    //print(imageList[0].value);
+  }
+
+
 
   void initState() {
+    localProvider= Provider.of<LocaleProvider>(context, listen: false);
+    fatchPopupData();
+    WidgetsBinding.instance?.addPostFrameCallback((_) {
+    //  AlertDialog(
+    //   contentPadding: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 0.0),
+    //   title: Row(
+    //     mainAxisAlignment: MainAxisAlignment.end,
+    //     children: [
+    //       IconButton(
+    //           onPressed: () {
+    //             Navigator.pop(context);
+    //           },
+    //           icon: Icon(Icons.close))
+    //     ],
+    //   ),
+    //   content: Stack(
+    //     alignment: Alignment.center,
+    //     children: <Widget>[
+    //      popupimage == null ?Text("loading"):Image.network(
+    //         popupimage,
+    //         height: 200,
+    //         // loadingBuilder: (context, child, loading) {
+    //         //   if (loading == null) return child;
+    //         //   return Container(
+    //         //     height: 90,
+    //         //     child: Center(
+    //         //       child: CircularProgressIndicator(),
+    //         //     ),
+    //         //   );
+    //         // },
+    //       ),
+    //       Positioned(
+    //         bottom: 0,
+    //         child: Text(
+    //       popuplist.data[0].id.toString() ,
+    //           style: TextStyle(
+    //             fontSize: 24,
+    //           ),
+    //         ),
+    //       ),
+    //     ],
+    //   ),
+    //   actions: [
+    //     TextButton(
+    //       onPressed: () => Navigator.pop(context),
+    //       child: const Text(
+    //         '',
+    //         style: TextStyle(
+    //           fontSize: 18,
+    //         ),
+    //       ),
+    //     ),
+    //   ],
+    // );
+       
+    }
+    );
     // TODO: implement initState
     //re appear statusbar in case it was not there in the previous page
     SystemChrome.setEnabledSystemUIOverlays(
         [SystemUiOverlay.top, SystemUiOverlay.bottom]);
     super.initState();
   }
+ShowNothing(){
+  print("no image");
+}
+  bool isLoad = true;
+  // Widget _dialog(BuildContext context) {
+  //   return 
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -76,7 +202,8 @@ class _MainState extends State<Main> {
       child: Directionality(
         textDirection:
             app_language_rtl.$ ? TextDirection.rtl : TextDirection.ltr,
-        child: Scaffold(backgroundColor: Colors.white,
+        child: Scaffold(
+          backgroundColor: Colors.white,
           extendBody: true,
           body: _children[_currentIndex],
           floatingActionButtonLocation:
@@ -108,7 +235,7 @@ class _MainState extends State<Main> {
           bottomNavigationBar: BottomAppBar(
             shape: CircularNotchedRectangle(),
             notchMargin: 5,
-            color:   Color(0xff66F1D0),
+            color: Color(0xff66F1D0),
             clipBehavior: Clip.antiAlias,
             child: BackdropFilter(
               filter: ImageFilter.blur(sigmaX: 1.0, sigmaY: 1.0),
@@ -116,10 +243,10 @@ class _MainState extends State<Main> {
                 type: BottomNavigationBarType.fixed,
                 onTap: onTapped,
                 currentIndex: _currentIndex,
-                 backgroundColor:    Color(0xff66F1D0),
+                backgroundColor: Color(0xff66F1D0),
                 // fixedColor: Theme.of(context).accentColor,
-                     fixedColor: MyTheme.red_color,
-                unselectedItemColor:Colors.red,
+                fixedColor: MyTheme.red_color,
+                unselectedItemColor: Colors.red,
                 // Color.fromRGBO(153, 153, 153, 1),
                 items: [
                   BottomNavigationBarItem(
@@ -127,8 +254,8 @@ class _MainState extends State<Main> {
                         "assets/home.png",
                         color: _currentIndex == 0
                             ? MyTheme.black_color
-                            :Colors.black87,
-                            // Color.fromRGBO(153, 153, 153, 1),
+                            : Colors.black87,
+                        // Color.fromRGBO(153, 153, 153, 1),
                         height: 20,
                       ),
                       title: Padding(
@@ -139,19 +266,19 @@ class _MainState extends State<Main> {
                           style: TextStyle(
                             fontSize: 12,
                             color: _currentIndex == 0
-                            ? MyTheme.black_color
-                            :Colors.black87,
+                                ? MyTheme.black_color
+                                : Colors.black87,
                             // Color.fromRGBO(153, 153, 153, 1),
-                            ),
+                          ),
                         ),
                       )),
                   BottomNavigationBarItem(
                       icon: Image.asset(
                         "assets/categories.png",
                         color: _currentIndex == 1
-                            ?MyTheme.black_color
+                            ? MyTheme.black_color
                             : Colors.black87,
-                            //Color.fromRGBO(153, 153, 153, 1),
+                        //Color.fromRGBO(153, 153, 153, 1),
                         height: 20,
                       ),
                       title: Padding(
@@ -159,11 +286,13 @@ class _MainState extends State<Main> {
                         child: Text(
                           AppLocalizations.of(context)
                               .main_screen_bottom_navigation_categories,
-                          style: TextStyle(fontSize: 12,  color: _currentIndex == 1
-                            ? MyTheme.black_color
-                            : Colors.black87,
+                          style: TextStyle(
+                            fontSize: 12,
+                            color: _currentIndex == 1
+                                ? MyTheme.black_color
+                                : Colors.black87,
                             //Color.fromRGBO(153, 153, 153, 1),
-                            ),
+                          ),
                         ),
                       )),
                   BottomNavigationBarItem(
@@ -179,7 +308,7 @@ class _MainState extends State<Main> {
                         color: _currentIndex == 3
                             ? MyTheme.black_color
                             : Colors.black87,
-                            //Color.fromRGBO(153, 153, 153, 1),
+                        //Color.fromRGBO(153, 153, 153, 1),
                         height: 20,
                       ),
                       title: Padding(
@@ -187,11 +316,13 @@ class _MainState extends State<Main> {
                         child: Text(
                           AppLocalizations.of(context)
                               .main_screen_bottom_navigation_cart,
-                          style: TextStyle(fontSize: 12,  color: _currentIndex == 3
-                            ? MyTheme.black_color
-                            : Colors.black87,
+                          style: TextStyle(
+                            fontSize: 12,
+                            color: _currentIndex == 3
+                                ? MyTheme.black_color
+                                : Colors.black87,
                             //Color.fromRGBO(153, 153, 153, 1),
-                            ),
+                          ),
                         ),
                       )),
                   BottomNavigationBarItem(
@@ -199,8 +330,8 @@ class _MainState extends State<Main> {
                         "assets/profile.png",
                         color: _currentIndex == 4
                             ? MyTheme.black_color
-                            :Colors.black87,
-                            // Color.fromRGBO(153, 153, 153, 1),
+                            : Colors.black87,
+                        // Color.fromRGBO(153, 153, 153, 1),
                         height: 20,
                       ),
                       title: Padding(
@@ -208,12 +339,14 @@ class _MainState extends State<Main> {
                         child: Text(
                           AppLocalizations.of(context)
                               .main_screen_bottom_navigation_profile,
-                          style: TextStyle(fontSize: 12,  color: _currentIndex == 4
-                            ? MyTheme.black_color
-                            : Colors.black87,
-                            
+                          style: TextStyle(
+                            fontSize: 12,
+                            color: _currentIndex == 4
+                                ? MyTheme.black_color
+                                : Colors.black87,
+
                             //Color.fromRGBO(153, 153, 153, 1),
-                            ),
+                          ),
                         ),
                       )),
                 ],
@@ -245,7 +378,8 @@ class _MainState extends State<Main> {
                             print('yes selected');
                             exit(0);
                           },
-                          child: Text("Yes", style: TextStyle(color: Colors.black)),
+                          child: Text("Yes",
+                              style: TextStyle(color: Colors.black)),
                           style: ElevatedButton.styleFrom(
                               primary: MyTheme.green_accent_color_d0),
                         ),

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:active_ecommerce_flutter/helpers/shared_value_helper.dart';
 class LocaleProvider with ChangeNotifier{
   Locale _locale;
+  bool isPopUp=true;
   Locale get locale {
     return _locale = Locale(app_mobile_language.$,'');
   }
@@ -10,6 +11,10 @@ class LocaleProvider with ChangeNotifier{
 
   void setLocale(String code){
     _locale = Locale(code,'');
+    notifyListeners();
+  }
+  setIsPopUp(pop) {
+    isPopUp = pop;
     notifyListeners();
   }
 }

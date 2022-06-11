@@ -98,6 +98,8 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
 
   @override
   void initState() {
+  
+
     // TODO: implement initState
     super.initState();
     // In initState()
@@ -607,7 +609,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                   alignment: Alignment.center,
                   child: buildProductLoadingContainer(),
                 ),
-               LiveChat()
+                LiveChat()
               ],
             )),
       ),
