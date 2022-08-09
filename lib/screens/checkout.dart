@@ -70,7 +70,7 @@ class _CheckoutState extends State<Checkout> {
     print(access_token.value);
     print(user_id.$);
     print(user_name.$);*/
-
+    getPartial();
     fetchAll();
   }
 
@@ -87,11 +87,33 @@ class _CheckoutState extends State<Checkout> {
       fetchSummary();
     }
   }
+  int partialAmount;
+  getPartial()async{
+    String val=await PaymentRepository().getPartialPayment();
+    partialAmount=int.parse(val);
+    setState(() {
+      print(partialAmount);
+    });
+  }
 
   fetchList() async {
     var paymentTypeResponseList =
         await PaymentRepository().getPaymentResponseList(list: widget.list);
-    _paymentTypeList.addAll(paymentTypeResponseList);
+        if(partialAmount>0){
+          for(int i=0;i<paymentTypeResponseList.length;i++){
+            if(paymentTypeResponseList[i].payment_type_key == "cash_on_delivery"){
+              continue;
+            }
+            else{
+              _paymentTypeList.add(paymentTypeResponseList[i]);
+            }
+            
+          }
+        }
+        else{
+          _paymentTypeList.addAll(paymentTypeResponseList);
+        }
+    
     if (_paymentTypeList.length > 0) {
       _selected_payment_method = _paymentTypeList[0].payment_type;
       _selected_payment_method_key = _paymentTypeList[0].payment_type_key;

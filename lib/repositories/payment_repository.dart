@@ -25,7 +25,7 @@ class PaymentRepository {
     final response = await http.get(url, headers: {
       "App-Language": app_language.$,
     });
-
+print("payment method: ${response.body}");
     return paymentTypeResponseFromJson(response.body);
   }
 
@@ -48,6 +48,13 @@ class PaymentRepository {
 
     print(response.body.toString());
     return orderCreateResponseFromJson(response.body);
+  }
+  
+  Future getPartialPayment()async{
+    Uri url=Uri.parse("https://bongobaba.com/api/v2/pre-payment-amount/88");
+    final response= await http.get(url);
+    print("partial: ${response.body}");
+    return response.body.toString();
   }
 
   Future<PaypalUrlResponse> getPaypalUrlResponse(@required String payment_type,

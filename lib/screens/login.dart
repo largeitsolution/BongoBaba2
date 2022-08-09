@@ -80,6 +80,7 @@ class _LoginState extends State<Login> {
     if (loginResponse.result == false) {
       ToastComponent.showDialog(loginResponse.message, context,
           gravity: Toast.CENTER, duration: Toast.LENGTH_LONG);
+      print("login successfull");
     } else {
 
       ToastComponent.showDialog(loginResponse.message, context,
@@ -483,6 +484,7 @@ class _LoginState extends State<Login> {
                                     fontWeight: FontWeight.w600),
                               ),
                               onPressed: () {
+                                print("login ");
                                 onPressedLogin();
                               },
                             ),
